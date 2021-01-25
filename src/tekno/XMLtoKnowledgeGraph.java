@@ -1,4 +1,4 @@
-package corenlp;
+package tekno;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package corenlp;
+package tekno;
 
 import java.io.Console;
 import java.util.LinkedList;

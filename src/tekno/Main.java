@@ -1,4 +1,4 @@
-package corenlp;
+package tekno;
 
 public class Main {
     
