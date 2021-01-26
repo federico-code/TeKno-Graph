@@ -77,15 +77,15 @@ public class HighLevelParsing {
 
 
 	private String formatString(String inStr) {
-		return inStr.
-				replace("\n", " ").
-				replace("\r", " ").
-				replace(".", ". ").
-				replace(",", ", ").
-				replace(" ,", ",").
-				replace(" .", ".").
-				replace("  ", " ").
-				replaceAll("\\[[^\\]]*\\]", "");
+		return inStr;
+			//	replace("\n", " ").
+			//	replace("\r", " ").
+			//	replace(".", ". ").
+			//	replace(",", ", ").
+			//	replace(" ,", ",").
+			//	replace(" .", ".").
+			//	replace("  ", " ").
+			//	replaceAll("\\[[^\\]]*\\]", "");
 	}
 	
 	
