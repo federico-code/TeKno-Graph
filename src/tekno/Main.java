@@ -3,20 +3,28 @@ package tekno;
 public class Main {
     
     public static void main(String[] args) throws Exception {
-    	
+//    	FileHelper fh = new FileHelper("./source_files/");
+//    	
+//    	KnowledgeGraph kg = new KnowledgeGraph();
+//    	HighLevelParsing hlp = new HighLevelParsing();
+//    	if(kg.resetGraph()) {
+//	    	fh.listSourceFiles().forEach(file_string-> {
+//	        	hlp.readFile(file_string);
+//	        	hlp.executeTeKnoPipeline();
+//	        	hlp.generateGraphDB(kg);
+//	    	});
+//    	}
+//      kg.close();
 
- 
-    	HighLevelParsing hlp = new HighLevelParsing("./sj.txt");
-    	hlp.executeBasicPipeline();
-    	hlp.generateGraphXML("./", "new_xml.xml");
-    	
     	KnowledgeGraph kg = new KnowledgeGraph();
-    	if(kg.resetGraph())
-    		{
-    			kg.loadGraphFromXML("./new_xml.xml");
-            	System.out.println(kg.extractFacts());
-    		}
-        kg.close();
+    	HighLevelParsing hlp = new HighLevelParsing();
+    	if(kg.resetGraph()) {
+    		hlp.readFile("./source_files/prova.txt");
+        	hlp.executeTeKnoPipeline();
+        	hlp.generateGraphDB(kg);
+    	}
+    	kg.close();
+    	
     }
 
 }

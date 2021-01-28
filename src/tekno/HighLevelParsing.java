@@ -25,6 +25,7 @@ import edu.stanford.nlp.coref.data.CorefChain;
 import edu.stanford.nlp.coref.data.CorefChain.CorefMention;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.CoreDocument;
+import edu.stanford.nlp.pipeline.CoreEntityMention;
 import edu.stanford.nlp.pipeline.CoreSentence;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
@@ -41,9 +42,26 @@ public class HighLevelParsing {
 	private StanfordCoreNLP pipeline;
 	private Map<String, String> ner = new HashMap<String, String>();
 	private Relations rel = new Relations();
-	
 
-	public HighLevelParsing(String source_file) {
+	
+	public HighLevelParsing() {
+		String pipeline = "tokenize, ssplit, pos, lemma, ner, parse, coref, kbp, entitymentions";
+		System.out.println("creating pipeline: " + pipeline);
+	   	Properties props = new Properties();
+    	props.setProperty("annotators", pipeline);
+       	this.setPipeline(props);
+	}
+	
+	public HighLevelParsing(String annotators) {
+	   	Properties props = new Properties();
+    	props.setProperty("annotators", annotators);
+       	this.setPipeline(props);
+	}
+	
+	
+	public void readFile(String source_file) {
+		System.out.println("Reading file: " + source_file);
+
 	    try  {
 	    	String data = "";
 	        File file = new File(source_file);
@@ -58,6 +76,8 @@ public class HighLevelParsing {
 	        System.out.println("An error occurred.");
 	        e.printStackTrace();
         }
+        System.out.println("Document created.");
+
 	}
 	
 	
@@ -77,15 +97,16 @@ public class HighLevelParsing {
 
 
 	private String formatString(String inStr) {
-		return inStr;
-			//	replace("\n", " ").
-			//	replace("\r", " ").
-			//	replace(".", ". ").
-			//	replace(",", ", ").
-			//	replace(" ,", ",").
-			//	replace(" .", ".").
-			//	replace("  ", " ").
-			//	replaceAll("\\[[^\\]]*\\]", "");
+		return inStr.
+				replace("\n", " ").
+				replace("\r", " ").
+				replace(".", ". ").
+				replace(",", ", ").
+				replace(" ,", ",").
+				replace(" .", ".").
+				replace("  ", " ").
+				replace("\'", "").
+				replaceAll("\\[[^\\]]*\\]", "");
 	}
 	
 	
@@ -95,11 +116,15 @@ public class HighLevelParsing {
 	
 	
 	public void annotateDocument () {
+        System.out.print("Document annotation ...");
 		this.pipeline.annotate(this.doc);
+        System.out.print(" done.\n");
 	}
 	
 	
 	public void corefResolution() {
+        System.out.print("Resolving coreferences ...");
+
 		Map<Integer, CorefChain> corefs = this.doc.corefChains();
         List<CoreSentence> sentences = this.doc.sentences();
         List<String> resolved = new ArrayList<String>();
@@ -136,7 +161,8 @@ public class HighLevelParsing {
         for (String str : resolved) {
             resolvedStr+=str+" ";
         }
-        System.out.println(resolvedStr);
+        System.out.print(" done.\n");
+
         this.doc = new CoreDocument(this.formatString(resolvedStr));
         annotateDocument();
 	}
@@ -144,25 +170,36 @@ public class HighLevelParsing {
 
 	
 	public void namedEntityRecognition() {
-		this.doc.entityMentions().forEach(em -> {
+        System.out.print("Named Entity Recognition ...");
+
+		List<CoreEntityMention> mentions = this.doc.entityMentions();
+		if(mentions==null || mentions.isEmpty()) {
+			System.out.print("no entities found.\n");
+			return;
+		}
+		mentions.forEach(em -> {
 			this.ner.put(em.text(), em.entityType());
 		});
+        System.out.print(" done.\n");
+
 	}
 	
+	
 	public void extractRelations() { 
+        System.out.print("Extracting relations ...");
+
 		this.doc.sentences().forEach(s -> {
 			s.relations().forEach(r -> {
 				this.rel.addRelation(r.subjectGloss(), r.relationGloss(), r.objectGloss());
 			});
 		});
-		
+        System.out.print(" done.\n");
+
 	}
 	
 	
-	public void executeBasicPipeline() {
-	   	Properties props = new Properties();
-    	props.setProperty("annotators", "tokenize, ssplit, pos, lemma, ner, parse, coref, kbp, entitymentions");
-       	this.setPipeline(props);
+	public void executeTeKnoPipeline() {
+
     	this.annotateDocument();
     	this.corefResolution();
     	this.namedEntityRecognition();
@@ -228,6 +265,16 @@ public class HighLevelParsing {
 		} catch (TransformerException tfe) {
 			tfe.printStackTrace();
 		}
+	}
+	
+	
+	public void generateGraphDB (KnowledgeGraph knowledge_graph) {
+		this.rel.nodeIterator().forEachRemaining(n -> {
+	        knowledge_graph.addNode(n.getKey().toString(), n.getValue(), "o");
+		});
+		this.rel.edgeIterator().forEachRemaining(e -> {
+			knowledge_graph.addEdge(e.getKey()[0].toString(), e.getKey()[1].toString(), e.getValue());
+		});
 	}
 
 	
