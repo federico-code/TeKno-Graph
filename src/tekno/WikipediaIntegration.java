@@ -35,17 +35,17 @@ public class WikipediaIntegration {
 			+ "titles=Elon%20Musk&"//title
 			+ "rvsection=0";
 	
-	static String URL_for_html = "https://en.wikipedia.org/api/rest_v1/page/html/Steve_Jobs";
+	  static String URL_for_html = "https://en.wikipedia.org/wiki/Steve_Jobs";
 	//URL_test= "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xmlfm&titles=Elon%20Musk&rvsection=0";
 
 
 	   public static void main(String[] args){
 
-	   	get(URL_for_html);
+		   getText(URL_for_html);
 	   	
 	   }
 	   
-    public static void get(String url_input){
+    public static void getText(String url_input){
     	
     	/*
     	Map<String, String> params = new HashMap<>();
@@ -59,12 +59,23 @@ public class WikipediaIntegration {
     	
     	try {
     		
-			URL url = new URL(url_input);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("GET");
+			//URL url = new URL(url_input);
+			//HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			//connection.setRequestMethod("GET");
 			
-			HTMLtoJson(url_input);
-			
+        	Document doc = Jsoup.connect(url_input).get();
+        	Elements doc_paragraf = doc.select("p");
+        	
+        	String text="";
+        	for(Iterator<Element> i =doc_paragraf.iterator(); i.hasNext(); ) {
+        		Element item = i.next();
+        		text = text + item.text()+ "\r\n";
+        		
+        	}
+        	
+        	System.out.println(text);
+
+    		
 			/*
 			// make parameters to byte
 		    System.out.println("Adding parameters ....");
@@ -100,16 +111,7 @@ public class WikipediaIntegration {
 		    */
     	
     	
-    	} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println(e.getMessage());
-
-		} catch (Exception e) {
+    	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
 		} 

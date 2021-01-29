@@ -16,7 +16,7 @@ public class Main {
 //    	}
 //      kg.close();
 
-    	KnowledgeGraph kg = new KnowledgeGraph();
+    	KnowledgeGraph kg = new KnowledgeGraph("bolt://localhost:7687","neo4j","corenlp");
     	HighLevelParsing hlp = new HighLevelParsing();
     	if(kg.resetGraph()) {
     		hlp.readFile("./source_files/prova.txt");

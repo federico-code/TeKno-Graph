@@ -2,6 +2,7 @@ package tekno;
 
 import java.util.Arrays;
 
+
 public class Fact {
 	private String predicate;
 	private String[] atoms;

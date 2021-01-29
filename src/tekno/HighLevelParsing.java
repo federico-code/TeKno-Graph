@@ -173,6 +173,7 @@ public class HighLevelParsing {
         System.out.print("Named Entity Recognition ...");
 
 		List<CoreEntityMention> mentions = this.doc.entityMentions();
+		System.out.println("mentions :"+mentions);
 		if(mentions==null || mentions.isEmpty()) {
 			System.out.print("no entities found.\n");
 			return;
