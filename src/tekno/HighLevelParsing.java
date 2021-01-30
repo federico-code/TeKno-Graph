@@ -97,7 +97,7 @@ public class HighLevelParsing {
 
 
 	private String formatString(String inStr) {
-		return inStr.
+		return inStr.toLowerCase().
 				replace("\n", " ").
 				replace("\r", " ").
 				replace(".", ". ").
@@ -205,9 +205,22 @@ public class HighLevelParsing {
     	this.corefResolution();
     	this.namedEntityRecognition();
     	this.extractRelations();
-//    	this.printRelations();
+    	this.wikipediaTripleExtraction();
+
 	}
 	
+	
+	public void wikipediaTripleExtraction() {
+		this.ner.forEach( (n,t) -> {
+			String wikiExtract = WI.getText(n);
+	        this.doc = new CoreDocument(this.formatString(wikiExtract));
+	        annotateDocument();
+	    	this.corefResolution();
+	    	this.extractRelations();
+
+		});
+		
+	}
 	
 	
 	
