@@ -1,17 +1,18 @@
 package tekno;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.Writer;
 import java.net.URLEncoder;
-import java.util.HashMap;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Scanner;
 
 
 import org.jsoup.Jsoup;
@@ -21,10 +22,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
+import java.io.FileOutputStream;
+
+
 
 
 public class WikipediaIntegration {
-	static String Wikipedia_base_url = "https://en.wikipedia.org/w/api.php?";
+	String Wikipedia_base_url ;
+	Charset utf8 = StandardCharsets.UTF_8;
+
 	
 	
 	static String URL_test ="https://en.wikipedia.org/w/api.php?" //main endpoint.
@@ -35,17 +41,15 @@ public class WikipediaIntegration {
 			+ "titles=Elon%20Musk&"//title
 			+ "rvsection=0";
 	
-	  static String URL_for_html = "https://en.wikipedia.org/wiki/Steve_Jobs";
 	//URL_test= "https://en.wikipedia.org/w/api.php?action=query&prop=revisions&rvprop=content&format=xmlfm&titles=Elon%20Musk&rvsection=0";
-
-
-	   public static void main(String[] args){
-
-		   getText(URL_for_html);
-	   	
-	   }
 	   
-    public static void getText(String url_input){
+	
+	   public WikipediaIntegration(String base_url_input) {
+		   Wikipedia_base_url = base_url_input;
+		   
+		   }
+	   
+	   public void getAllPage(String topic, String folder){
     	
     	/*
     	Map<String, String> params = new HashMap<>();
@@ -56,6 +60,7 @@ public class WikipediaIntegration {
     	params.put("titles", "Elon%20Musk");
     	params.put("rvsection", "0");
     	*/
+       	Writer writer = null;
     	
     	try {
     		
@@ -63,17 +68,25 @@ public class WikipediaIntegration {
 			//HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			//connection.setRequestMethod("GET");
 			
-        	Document doc = Jsoup.connect(url_input).get();
+    		
+	    	System.out.println("retrive page: "+ topic);
+    		String url= this.Wikipedia_base_url + "/" + topic;
+        	Document doc = Jsoup.connect(url).get();
         	Elements doc_paragraf = doc.select("p");
         	
-        	String text="";
+        	
+        	String content = "";
         	for(Iterator<Element> i =doc_paragraf.iterator(); i.hasNext(); ) {
         		Element item = i.next();
-        		text = text + item.text()+ "\r\n";
-        		
+        		content = content + item.text()+ "\r\n";	
         	}
         	
-        	System.out.println(text);
+	    	System.out.println("writin file: "+ topic);
+	    	File f = new File (folder,topic+".txt");
+	    	f.createNewFile();
+	    	System.out.println("path file: "+ f.getAbsolutePath());
+        	writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "utf-8"));
+        	writer.write(content);
 
     		
 			/*
@@ -114,7 +127,11 @@ public class WikipediaIntegration {
     	} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getMessage());
-		} 
+		} finally {
+			   try {writer.close();} catch (Exception ex) {/*ignore*/}
+		    	System.out.println("file close ");
+
+		}
     }
     
     
@@ -156,15 +173,13 @@ public class WikipediaIntegration {
     	    requestData.append('=');
     	    requestData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
     	}
-
-
+    	
     	// Convert the requestData into bytes 
     	byte[] requestDataBytes = requestData.toString().getBytes("UTF-8");
-
-    	
-		return requestDataBytes;
-    	
+		return requestDataBytes;	
     }
+   
+ 
     
 
     

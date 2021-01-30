@@ -15,11 +15,20 @@ public class Main {
 //	    	});
 //    	}
 //      kg.close();
+    	
+    	
+    	//String base_URL = "https://en.wikipedia.org/wiki";
+		//String topic = "Steve_Jobs";
+		//String folder = "./source_files/";
 
+    	//WikipediaIntegration wiki = new WikipediaIntegration(base_URL);
+    	//wiki.getAllPage(topic,folder);
+
+    	
     	KnowledgeGraph kg = new KnowledgeGraph("bolt://localhost:7687","neo4j","corenlp");
     	HighLevelParsing hlp = new HighLevelParsing();
     	if(kg.resetGraph()) {
-    		hlp.readFile("./source_files/prova.txt");
+    		hlp.readFile("./source_files/bg.txt");
         	hlp.executeTeKnoPipeline();
         	hlp.generateGraphDB(kg);
     	}
