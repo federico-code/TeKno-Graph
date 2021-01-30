@@ -110,6 +110,7 @@ public class HighLevelParsing {
 	}
 	
 	
+	
 	public void setPipeline(Properties props) {
 		this.pipeline = new StanfordCoreNLP (props);
 	}
@@ -212,12 +213,12 @@ public class HighLevelParsing {
 	
 	public void wikipediaTripleExtraction() {
 		this.ner.forEach( (n,t) -> {
+			System.out.println(n + " " + t);
 			String wikiExtract = WI.getText(n);
 	        this.doc = new CoreDocument(this.formatString(wikiExtract));
 	        annotateDocument();
 	    	this.corefResolution();
 	    	this.extractRelations();
-
 		});
 		
 	}
@@ -260,10 +261,7 @@ public class HighLevelParsing {
 				edge.appendChild(data);
 			});
 		
-			
 
-			// create the xml file
-			//transform the DOM Object to an XML File
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");

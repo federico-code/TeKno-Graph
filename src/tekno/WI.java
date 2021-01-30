@@ -1,16 +1,9 @@
 package tekno;
 
-
-
 import org.jsoup.Jsoup;
-
-
 import org.json.*;
 
-
-
 public class WI {
-
 	
 	private static  String base_URL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=";
 
@@ -28,10 +21,5 @@ public class WI {
 		}
 		return text; 
     }
-    
-
-    
-
-    
     
 }
