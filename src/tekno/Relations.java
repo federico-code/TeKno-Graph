@@ -20,8 +20,8 @@ public class Relations {
 	public void addRelation(String s, String r, String o) {
 		int s_id = s.hashCode() & 0xfffffff;
 		int o_id = o.hashCode() & 0xfffffff;
-		nodes.putIfAbsent(s_id, s);
-		nodes.putIfAbsent(o_id, o);
+		nodes.putIfAbsent(s_id, s.toLowerCase());
+		nodes.putIfAbsent(o_id, o.toLowerCase());
 		edges.put(new Integer[] {s_id, o_id}, r.replace("per:", "P_").replace(":", "_"));
 	}
 

@@ -97,7 +97,7 @@ public class HighLevelParsing {
 
 
 	private String formatString(String inStr) {
-		return inStr.toLowerCase().
+		return inStr.
 				replace("\n", " ").
 				replace("\r", " ").
 				replace(".", ". ").
@@ -212,8 +212,17 @@ public class HighLevelParsing {
 	
 	
 	public void wikipediaTripleExtraction() {
+		List<String> exclude_types = new ArrayList<String>();
+		exclude_types.add("TITLE");
+		exclude_types.add("DATE");
+		exclude_types.add("ORDINAL");
+		exclude_types.add("MONEY");
+		exclude_types.add("NUMBER");
+		exclude_types.add("DURATION");
 		this.ner.forEach( (n,t) -> {
 			System.out.println(n + " " + t);
+
+			if(exclude_types.contains(t)) return;
 			String wikiExtract = WI.getText(n);
 	        this.doc = new CoreDocument(this.formatString(wikiExtract));
 	        annotateDocument();
