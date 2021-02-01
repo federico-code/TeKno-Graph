@@ -195,6 +195,12 @@ public class HighLevelParsing {
 				this.rel.addRelation(r.subjectGloss(), r.relationGloss(), r.objectGloss());
 			});
 		});
+		
+		
+		this.ner.forEach((e,t)->{
+			
+			this.rel.addRelation(e, "is_a", t);
+		});
         System.out.print(" done.\n");
 
 	}
@@ -205,6 +211,7 @@ public class HighLevelParsing {
     	this.annotateDocument();
     	this.corefResolution();
     	this.namedEntityRecognition();
+    	//ner 
     	this.extractRelations();
     	this.wikipediaTripleExtraction();
 
@@ -223,7 +230,7 @@ public class HighLevelParsing {
 			System.out.println(n + " " + t);
 
 			if(exclude_types.contains(t)) return;
-			String wikiExtract = WI.getText(n);
+			String wikiExtract = WikipediaIntegration.getText(n);
 	        this.doc = new CoreDocument(this.formatString(wikiExtract));
 	        annotateDocument();
 	    	this.corefResolution();
