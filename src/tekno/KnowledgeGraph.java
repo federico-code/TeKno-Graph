@@ -79,9 +79,8 @@ public class KnowledgeGraph implements AutoCloseable {
     }
     
     public void extractFacts(String fileName, String folder) {
-    	List<Fact> facts = new LinkedList<Fact>();
-       	Writer writer = null;
        	
+    	Writer writer = null;       	
         try (Session session = this.driverNeo4j.session()) {
             String cypherQuery = "MATCH (n1)-[r]->(n2) RETURN r, n1, n2";
             Result result = session.run(cypherQuery);
@@ -106,7 +105,7 @@ public class KnowledgeGraph implements AutoCloseable {
 			System.err.println(e.getMessage());
 		} finally {
 			   try {writer.close();} catch (Exception ex) {/*ignore*/}
-		    	System.out.println("file"+fileName +".txt close ");
+		    	System.out.println("file :"+fileName +".pl close ");
 
 		}
         

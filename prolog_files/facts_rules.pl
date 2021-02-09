@@ -116,7 +116,6 @@ org_city_of_headquarters('alaska airlines','seatac').
 org_shareholders('danger inc.','microsoft corporation surface').
 other_family('melinda gates','melinda gates').
 city_of_birth('melinda gates','albuquerque').
-date_of_birth('melinda gates','1975').
 title('melinda gates','ceo').
 spouse('melinda gates','melinda gates').
 stateorprovince_of_birth('melinda gates','new mexico').
@@ -152,18 +151,25 @@ org_date_founded('nuevo nuevo méxico','1598').
 org_founded_by('nuevo nuevo méxico','yootó hahoodzo').
 is_a('co-founder','title').
 
+per_date_of_birth('melinda gates',1975).
+per_date_of_death('melinda gates',2000).
 
 
+% putting nl,fail. on the rule we can have the list of metched facts and with rule(_,_) the result will be true 
+% otherwise the result is false and we cannot use the result in other rules 
 
+%utility
 find_person(X) :- is_a(X,'person').
+my_print(X,TEXT,Y) :- write(X),write(' '),write(TEXT),write(' '),write(Y).
+
 %title of a person
-title_of_person(X,Y) :-is_a(X,'person'),title(X,Y),print(X),print(' has the title of '),print(Y).
+title_of_person(X,Y) :-is_a(X,'person'),title(X,Y),my_print(X,'has the title of',Y),nl,fail.
+title_of_person(_,_).
 
 %employee of an organization
-organization_employee(X,Y) :- is_a(X,'organization'),is_a(Y,'person'),employee_or_member_of(Y,X),print(Y),print(' member of '),print(X).
+organization_employee(X,Y) :- is_a(X,'organization'),is_a(Y,'person'),employee_or_member_of(Y,X),my_print(Y,'member of',X),nl,fail.
+rganization_employee(_,_).
 
+%age of a dead person 
+age_death(X,R):- per_date_of_birth(X,Y),per_date_of_death(X,Z), R is Z-Y.
 
-/**
-find_same_persons(X,Y) :- is_a(X,'person'),is_a(Y,'person'),substring(X,Y).
-
-*/

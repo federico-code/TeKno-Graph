@@ -41,22 +41,37 @@ public class Fact {
 	}
 	
 	public String prologFacts() {
-		
 		String atomsString = "";
-		
 		int nAtoms = atoms.length;
 		int i=0;
 		for(String atom :atoms)
 		{	
-			if(i==(nAtoms-1)){
-				atomsString+= "'"+atom +"'";
+			if(isNumeric(atom)) { // if the string is a number 
+				atomsString+=atom; //put the string without quotes
 			}else {
-				atomsString+= "'"+atom +"',";
+				atomsString+= "'"+atom +"'";
 			}
+			
+			if(i!=(nAtoms-1)) // if it's not the last element put the comma
+				atomsString+=",";
+		
 			i=i+1;
 		}
 		
 		return predicate.toLowerCase()+"("+atomsString+").";
+	}
+	
+	
+	public static boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        double d = Double.parseDouble(strNum);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
 	}
 	
 }

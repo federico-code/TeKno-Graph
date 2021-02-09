@@ -22,7 +22,7 @@ public class Relations {
 		int o_id = o.hashCode() & 0xfffffff;
 		nodes.putIfAbsent(s_id, s.toLowerCase());
 		nodes.putIfAbsent(o_id, o.toLowerCase());
-		edges.put(new Integer[] {s_id, o_id}, r.replace("per:", "P_").replace(":", "_"));
+		edges.put(new Integer[] {s_id, o_id}, r.replace("per:", "per_").replace(":", "_"));
 	}
 
 
