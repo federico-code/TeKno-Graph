@@ -297,7 +297,7 @@ public class HighLevelParsing {
 	
 	
 	public void generateGraphDB (KnowledgeGraph knowledge_graph) {
-		this.rel.nodeIterator().forEachRemaining(n -> {
+		this.rel.nodeIterator().forEachRemaining(n -> {			
 	        knowledge_graph.addNode(n.getKey().toString(), n.getValue(), "o");
 		});
 		this.rel.edgeIterator().forEachRemaining(e -> {

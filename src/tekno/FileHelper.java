@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileHelper {
+	
 
 	private List<String> files_strings = new ArrayList<String>();
 	private String folder;

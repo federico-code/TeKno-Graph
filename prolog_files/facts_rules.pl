@@ -152,3 +152,18 @@ org_date_founded('nuevo nuevo méxico','1598').
 org_founded_by('nuevo nuevo méxico','yootó hahoodzo').
 is_a('co-founder','title').
 
+
+
+
+find_person(X) :- is_a(X,'person').
+%title of a person
+title_of_person(X,Y) :-is_a(X,'person'),title(X,Y),print(X),print(' has the title of '),print(Y).
+
+%employee of an organization
+organization_employee(X,Y) :- is_a(X,'organization'),is_a(Y,'person'),employee_or_member_of(Y,X),print(Y),print(' member of '),print(X).
+
+
+/**
+find_same_persons(X,Y) :- is_a(X,'person'),is_a(Y,'person'),substring(X,Y).
+
+*/

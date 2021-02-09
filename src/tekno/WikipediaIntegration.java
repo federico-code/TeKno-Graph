@@ -44,7 +44,7 @@ public class WikipediaIntegration {
     	
     
     	
-	    	System.out.println("writin file: "+ entity);
+	    	System.out.println("writing file: "+ entity);
 	    	File f = new File (folder,entity+".txt");
 	    	f.createNewFile();
 	    	System.out.println("path file: "+ f.getAbsolutePath());

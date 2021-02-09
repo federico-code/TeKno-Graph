@@ -12,6 +12,8 @@ public class Main {
         	hlp.executeTeKnoPipeline();
         	hlp.generateGraphDB(kg);
     	}
+    	
+    	kg.extractFacts("bg", "prolog_files");
     	kg.close();
     	
     }

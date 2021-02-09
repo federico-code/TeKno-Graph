@@ -40,4 +40,23 @@ public class Fact {
 		return "Fact [predicate=" + predicate + ", atoms=" + Arrays.toString(atoms) + "]";
 	}
 	
+	public String prologFacts() {
+		
+		String atomsString = "";
+		
+		int nAtoms = atoms.length;
+		int i=0;
+		for(String atom :atoms)
+		{	
+			if(i==(nAtoms-1)){
+				atomsString+= "'"+atom +"'";
+			}else {
+				atomsString+= "'"+atom +"',";
+			}
+			i=i+1;
+		}
+		
+		return predicate.toLowerCase()+"("+atomsString+").";
+	}
+	
 }

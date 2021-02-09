@@ -1,6 +1,11 @@
 package tekno;
 
+import java.io.BufferedWriter;
 import java.io.Console;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -71,6 +76,40 @@ public class KnowledgeGraph implements AutoCloseable {
 	        }
         }
         return facts;
+    }
+    
+    public void extractFacts(String fileName, String folder) {
+    	List<Fact> facts = new LinkedList<Fact>();
+       	Writer writer = null;
+       	
+        try (Session session = this.driverNeo4j.session()) {
+            String cypherQuery = "MATCH (n1)-[r]->(n2) RETURN r, n1, n2";
+            Result result = session.run(cypherQuery);
+            
+            System.out.println("writing file: "+ fileName);
+        	File f = new File (folder,fileName+".pl");
+        	f.createNewFile();
+        	System.out.println("path file: "+ f.getAbsolutePath());
+        	writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "utf-8"));
+            
+	        while(result.hasNext()) {
+	        
+	        	  Record record = result.next();
+	        	  String[] atoms = {record.get(1).get("name").asString(), record.get(2).get("name").asString() };
+	        	  Fact currentFact= new Fact(record.get(0).get("type").asString(), atoms);
+	          	  writer.write(currentFact.prologFacts());
+	          	  writer.write("\n");
+
+	        }
+        
+    	} catch (Exception e) {
+			System.err.println(e.getMessage());
+		} finally {
+			   try {writer.close();} catch (Exception ex) {/*ignore*/}
+		    	System.out.println("file"+fileName +".txt close ");
+
+		}
+        
     }
     
     
