@@ -220,6 +220,7 @@ age_death(PERSON):- dead(PERSON),per_date_of_birth(PERSON,Y),per_date_of_death(P
 %when a person is dead
 when_dead(X):- dead(X),per_date_of_death(X,Z), my_print(X,"is dead in ",Z).
 
+%why a person is dead
 why_dead(PERSON):- dead(PERSON),per_cause_of_death(PERSON,DISEASE),my_print(PERSON,"is dead because of",DISEASE).
 
 %say if a person is dead when and why

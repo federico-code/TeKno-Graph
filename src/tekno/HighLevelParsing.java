@@ -43,8 +43,6 @@ public class HighLevelParsing {
 	private StanfordCoreNLP pipeline;
 	private Map<String, String> ner = new HashMap<String, String>();
 	private Relations rel = new Relations();
-	private List<String> removePronouns = Arrays.asList("i","me","you","he", "she", "it", "him","her","his","we","us","they","them");
-
 	
 	public HighLevelParsing() {
 		String pipeline = "tokenize, ssplit, pos, lemma, ner, parse, coref, kbp, entitymentions";
@@ -300,12 +298,7 @@ public class HighLevelParsing {
 	
 	public void generateGraphDB (KnowledgeGraph knowledge_graph) {		
 		this.rel.nodeIterator().forEachRemaining(n -> {
-			
-			if(!removePronouns.contains(n.getValue())) {
-		        knowledge_graph.addNode(n.getKey().toString(), n.getValue(), "o");
-			}else {
-				System.out.println(n.getValue()+" removed");	
-			}
+		    knowledge_graph.addNode(n.getKey().toString(), n.getValue(), "o");
 		});
 		this.rel.edgeIterator().forEachRemaining(e -> {
 			knowledge_graph.addEdge(e.getKey()[0].toString(), e.getKey()[1].toString(), e.getValue());

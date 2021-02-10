@@ -58,6 +58,28 @@ public class WikipediaIntegration {
 	
 			}
     }
+    
+    public static boolean isSameWiki (String entity1, String entity2) {
+    	
+    	try {
+
+    		String json1 = Jsoup.connect(base_URL+entity1.replace(" ", "%20")).ignoreContentType(true).execute().body();
+    		String json2 = Jsoup.connect(base_URL+entity2.replace(" ", "%20")).ignoreContentType(true).execute().body();
+
+    		JSONObject obj1 = (new JSONObject(json1)).getJSONObject("query").getJSONObject("pages");
+    		JSONObject obj2 = (new JSONObject(json2)).getJSONObject("query").getJSONObject("pages");
+
+    		int pageId1 = obj1.getJSONObject(obj1.keySet().toArray()[0].toString()).getInt("pageid");
+    		int pageId2 = obj2.getJSONObject(obj2.keySet().toArray()[0].toString()).getInt("pageid");
+
+    		if (pageId1 == pageId2)
+    			return true;
+    	
+    	} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return false; 
+    }
 
     
     
