@@ -105,7 +105,7 @@ public class HighLevelParsing {
 				replace(" ,", ",").
 				replace(" .", ".").
 				replace("  ", " ").
-				replace("\'", "").
+				replace("'", "\'").
 				replaceAll("\\[[^\\]]*\\]", "");
 	}
 	
@@ -213,7 +213,7 @@ public class HighLevelParsing {
     	this.namedEntityRecognition();
     	//ner 
     	this.extractRelations();
-    	this.wikipediaTripleExtraction();
+    	//this.wikipediaTripleExtraction();
 
 	}
 	

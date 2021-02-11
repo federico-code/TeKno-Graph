@@ -76,28 +76,26 @@ public class WikipediaIntegration {
     			return true;
     	
     	} catch (Exception e) {
-			System.err.println(e.getMessage());
+			//System.err.println(e.getMessage());
 		}
 		return false; 
     }
 
     
     public static int getWikiID (String entity) {
-    	
+    	int pageId = -1;
     	try {
 
     		String json1 = Jsoup.connect(base_URL+entity.replace(" ", "%20")).ignoreContentType(true).execute().body();
 
     		JSONObject obj1 = (new JSONObject(json1)).getJSONObject("query").getJSONObject("pages");
 
-    		int pageId = obj1.getJSONObject(obj1.keySet().toArray()[0].toString()).getInt("pageid");
-
-    		return pageId;
-    	
+    		pageId = obj1.getJSONObject(obj1.keySet().toArray()[0].toString()).getInt("pageid");
     	} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		return -1; 
+
+		return pageId; 
     }
     
 }

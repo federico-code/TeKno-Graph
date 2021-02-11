@@ -26,10 +26,10 @@ public class Relations {
 		int s_id = s.hashCode() & 0xfffffff;
 		int o_id = o.hashCode() & 0xfffffff;
 		
+		//System.out.println(s+ '\t'+r+"\t"+o);
 		
 		
-		
-		if(removePronouns.contains(s) || removePronouns.contains(o))
+		if(removePronouns.contains(s.toLowerCase()) || removePronouns.contains(o.toLowerCase()))
 			return ;
 		
 		if(nodes.isEmpty())
@@ -42,12 +42,12 @@ public class Relations {
 			for(Map.Entry<Integer, String> e: newNodes.entrySet() )
 			{
 				if(matchPageId(e.getValue(), s))
-					nodes.putIfAbsent(e.getKey(), s.toLowerCase());
+					s_id = e.getKey();
 				else
 					nodes.putIfAbsent(s_id, s.toLowerCase());
 				
 				if(matchPageId(e.getValue(), o))
-					nodes.putIfAbsent(e.getKey(), o.toLowerCase());
+					o_id = e.getKey();
 				else
 					nodes.putIfAbsent(o_id, o.toLowerCase());
 				
@@ -60,19 +60,27 @@ public class Relations {
 	
 	
 	private boolean matchPageId(String s1, String s2) {
-		//System.out.println(wikiMatches);
 		int id1 = -1, id2 = -1;
 		if(wikiMatches.containsKey(s1)) id1 = wikiMatches.get(s1);
 		else {
+
 			id1 = WikipediaIntegration.getWikiID(s1);
 			wikiMatches.putIfAbsent(s1, id1);
 		}
-		if(wikiMatches.containsKey(s2)) id1 = wikiMatches.get(s2);
+		if(wikiMatches.containsKey(s2)) id2 = wikiMatches.get(s2);
 		else {
 			id2 = WikipediaIntegration.getWikiID(s2);
 			wikiMatches.putIfAbsent(s2, id2);
 		}
-		return id1==id2;
+		//System.out.println(s1 + "\t" + s2 + "\t" +(id1==id2));
+		if((id1==id2) && (id1!=-1 || id2!=-1))
+			//System.out.println("popopopop-____________" + s1 + "\t" + s2 +"\t" + id1+"\t" + id2);
+		System.out.println( id1 + "\t"
+				 + id2 + "\t"
+						 + s1 + "\t"
+								 + s2);
+
+		return (id1==id2) && (id1!=-1 || id2!=-1);
 	}
 
 
