@@ -82,5 +82,22 @@ public class WikipediaIntegration {
     }
 
     
+    public static int getWikiID (String entity) {
+    	
+    	try {
+
+    		String json1 = Jsoup.connect(base_URL+entity.replace(" ", "%20")).ignoreContentType(true).execute().body();
+
+    		JSONObject obj1 = (new JSONObject(json1)).getJSONObject("query").getJSONObject("pages");
+
+    		int pageId = obj1.getJSONObject(obj1.keySet().toArray()[0].toString()).getInt("pageid");
+
+    		return pageId;
+    	
+    	} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		return -1; 
+    }
     
 }

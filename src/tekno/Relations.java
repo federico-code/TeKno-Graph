@@ -15,6 +15,7 @@ public class Relations {
 	
 	private Map<Integer, String> nodes = new HashMap<Integer, String>();
 	private Map<Integer[], String> edges = new HashMap<Integer[], String>();
+	private Map<String, Integer> wikiMatches = new HashMap<String, Integer>();
 	private List<String> removePronouns = Arrays.asList("i","me","you","he", "she", "it", "him","her","his","we","us","they","them");
 
 	public Relations() {
@@ -38,25 +39,40 @@ public class Relations {
 	
 		} else {
 			Map<Integer, String> newNodes = Map.copyOf(nodes);
-			
 			for(Map.Entry<Integer, String> e: newNodes.entrySet() )
-			{   
-				System.out.println("nodes : "+nodes.toString());
-				if(WikipediaIntegration.isSameWiki(e.getValue(), s))
+			{
+				if(matchPageId(e.getValue(), s))
 					nodes.putIfAbsent(e.getKey(), s.toLowerCase());
 				else
 					nodes.putIfAbsent(s_id, s.toLowerCase());
 				
-				if(WikipediaIntegration.isSameWiki(e.getValue(), o))
+				if(matchPageId(e.getValue(), o))
 					nodes.putIfAbsent(e.getKey(), o.toLowerCase());
 				else
 					nodes.putIfAbsent(o_id, o.toLowerCase());
+				
 			}
 		}
-		
-		
 
 		edges.put(new Integer[] {s_id, o_id}, r.replace(":", "_"));
+	}
+	
+	
+	
+	private boolean matchPageId(String s1, String s2) {
+		//System.out.println(wikiMatches);
+		int id1 = -1, id2 = -1;
+		if(wikiMatches.containsKey(s1)) id1 = wikiMatches.get(s1);
+		else {
+			id1 = WikipediaIntegration.getWikiID(s1);
+			wikiMatches.putIfAbsent(s1, id1);
+		}
+		if(wikiMatches.containsKey(s2)) id1 = wikiMatches.get(s2);
+		else {
+			id2 = WikipediaIntegration.getWikiID(s2);
+			wikiMatches.putIfAbsent(s2, id2);
+		}
+		return id1==id2;
 	}
 
 
