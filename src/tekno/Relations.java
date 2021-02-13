@@ -25,35 +25,37 @@ public class Relations {
 	public void addRelation(String s, String r, String o) {
 		int s_id = s.hashCode() & 0xfffffff;
 		int o_id = o.hashCode() & 0xfffffff;
-		
-		//System.out.println(s+ '\t'+r+"\t"+o);
-		
+				
 		
 		if(removePronouns.contains(s.toLowerCase()) || removePronouns.contains(o.toLowerCase()))
 			return ;
 		
 		if(nodes.isEmpty())
 		{
-			nodes.putIfAbsent(s_id, s.toLowerCase());
-			nodes.putIfAbsent(o_id, o.toLowerCase());
+			nodes.putIfAbsent(s_id, s);
+			nodes.putIfAbsent(o_id, o);
 	
 		} else {
 			Map<Integer, String> newNodes = Map.copyOf(nodes);
+			boolean s_f = false, o_f = false;
 			for(Map.Entry<Integer, String> e: newNodes.entrySet() )
 			{
-				if(matchPageId(e.getValue(), s))
+				if(matchPageId(e.getValue(), s)) {
 					s_id = e.getKey();
-				else
-					nodes.putIfAbsent(s_id, s.toLowerCase());
+					s_f = true;
+				}
 				
-				if(matchPageId(e.getValue(), o))
+				if(matchPageId(e.getValue(), o)) {
 					o_id = e.getKey();
-				else
-					nodes.putIfAbsent(o_id, o.toLowerCase());
+					o_f = true;
+				}
 				
+				if(s_f && o_f) break;
+
 			}
 		}
-
+		nodes.putIfAbsent(s_id, s);
+		nodes.putIfAbsent(o_id, o);
 		edges.put(new Integer[] {s_id, o_id}, r.replace(":", "_"));
 	}
 	
@@ -63,7 +65,6 @@ public class Relations {
 		int id1 = -1, id2 = -1;
 		if(wikiMatches.containsKey(s1)) id1 = wikiMatches.get(s1);
 		else {
-
 			id1 = WikipediaIntegration.getWikiID(s1);
 			wikiMatches.putIfAbsent(s1, id1);
 		}
@@ -73,13 +74,14 @@ public class Relations {
 			wikiMatches.putIfAbsent(s2, id2);
 		}
 		//System.out.println(s1 + "\t" + s2 + "\t" +(id1==id2));
-		if((id1==id2) && (id1!=-1 || id2!=-1))
+//		if((id1==id2) && (id1!=-1 || id2!=-1))
 			//System.out.println("popopopop-____________" + s1 + "\t" + s2 +"\t" + id1+"\t" + id2);
-		System.out.println( id1 + "\t"
-				 + id2 + "\t"
-						 + s1 + "\t"
-								 + s2);
-
+//		System.out.println( id1 + "\t"
+//				 + id2 + "\t"
+//						 + s1 + "\t"
+//								 + s2);
+//		if((id1==id2) && (id1!=-1 || id2!=-1))
+//			System.out.println(wikiMatches);
 		return (id1==id2) && (id1!=-1 || id2!=-1);
 	}
 

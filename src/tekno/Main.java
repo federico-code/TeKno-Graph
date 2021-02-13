@@ -8,12 +8,12 @@ public class Main {
     	KnowledgeGraph kg = new KnowledgeGraph("bolt://localhost:7687","neo4j","pass");
     	HighLevelParsing hlp = new HighLevelParsing();
     	if(kg.resetGraph()) {
-    		hlp.readFile("./source_files/sj.txt");
+    		hlp.readFile("./source_files/bg.txt");
         	hlp.executeTeKnoPipeline();
         	hlp.generateGraphDB(kg);
     	}
     	
-    	kg.extractFacts("sj", "prolog_files");
+    	kg.extractFacts("bg", "prolog_files");
     	kg.close();
     	
     }

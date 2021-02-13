@@ -106,6 +106,8 @@ public class HighLevelParsing {
 				replace(" .", ".").
 				replace("  ", " ").
 				replace("'", "\'").
+				replace(" the", "").
+				replace("The", "").
 				replaceAll("\\[[^\\]]*\\]", "");
 	}
 	
@@ -213,7 +215,7 @@ public class HighLevelParsing {
     	this.namedEntityRecognition();
     	//ner 
     	this.extractRelations();
-    	//this.wikipediaTripleExtraction();
+    	this.wikipediaTripleExtraction();
 
 	}
 	
@@ -298,10 +300,10 @@ public class HighLevelParsing {
 	
 	public void generateGraphDB (KnowledgeGraph knowledge_graph) {		
 		this.rel.nodeIterator().forEachRemaining(n -> {
-		    knowledge_graph.addNode(n.getKey().toString(), n.getValue(), "o");
+		    knowledge_graph.addNode(n.getKey().toString(), n.getValue().toLowerCase(), "o");
 		});
 		this.rel.edgeIterator().forEachRemaining(e -> {
-			knowledge_graph.addEdge(e.getKey()[0].toString(), e.getKey()[1].toString(), e.getValue());
+			knowledge_graph.addEdge(e.getKey()[0].toString(), e.getKey()[1].toString(), e.getValue().toLowerCase());
 		});
 	}
 
