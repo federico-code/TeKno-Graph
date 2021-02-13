@@ -73,15 +73,7 @@ public class Relations {
 			id2 = WikipediaIntegration.getWikiID(s2);
 			wikiMatches.putIfAbsent(s2, id2);
 		}
-		//System.out.println(s1 + "\t" + s2 + "\t" +(id1==id2));
-//		if((id1==id2) && (id1!=-1 || id2!=-1))
-			//System.out.println("popopopop-____________" + s1 + "\t" + s2 +"\t" + id1+"\t" + id2);
-//		System.out.println( id1 + "\t"
-//				 + id2 + "\t"
-//						 + s1 + "\t"
-//								 + s2);
-//		if((id1==id2) && (id1!=-1 || id2!=-1))
-//			System.out.println(wikiMatches);
+
 		return (id1==id2) && (id1!=-1 || id2!=-1);
 	}
 
