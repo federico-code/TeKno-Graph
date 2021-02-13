@@ -1,0 +1,45 @@
+:-dynamic	gpe_subsidiaries/2.
+:-dynamic	org_alternate_names/2.
+:-dynamic	org_city_of_headquarters/2.
+:-dynamic	org_country_of_headquarters/2.
+:-dynamic	org_date_dissolved/2.
+:-dynamic	org_date_founded/2.
+:-dynamic	org_dissolved/2.
+:-dynamic	org_founded/2.
+:-dynamic	org_founded_by/2.
+:-dynamic	org_member_of/2.
+:-dynamic	org_members/2.
+% :-dynamic	org_number_of_employees/members/2. questo causa problemi per lo / nel nome 
+:-dynamic	org_parents/2.
+% :-dynamic	org_political/religious_affiliation/2. questo causa problemi per lo / nel nome 
+:-dynamic	org_shareholders/2.
+:-dynamic	org_stateorprovince_of_headquarters/2.
+:-dynamic	org_subsidiaries/2.
+% :-dynamic	org_top_members/employees/2. questo causa problemi per lo / nel nome 
+:-dynamic	org_website/2.
+:-dynamic	per_age/2.
+:-dynamic	per_alternate_names/2.
+:-dynamic	per_cause_of_death/2.
+:-dynamic	per_charges/2.
+:-dynamic	per_children/2.
+:-dynamic	per_cities_of_residence/2.
+:-dynamic	per_city_of_birth/2.
+:-dynamic	per_city_of_death/2.
+:-dynamic	per_countries_of_residence/2.
+:-dynamic	per_country_of_birth/2.
+:-dynamic	per_country_of_death/2.
+:-dynamic	per_date_of_birth/2.
+:-dynamic	per_date_of_death/2.
+:-dynamic	per_employee_of/2.
+:-dynamic	per_member_of/2.
+:-dynamic	per_origin/2.
+:-dynamic	per_other_family/2.
+:-dynamic	per_parents/2.
+:-dynamic	per_religion/2.
+:-dynamic	per_schools_attended/2.
+:-dynamic	per_siblings/2.
+:-dynamic	per_spouse/2.
+:-dynamic	per_stateorprovince_of_birth/2.
+:-dynamic	per_stateorprovince_of_death/2.
+:-dynamic	per_stateorprovinces_of_residence/2.
+:-dynamic	per_title/2.
