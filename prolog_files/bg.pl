@@ -159,7 +159,7 @@ org_top_members_employees('microsoft corporation','melinda william henry gates i
 
 	find_person:- per_date_of_death(X,_),\+is_a(X,'person'),write(X),assert(is_a(X,'person')) ,nl,fail.
 	find_person.
-	
+
 	
 % to prevent exception when fact are not found :- dynamic dead/1. 
 
@@ -210,8 +210,7 @@ birth(PERSON) :- per_date_of_birth(PERSON,DATE), my_print(PERSON,"was born on ",
 birth(PERSON) :- per_country_of_birth(PERSON,COUNTRY), my_print(PERSON,"was born in",COUNTRY).
 birth(PERSON) :- per_city_of_birth(PERSON,CITY), my_print(PERSON,"was born in",CITY).
 birth(PERSON) :- per_stateorprovince_of_birth(PERSON,PROVINCE), my_print(PERSON,"was born in the province of",PROVINCE).
-
-birth(PERSON) :- per_date_of_birth(PERSON,DATE),per_country_of_birth(PERSON,COUNTRY), my_print(PERSON,"was born on",DATE),my_print(''," in",COUNTRY).
+birth(PERSON) :- pr_date_of_birth(PERSON,DATE),per_country_of_birth(PERSON,COUNTRY), my_print(PERSON,"was born on",DATE),my_print(''," in",COUNTRY).
 
 % ---------information about family of a person----------
 
