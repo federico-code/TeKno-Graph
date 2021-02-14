@@ -32,9 +32,6 @@ public class FileHelper {
 	}
 	
 	
-	public void createNewFile(String target_folder, int size) {
-		
-	}
 	
 	
 	public List<String> listSourceFiles (){
