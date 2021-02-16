@@ -144,18 +144,15 @@ org_top_members_employees('microsoft corporation','melinda william henry gates i
 
 %utility
 	print_person:- is_a(X,'person'),write(X),nl,fail.
-	find_person.
-
+	print_person.
 	my_print(X,TEXT,Y) :- format('~w ~s ~w ~n', [X,TEXT,Y]). 
 
 
 	%if an element has an per_... fact he is a person so we assert the fact is_a person, assert several time the same facts
-	% the order of the rule is important
-	find_person:- per_title(X,_),\+is_a(X,'person'),write(X),assert(is_a(X,'person')) ,nl,fail.
-	find_person.
-
+	
+	find_person:- per_title(X,_),\+is_a(X,'person'),write(X),assert(is_a(X,'person')) ,nl,fail.% ricorsione
+	
 	find_person:- per_date_of_birth(X,_),\+is_a(X,'person'),write(X),assert(is_a(X,'person')) ,nl,fail.
-	find_person.
 
 	find_person:- per_date_of_death(X,_),\+is_a(X,'person'),write(X),assert(is_a(X,'person')) ,nl,fail.
 	find_person.
@@ -193,9 +190,8 @@ dead(X):- is_a(X,'person'), per_country_of_death(X,_).
 %age of a dead person, non funziona per anni in formato date
 age_death(PERSON):- dead(PERSON),per_date_of_birth(PERSON,Y),per_date_of_death(PERSON,Z), R is Z-Y,my_print(PERSON,"is dead at the age of",R). 
 
-
 %when a person is dead
-when_dead(PERSON):- dead(PERSON),per_date_of_death(PERSON,DATE), my_print(PERSON," is dead in ",DATE).
+when_dead(PERSON):- per_date_of_death(PERSON,DATE), my_print(PERSON," is dead in ",DATE).
 
 %why a person is dead
 why_dead(PERSON):- dead(PERSON),per_cause_of_death(PERSON,DISEASE),my_print(PERSON,"is dead because of",DISEASE).
@@ -211,9 +207,6 @@ birth(PERSON) :- per_country_of_birth(PERSON,COUNTRY), my_print(PERSON,"was born
 birth(PERSON) :- per_city_of_birth(PERSON,CITY), my_print(PERSON,"was born in",CITY).
 birth(PERSON) :- per_stateorprovince_of_birth(PERSON,PROVINCE), my_print(PERSON,"was born in the province of",PROVINCE).
 birth(PERSON) :- pr_date_of_birth(PERSON,DATE),per_country_of_birth(PERSON,COUNTRY), my_print(PERSON,"was born on",DATE),my_print(''," in",COUNTRY).
-
-% ---------information about family of a person----------
-
 
 % ---------bio of a person----------
 bio(X) :- birth(X).

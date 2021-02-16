@@ -91,3 +91,5 @@ per_title('steven paul jobs','co-founder').
 per_title('steven paul jobs','magnate').
 is_a('ceo','title').
 is_a('1972 before','date').
+
+:- ensure_loaded('\\dynamics_facts_rules.pl').

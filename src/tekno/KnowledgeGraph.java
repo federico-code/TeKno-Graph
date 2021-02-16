@@ -71,7 +71,7 @@ public class KnowledgeGraph implements AutoCloseable {
 	        while(result.hasNext()) {
 	        
 	        	  Record record = result.next();
-	        	  String[] atoms = {record.get(1).get("name").asString(), record.get(2).get("name").asString() };
+	        	  String[] atoms = {record.get(1).get("id").asString(), record.get(2).get("id").asString() };
 	        	  facts.add(new Fact(record.get(0).get("type").asString(), atoms));
 	        }
         }
@@ -94,12 +94,24 @@ public class KnowledgeGraph implements AutoCloseable {
 	        while(result.hasNext()) {
 	        
 	        	  Record record = result.next();
-	        	  String[] atoms = {record.get(1).get("name").asString(), record.get(2).get("name").asString() };
+	        	  String[] atoms = {record.get(1).get("id").asString(), record.get(2).get("id").asString() };
 	        	  Fact currentFact= new Fact(record.get(0).get("type").asString(), atoms);
 	          	  writer.write(currentFact.prologFacts());
 	          	  writer.write("\n");
+	          	  
+	          	  String[] atoms_name_1 = {record.get(1).get("id").asString(), record.get(1).get("name").asString()};
+	          	  String[] atoms_name_2 = {record.get(2).get("id").asString(), record.get(2).get("name").asString() };
 
+	        	  currentFact= new Fact("literal_of", atoms_name_1);
+	        	  writer.write(currentFact.prologFacts());
+	          	  writer.write("\n");
+	          	  
+	        	  currentFact= new Fact("literal_of", atoms_name_2);
+	        	  writer.write(currentFact.prologFacts());
+	          	  writer.write("\n");
 	        }
+	        
+	        writer.write(":- ensure_loaded('\\\\dynamics_facts_rules.pl').\n");
         
     	} catch (Exception e) {
 			System.err.println(e.getMessage());

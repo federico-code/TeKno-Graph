@@ -219,6 +219,19 @@ public class HighLevelParsing {
 
 	}
 	
+	public void executeTeKnoPipeline(boolean wiki) {
+
+    	this.annotateDocument();
+    	this.corefResolution();
+    	this.namedEntityRecognition();
+    	//ner 
+    	this.extractRelations();
+    	
+    	if(wiki)
+    		this.wikipediaTripleExtraction();
+
+	}
+	
 	
 	public void wikipediaTripleExtraction() {
 		List<String> exclude_types = new ArrayList<String>();
