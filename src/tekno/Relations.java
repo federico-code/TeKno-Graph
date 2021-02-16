@@ -41,21 +41,29 @@ public class Relations {
 			for(Map.Entry<Integer, String> e: newNodes.entrySet() )
 			{
 				if(matchPageId(e.getValue(), s)) {
+					nodes.putIfAbsent(s_id, s);
+					if(s_id != e.getKey())
+						edges.put(new Integer[] {s_id, e.getKey()}, "alias");
 					s_id = e.getKey();
 					s_f = true;
 				}
 				
 				if(matchPageId(e.getValue(), o)) {
+					nodes.putIfAbsent(o_id, o);
+					if(o_id != e.getKey())
+						edges.put(new Integer[] {o_id, e.getKey()}, "alias");
 					o_id = e.getKey();
 					o_f = true;
 				}
 				
 				if(s_f && o_f) break;
-
+				if(!s_f)
+					nodes.putIfAbsent(s_id, s);
+				if(!o_f)
+					nodes.putIfAbsent(o_id, o);
 			}
 		}
-		nodes.putIfAbsent(s_id, s);
-		nodes.putIfAbsent(o_id, o);
+
 		edges.put(new Integer[] {s_id, o_id}, r.replace(":", "_"));
 	}
 	
