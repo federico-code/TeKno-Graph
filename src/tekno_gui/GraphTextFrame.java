@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -42,7 +43,7 @@ public class GraphTextFrame extends JFrame {
 	        textArea.update(textArea.getGraphics());
 	    }
 	}
-	private int windowH = 300;
+	private int windowH = 650;
 	private int windowW = 600;
 	
 	private int label_x_pos = 50;
@@ -73,13 +74,15 @@ public class GraphTextFrame extends JFrame {
 	private JTextField t_prolog_file;
 	private JLabel l_graph;
 	private JRadioButton graph_rb;
+	private JLabel l_wiki;
+	private JRadioButton wiki_rb;
 
 	/**
 	 * Create the frame.
 	 */
 	public GraphTextFrame() {
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setBounds(windowH, 90, windowW, 600); 
+		f.setBounds(windowH, 90, windowW, windowH); 
 		f.setLayout(null);
 		f.setVisible(true);
 		
@@ -114,7 +117,7 @@ public class GraphTextFrame extends JFrame {
         pwd.setLocation(label_x_pos, y_start_pos + (y_offset*3)); 
         f.add(pwd); 
   
-        t_pwd = new JTextField(); 
+        t_pwd = new JPasswordField(); 
         t_pwd.setFont(new Font("Arial", Font.PLAIN, 15)); 
         t_pwd.setSize(text_len, 20); 
         t_pwd.setLocation(text_x_pos, y_start_pos + (y_offset*3)); 
@@ -128,6 +131,7 @@ public class GraphTextFrame extends JFrame {
   
         t_file = new JTextField(); 
         t_file.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        t_file.setText("./source_files/");
         t_file.setSize(text_len, 20); 
         t_file.setLocation(text_x_pos, y_start_pos + (y_offset*4)); 
         f.add(t_file); 
@@ -135,7 +139,7 @@ public class GraphTextFrame extends JFrame {
         btn = new JButton("Submit"); 
         btn.setFont(new Font("Arial", Font.PLAIN, 15)); 
         btn.setSize(100, 20); 
-        btn.setLocation(250, y_start_pos + (y_offset*8)); 
+        btn.setLocation(250, y_start_pos + (y_offset*9)); 
         btn.addActionListener(new ActionListener() {
 
 			@Override
@@ -147,11 +151,14 @@ public class GraphTextFrame extends JFrame {
 				    	KnowledgeGraph kg = new KnowledgeGraph(t_uri.getText(),t_usr.getText(),t_pwd.getText());
 				    	HighLevelParsing hlp = new HighLevelParsing();
 				    	if(graph_rb.isSelected())
-					    	if(kg.resetGraph()) {
-					    		hlp.readFile(t_file.getText());
-					        	hlp.executeTeKnoPipeline();
-					        	hlp.generateGraphDB(kg);
-					    	}
+					    	kg.resetGraph();
+					    	
+			    	
+			    		hlp.readFile(t_file.getText());
+			        	hlp.executeTeKnoPipeline(wiki_rb.isSelected());
+			        	hlp.generateGraphDB(kg);
+					    	
+				    	
 					    	
 				    	if(prolog_rb.isSelected())
 				    		kg.extractFacts(t_prolog_file.getText(), "prolog_files");
@@ -209,7 +216,19 @@ public class GraphTextFrame extends JFrame {
         graph_rb.setLocation(text_x_pos, y_start_pos + (y_offset *7)); 
         f.add(graph_rb); 
        
-        
+        l_wiki = new JLabel("Use Wikipedia search?"); 
+        l_wiki.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        l_wiki.setSize(label_len, 20); 
+        l_wiki.setLocation(label_x_pos, y_start_pos + (y_offset *8)); 
+        f.add(l_wiki); 
+  
+        wiki_rb = new JRadioButton("select to choose 'yes'"); 
+        wiki_rb.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        wiki_rb.setSelected(true); 
+        wiki_rb.setSize(text_len, 20); 
+        wiki_rb.setLocation(text_x_pos, y_start_pos + (y_offset *8)); 
+        f.add(wiki_rb); 
+       
         
         log = new JTextArea(); 
         log.setFont(new Font("Arial", Font.PLAIN, 15)); 
@@ -217,7 +236,7 @@ public class GraphTextFrame extends JFrame {
         
         scroll = new JScrollPane(log);
         scroll.setSize(600, 100);
-        scroll.setLocation(0, y_start_pos + (y_offset*9));
+        scroll.setLocation(0, y_start_pos + (y_offset*10));
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         f.add(scroll); 
 	}
