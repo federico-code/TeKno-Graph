@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -45,14 +46,14 @@ public class GraphTextFrame extends JFrame {
 	private int windowW = 600;
 	
 	private int label_x_pos = 50;
-	private int text_x_pos = 250;
+	private int text_x_pos = 300;
 	
 	private int y_start_pos = 0;
 	private int y_offset = 50;
 
 
-	private int label_len = 150;
-	private int text_len = 300;
+	private int label_len = 250;
+	private int text_len = 250;
 	
 	private JFrame f = new JFrame("Graph from Text");
 	private JLabel uri;
@@ -66,6 +67,12 @@ public class GraphTextFrame extends JFrame {
 	private JButton btn;
 	private JTextArea log;
 	private JScrollPane scroll;
+	private JLabel prolog_f;
+	private JRadioButton prolog_rb;
+	private JLabel l_prolog_file;
+	private JTextField t_prolog_file;
+	private JLabel l_graph;
+	private JRadioButton graph_rb;
 
 	/**
 	 * Create the frame.
@@ -128,7 +135,7 @@ public class GraphTextFrame extends JFrame {
         btn = new JButton("Submit"); 
         btn.setFont(new Font("Arial", Font.PLAIN, 15)); 
         btn.setSize(100, 20); 
-        btn.setLocation(250, y_start_pos + (y_offset*5)); 
+        btn.setLocation(250, y_start_pos + (y_offset*8)); 
         btn.addActionListener(new ActionListener() {
 
 			@Override
@@ -139,13 +146,16 @@ public class GraphTextFrame extends JFrame {
 						System.setOut(printStream);
 				    	KnowledgeGraph kg = new KnowledgeGraph(t_uri.getText(),t_usr.getText(),t_pwd.getText());
 				    	HighLevelParsing hlp = new HighLevelParsing();
-				    	if(kg.resetGraph()) {
-				    		hlp.readFile(t_file.getText());
-				        	hlp.executeTeKnoPipeline();
-				        	hlp.generateGraphDB(kg);
-				    	}
+				    	if(graph_rb.isSelected())
+					    	if(kg.resetGraph()) {
+					    		hlp.readFile(t_file.getText());
+					        	hlp.executeTeKnoPipeline();
+					        	hlp.generateGraphDB(kg);
+					    	}
+					    	
+				    	if(prolog_rb.isSelected())
+				    		kg.extractFacts(t_prolog_file.getText(), "prolog_files");
 				    	
-				    	//kg.extractFacts("bg", "prolog_files");
 				    	try {
 							kg.close();
 						} catch (Exception e1) {
@@ -160,14 +170,54 @@ public class GraphTextFrame extends JFrame {
         }); 
         f.add(btn);
         
+        prolog_f = new JLabel("Generate a prolog file?"); 
+        prolog_f.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        prolog_f.setSize(label_len, 20); 
+        prolog_f.setLocation(label_x_pos, y_start_pos + (y_offset *5)); 
+        f.add(prolog_f); 
+  
+        prolog_rb = new JRadioButton("select to choose 'yes'"); 
+        prolog_rb.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        prolog_rb.setSelected(true); 
+        prolog_rb.setSize(text_len, 20); 
+        prolog_rb.setLocation(text_x_pos, y_start_pos + (y_offset *5)); 
+        f.add(prolog_rb); 
        
+        
+        l_prolog_file = new JLabel("prolog file name"); 
+        l_prolog_file.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        l_prolog_file.setSize(label_len, 20); 
+        l_prolog_file.setLocation(label_x_pos, y_start_pos + (y_offset*6)); 
+        f.add(l_prolog_file); 
+  
+        t_prolog_file = new JTextField(); 
+        t_prolog_file.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        t_prolog_file.setSize(text_len, 20); 
+        t_prolog_file.setLocation(text_x_pos, y_start_pos + (y_offset*6)); 
+        f.add(t_prolog_file); 
+        
+        l_graph = new JLabel("Reset the graph?"); 
+        l_graph.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        l_graph.setSize(label_len, 20); 
+        l_graph.setLocation(label_x_pos, y_start_pos + (y_offset *7)); 
+        f.add(l_graph); 
+  
+        graph_rb = new JRadioButton("select to choose 'yes'"); 
+        graph_rb.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        graph_rb.setSelected(true); 
+        graph_rb.setSize(text_len, 20); 
+        graph_rb.setLocation(text_x_pos, y_start_pos + (y_offset *7)); 
+        f.add(graph_rb); 
+       
+        
+        
         log = new JTextArea(); 
         log.setFont(new Font("Arial", Font.PLAIN, 15)); 
         log.setEditable(false);
         
         scroll = new JScrollPane(log);
         scroll.setSize(600, 100);
-        scroll.setLocation(0, y_start_pos + (y_offset*6));
+        scroll.setLocation(0, y_start_pos + (y_offset*9));
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         f.add(scroll); 
 	}
