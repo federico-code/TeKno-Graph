@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -81,6 +82,7 @@ public class KnowledgeGraph implements AutoCloseable {
     public void extractFacts(String fileName, String folder) {
        	
     	Writer writer = null;       	
+    	ArrayList<String> literal_inserted = new ArrayList<String>();
         try (Session session = this.driverNeo4j.session()) {
             String cypherQuery = "MATCH (n1)-[r]->(n2) RETURN r, n1, n2";
             Result result = session.run(cypherQuery);
@@ -99,16 +101,28 @@ public class KnowledgeGraph implements AutoCloseable {
 	          	  writer.write(currentFact.prologFacts());
 	          	  writer.write("\n");
 	          	  
-	          	  String[] atoms_name_1 = {record.get(1).get("id").asString(), record.get(1).get("name").asString()};
-	          	  String[] atoms_name_2 = {record.get(2).get("id").asString(), record.get(2).get("name").asString() };
-
-	        	  currentFact= new Fact("literal_of", atoms_name_1);
-	        	  writer.write(currentFact.prologFacts());
-	          	  writer.write("\n");
 	          	  
-	        	  currentFact= new Fact("literal_of", atoms_name_2);
-	        	  writer.write(currentFact.prologFacts());
-	          	  writer.write("\n");
+
+	        	  if(!literal_inserted.contains(record.get(1).get("id").asString())) {
+		          	  String[] atoms_name_1 = {record.get(1).get("id").asString(), record.get(1).get("name").asString()};
+
+		        	  currentFact= new Fact("literal_of", atoms_name_1);
+
+	        		  literal_inserted.add(record.get(1).get("id").asString());
+		        	  writer.write(currentFact.prologFacts());
+		          	  writer.write("\n");
+	        	  }
+
+	        	  if(!literal_inserted.contains(record.get(2).get("id").asString())) {
+		          	  String[] atoms_name_2 = {record.get(2).get("id").asString(), record.get(2).get("name").asString() };
+
+		        	  currentFact= new Fact("literal_of", atoms_name_2);
+
+	        		  literal_inserted.add(record.get(2).get("id").asString());
+
+		        	  writer.write(currentFact.prologFacts());
+		          	  writer.write("\n");
+	        	  }
 	        }
 	        
 	        writer.write(":- ensure_loaded('\\\\dynamics_facts_rules.pl').\n");
