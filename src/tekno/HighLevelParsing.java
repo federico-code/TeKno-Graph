@@ -198,11 +198,11 @@ public class HighLevelParsing {
 			});
 		});
 		
-		
-		this.ner.forEach((e,t)->{
-			
-			this.rel.addRelation(e, "is_a", t);
-		});
+//		
+//		this.ner.forEach((e,t)->{
+//			
+//			this.rel.addRelation(e, "is_a", t);
+//		});
         System.out.print(" done.\n");
 
 	}
@@ -316,7 +316,24 @@ public class HighLevelParsing {
 		    knowledge_graph.addNode(n.getKey().toString(), n.getValue().toLowerCase(), "o");
 		});
 		this.rel.edgeIterator().forEachRemaining(e -> {
-			knowledge_graph.addEdge(e.getKey()[0].toString(), e.getKey()[1].toString(), e.getValue().toLowerCase());
+			String id1 = e.getKey()[0].toString();
+			String id2 = e.getKey()[1].toString();
+			String r = e.getValue().toLowerCase();
+			if(r.startsWith("per_")) {
+				knowledge_graph.addEdge(id1, id2, r.replace("per_", ""));
+				knowledge_graph.addNodeProperty(id1, "person");
+			}
+			else if(r.startsWith("org_")) {
+				knowledge_graph.addEdge(id1, id2, r.replace("org_", ""));
+				knowledge_graph.addNodeProperty(id1, "organization");
+			}
+			else knowledge_graph.addEdge(id1, id2, r);
+			
+		});
+		this.ner.forEach((k, t) -> {
+			String id = knowledge_graph.getNodeId(k.toLowerCase());
+			if(id != null)
+				knowledge_graph.addNodeProperty(id, t.toLowerCase());
 		});
 	}
 

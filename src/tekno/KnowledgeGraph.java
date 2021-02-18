@@ -95,32 +95,40 @@ public class KnowledgeGraph implements AutoCloseable {
             
 	        while(result.hasNext()) {
 	        
-	        	  Record record = result.next();
-	        	  String[] atoms = {record.get(1).get("id").asString(), record.get(2).get("id").asString() };
-	        	  Fact currentFact= new Fact(record.get(0).get("type").asString(), atoms);
-	          	  writer.write(currentFact.prologFacts());
+	        	  Record record = result.next();	        	  
+	        	  
+	          	  writer.write(new Fact(record.get(0).get("type").asString(), new String[] {record.get(1).get("id").asString(), record.get(2).get("id").asString() }).prologFacts());
 	          	  writer.write("\n");
 	          	  
+	          	  if(!record.get(1).get("type").asString().contentEquals("o")) {			        	
+	     		      if(!literal_inserted.contains(record.get(1).get("type").asString()+"_"+record.get(1).get("id").asString())) {
+		        		  literal_inserted.add(record.get(1).get("type").asString()+"_"+record.get(1).get("id").asString());
+
+			          	  writer.write(new Fact(record.get(1).get("type").asString(), new String[] {record.get(1).get("id").asString()}).prologFacts());
+			          	  writer.write("\n");	    	  
+	     		      }
+
+	          	  }
+	          	  
+	          	  if(!record.get(2).get("type").asString().contentEquals("o")) {
+	     		      if(!literal_inserted.contains(record.get(2).get("type").asString()+"_"+record.get(2).get("id").asString())) {
+		        		  literal_inserted.add(record.get(2).get("type").asString()+"_"+record.get(2).get("id").asString());
+	     		      
+			          	  writer.write(new Fact(record.get(2).get("type").asString(), new String[] {record.get(2).get("id").asString()}).prologFacts());
+			          	  writer.write("\n");	  
+	     		      }
+	          	  }
 	          	  
 
 	        	  if(!literal_inserted.contains(record.get(1).get("id").asString())) {
-		          	  String[] atoms_name_1 = {record.get(1).get("id").asString(), record.get(1).get("name").asString()};
-
-		        	  currentFact= new Fact("literal_of", atoms_name_1);
-
 	        		  literal_inserted.add(record.get(1).get("id").asString());
-		        	  writer.write(currentFact.prologFacts());
+		        	  writer.write( new Fact("literal_of", new String[] {record.get(1).get("id").asString(), record.get(1).get("name").asString()}).prologFacts());
 		          	  writer.write("\n");
 	        	  }
 
 	        	  if(!literal_inserted.contains(record.get(2).get("id").asString())) {
-		          	  String[] atoms_name_2 = {record.get(2).get("id").asString(), record.get(2).get("name").asString() };
-
-		        	  currentFact= new Fact("literal_of", atoms_name_2);
-
 	        		  literal_inserted.add(record.get(2).get("id").asString());
-
-		        	  writer.write(currentFact.prologFacts());
+		        	  writer.write( new Fact("literal_of", new String[] {record.get(2).get("id").asString(), record.get(2).get("name").asString() }).prologFacts());
 		          	  writer.write("\n");
 	        	  }
 	        }
@@ -146,7 +154,30 @@ public class KnowledgeGraph implements AutoCloseable {
             }
         }
     }
+    
+    
+    public void addNodeProperty(String id, String type) {
+        if (this.isNode(id)) {
+            try (Session session = this.driverNeo4j.session()) {
+                String cypherQuery = "MATCH (n {id: '"+id+"'}) SET n.type = '"+type+"' 	RETURN n.type";
+                session.run(cypherQuery);
+            }
+        }
+    
+    }
 
+    
+    public String getNodeId(String name) {
+        String id = null;
+    	try (Session session = this.driverNeo4j.session()) {
+            String cypherQuery = "MATCH (n {name: '"+name+"'}) RETURN n";
+            Result result = session.run(cypherQuery);
+            while(result.hasNext())
+            	id = result.next().get(0).get("id").asString();
+        }
+    	return id;
+    }
+    
     
     public void addEdge(String id1, String id2, String type) {
 

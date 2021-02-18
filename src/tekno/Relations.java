@@ -63,7 +63,7 @@ public class Relations {
 					nodes.putIfAbsent(o_id, o);
 			}
 		}
-
+		
 		edges.put(new Integer[] {s_id, o_id}, r.replace(":", "_"));
 	}
 	
