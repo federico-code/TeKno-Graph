@@ -44,6 +44,7 @@ public class Fact {
 		String atomsString = "";
 		int nAtoms = atoms.length;
 		int i=0;
+		String returnString="";
 		for(String atom :atoms)
 		{	
 			if(isNumeric(atom)) { // if the string is a number 
@@ -57,7 +58,7 @@ public class Fact {
 		
 			i=i+1;
 		}
-		
+
 		return predicate.toLowerCase()+"("+atomsString+").";
 	}
 	
