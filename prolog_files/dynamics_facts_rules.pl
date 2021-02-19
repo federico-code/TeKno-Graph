@@ -69,6 +69,8 @@
 :-dynamic	ideology/1.
 :-dynamic	criminal_charge/1.
 :-dynamic	cause_of_death/1.
+:-dynamic	alias/2.
+:-dynamic	n_person/2.
 
 
 
@@ -77,24 +79,56 @@
 
 		alias_of(LIT_X,LIT_Y) :- literal_of(X,LIT_X),literal_of(Y,LIT_Y),alias(X,Y).
 
-		print_person:- person(X),literal_of(X,Z),write(Z),nl,fail.
+		assert_n_person(N):-person(X),
+							literal_of(X,Z),
+							V is N - 1,
+							\+ n_person(Z,V),
+							assertz(n_person(Z,N)),
+							S is N + 1,
+							assert_n_person(S).
+
+
+		print_p:- person(X),literal_of(X,Z),write(Z),nl,fail.
+
+		print_person:- forall(person_lit(X),print_for_each(X)).
+
+		print_for_each(X):- write(X),nl.
+
+		person_lit(PER):- person(X), literal_of(X,PER).
 
 		print_org:- organization(X),literal_of(X,Z),write(Z),nl,fail.
 
+		alias:- alias(X,Y),alias(Y,X),retract(alias(Y,X)).
 
-% title of a person 
+% title of a person
+
+title_of_person(PER) :-alias_of(PER,PER_ALIAS),
+							literal_of(X,PER_ALIAS),
+							person(X),
+							title(X,Y),
+							literal_of(Y,TITLE),
+							my_print(PER_ALIAS,' has the title of',TITLE).
+
 title_of_person(PER) :-literal_of(X,PER),
 							person(X),
 							title(X,Y),
 							literal_of(Y,TITLE),
 							my_print(PER,' has the title of',TITLE).
 
+
 % person of an organization
 organization_employee(ORG) :-literal_of(ID_ORG,ORG),
 								organization(ID_ORG),
 								employee_or_member_of(ID_PER,ID_ORG),
 								literal_of(ID_PER,PER),
-								my_print(PER,'work for',ORG).
+								my_print(PER,' work for',ORG).
+
+organization_employee(ORG) :-	alias_of(ORG,ORG_ALIAS),
+								literal_of(ID_ORG,ORG_ALIAS),
+								organization(ID_ORG),
+								employee_or_member_of(ID_PER,ID_ORG),
+								literal_of(ID_PER,PER),
+								my_print(PER,' work for',ORG).								
 
 % information abouth the foundetion of an organization
 founded(ORG) :- literal_of(ID_ORG,ORG),
@@ -102,6 +136,20 @@ founded(ORG) :- literal_of(ID_ORG,ORG),
 					date_founded(ID_ORG,ID_DATE),
 					literal_of(ID_DATE,DATE),
 					my_print(ORG,'was founded on',DATE).
+
+founded(ORG) :- alias_of(ORG,ORG_ALIAS),
+					literal_of(ID_ORG,ORG_ALIAS),
+					organization(ID_ORG),
+					date_founded(ID_ORG,ID_DATE),
+					literal_of(ID_DATE,DATE),
+					my_print(ORG,'was founded on',DATE).
+
+founded(ORG) :- alias_of(ORG,ORG_ALIAS),	
+					literal_of(ID_ORG,ORG_ALIAS),
+					organization(ID_ORG),
+					founded_by(ID_ORG,ID_FOUNDER),
+					literal_of(ID_FOUNDER,FOUNDER),
+					my_print(ORG,'was founded by',FOUNDER).
 
 founded(ORG) :- literal_of(ID_ORG,ORG),
 					organization(ID_ORG),
@@ -122,3 +170,20 @@ where_born(PER):-literal_of(ID_PER,PER),
 			city_of_birth(ID_PER,ID_CITY),
 			literal_of(ID_CITY,CITY),
 			my_print(PER,'was born in',CITY).
+
+
+info_per(PER):-title_of_person(PER),when_born(PER).
+
+main:- 	print_person,
+		write('inserisci nome: '),
+		read(X),
+		write(X),
+		write('\33\[2J'),
+		X \= end,
+		title_of_person(X),
+		main.
+
+
+
+
+
