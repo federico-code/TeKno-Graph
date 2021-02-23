@@ -311,10 +311,14 @@ public class HighLevelParsing {
 	}
 	
 	
-	public void generateGraphDB (KnowledgeGraph knowledge_graph) {		
+	public void generateGraphDB (KnowledgeGraph knowledge_graph) {	
+		
+		// adding all the nodes of the triples
 		this.rel.nodeIterator().forEachRemaining(n -> {
 		    knowledge_graph.addNode(n.getKey().toString(), n.getValue().toLowerCase(), "o");
 		});
+		
+		// adding the relations between the nodes inserted before 
 		this.rel.edgeIterator().forEachRemaining(e -> {
 			String id1 = e.getKey()[0].toString();
 			String id2 = e.getKey()[1].toString();
