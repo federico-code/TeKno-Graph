@@ -14,15 +14,24 @@ import java.util.Scanner;
 import org.neo4j.driver.*;
 import org.neo4j.driver.Record;
 
+/**
+ * Takes care of the connection with the Neo4J DBMS, handling data inserts and exports from the graph
+ *
+ */
 public class KnowledgeGraph implements AutoCloseable {
-    private Driver driverNeo4j;
-
-    private String URI_NEO4J;
+    
+	private Driver driverNeo4j; // it is the driver used for the connection with the neo4J DBMS.
+    private String URI_NEO4J; // must be in the form of  bolt://<HOST>:<PORT> 
     private String USR_NEO4J;
     private String PSW_NEO4J; 
 
 
 
+    /**
+     * Constructor of the class.  
+     * It takes no arguments,and if called asks for the parameters, namely URI, user and password on the console log.
+     * After inserting the parameters, it instantiates the connection on the private attribute driverNeo4J.
+     */
     public KnowledgeGraph() {
     	Scanner scanner = new Scanner(System.in);
         System.out.print("Enter connection URI: ");
@@ -44,6 +53,14 @@ public class KnowledgeGraph implements AutoCloseable {
         this.driverNeo4j = GraphDatabase.driver(this.URI_NEO4J, AuthTokens.basic(this.USR_NEO4J, this.PSW_NEO4J));
     }
     
+    /**
+     * Constructor of the class. No request will be asked to the user.
+     * Automatically create the connection with the database
+     * 
+     * @param uri connection string for the database
+     * @param usr user name of the database
+     * @param pwd password of the database
+     */
     public KnowledgeGraph(String uri, String usr, String pwd) {
     	this.URI_NEO4J = uri;
     	this.USR_NEO4J = usr;
@@ -51,6 +68,16 @@ public class KnowledgeGraph implements AutoCloseable {
         this.driverNeo4j = GraphDatabase.driver(this.URI_NEO4J, AuthTokens.basic(this.USR_NEO4J, this.PSW_NEO4J));
     }
     
+    /**
+     * Constructor of the class. No request will be asked to the user.
+     * Automatically create the connection with the database, and automatically loads data from an XML file passed in input as String xml_source. 
+     * This constructor calls another static class called XMLtoKnowledgeGraph.
+     *  
+     * @param uri connection string for the database
+     * @param usr user name of the neo4j database
+     * @param pwd password of the neo4j database
+     * @param xml_source the file from witch the db will be created
+     */
     public KnowledgeGraph(String uri, String usr, String pwd, String xml_source) {
     	this.URI_NEO4J = uri;
     	this.USR_NEO4J = usr;
@@ -59,10 +86,18 @@ public class KnowledgeGraph implements AutoCloseable {
         XMLtoKnowledgeGraph.loadGraphFromXML(xml_source, this);
     }
  
+    /**
+     *  load the graph starting from the xml file
+
+     * @param source xml file for the load of the graph
+     */
     public void loadGraphFromXML(String source) {
         XMLtoKnowledgeGraph.loadGraphFromXML(source, this);
     }
     
+    /**
+     * @return
+     */
     public List<Fact> extractFacts() {
     	List<Fact> facts = new LinkedList<Fact>();
 
@@ -79,6 +114,10 @@ public class KnowledgeGraph implements AutoCloseable {
         return facts;
     }
     
+    /**
+     * @param fileName
+     * @param folder
+     */
     public void extractFacts(String fileName, String folder) {
        	
     	Writer writer = null;       	
@@ -146,6 +185,11 @@ public class KnowledgeGraph implements AutoCloseable {
     }
     
     
+    /**
+     * @param id
+     * @param name
+     * @param type
+     */
     public void addNode(String id, String name, String type) {
         if (!this.isNode(id)) {
             try (Session session = this.driverNeo4j.session()) {
@@ -156,6 +200,10 @@ public class KnowledgeGraph implements AutoCloseable {
     }
     
     
+    /**
+     * @param id
+     * @param type
+     */
     public void addNodeProperty(String id, String type) {
         if (this.isNode(id)) {
             try (Session session = this.driverNeo4j.session()) {
@@ -167,6 +215,10 @@ public class KnowledgeGraph implements AutoCloseable {
     }
 
     
+    /**
+     * @param name
+     * @return
+     */
     public String getNodeId(String name) {
         String id = null;
     	try (Session session = this.driverNeo4j.session()) {
@@ -179,6 +231,11 @@ public class KnowledgeGraph implements AutoCloseable {
     }
     
     
+    /**
+     * @param id1
+     * @param id2
+     * @param type
+     */
     public void addEdge(String id1, String id2, String type) {
 
         if (this.isNode(id1) && this.isNode(id2) && !isEdge(id1, id2, type)) {
@@ -194,7 +251,11 @@ public class KnowledgeGraph implements AutoCloseable {
     }
 
     
-    public Boolean isNode(String id) {
+    /**
+     * @param id
+     * @return
+     */
+    private Boolean isNode(String id) {
 
         String cypherQuery = "MATCH (n {id: '" + id + "'}) RETURN n";
         try (Session session = this.driverNeo4j.session()) {
@@ -206,6 +267,12 @@ public class KnowledgeGraph implements AutoCloseable {
         return false;
     }
 
+    /**
+     * @param id1
+     * @param id2
+     * @param type
+     * @return
+     */
     public Boolean isEdge(String id1, String id2, String type) {
 
         String cypherQuery = "MATCH (n1 {id: '" + id1 + "'})-[r { type: '"+type+"' }]-> (n2 {id: '" + id2 + "'})  RETURN r";
@@ -219,6 +286,9 @@ public class KnowledgeGraph implements AutoCloseable {
     }
 
 
+    /**
+     * @return
+     */
     public Boolean resetGraph() {
     	String cypherQuery = "MATCH (n1) detach delete  n1";
         try (Session session = this.driverNeo4j.session()) {
@@ -231,6 +301,9 @@ public class KnowledgeGraph implements AutoCloseable {
     }
     
     
+    /**
+     *
+     */
     public void close() throws Exception {
         this.driverNeo4j.close();
     }
