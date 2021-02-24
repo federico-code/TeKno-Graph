@@ -9,6 +9,7 @@
 :-dynamic	founded_by/2.
 :-dynamic	member_of/2.
 :-dynamic	members/2.
+:-dynamic	top_members_employees/2.
 :-dynamic	number_of_members/2. 
 :-dynamic	number_of_employees/2.
 :-dynamic	parents/2.
@@ -135,11 +136,12 @@ organization_employee(ORG) :-	alias_of(ORG,ORG_ALIAS),
 								my_print(PER,' work for',ORG).								
 
 
-top_member_org(ID_PER,ID_ORG):-founded_by(ID_ORG,ID_PER).
-top_member_org(ID_PER,ID_ORG):-top_members(ID_ORG,ID_PER).
-top_member_org(ID_PER,ID_ORG):-top_employees(ID_ORG,ID_PER).
+top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),founded_by(ID_ORG,ID_PER).
+top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),top_members_employees(ID_ORG,ID_PER).
 
 is_suborbinate(ID_SUB,ID_BOSS,ID_ORG):- organization(ID_ORG),
+										person(ID_SUB),
+										person(ID_BOSS),
 										employee_or_member_of(ID_SUB,ID_ORG),
 										top_member_org(ID_BOSS,ID_ORG).
 
@@ -150,7 +152,7 @@ is_boss_of(BOSS) :-person(ID_BOSS),
 							literal_of(IS_SUB,SUB),
 							person(ID_SUB),
 							literal_of(ID_ORG,ORG),
-							format('~w ~w ~w ~n', [BOSS,SUB,ORG]).
+							format('~w ~s ~w ~s ~w ~n', [BOSS,' is boss of ',SUB,' in this org ',ORG]).
 
 
 % coworker and work for 
@@ -197,6 +199,9 @@ co_residence(PER1,PER2,PLACE) :-
 								person(ID_PER2),
 								live_in(PER1,PLACE),
 								live_in(PER2,PLACE).
+
+
+% co-live 
 
 
 % information abouth the foundetion of an organization
