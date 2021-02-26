@@ -9,7 +9,7 @@
 :-dynamic	founded_by/2.
 :-dynamic	member_of/2.
 :-dynamic	members/2.
-:-dynamic	top_members_employees/2.
+:-dynamic	top_members_employees/2. % org,person
 :-dynamic	number_of_members/2. 
 :-dynamic	number_of_employees/2.
 :-dynamic	parents/2.
@@ -35,7 +35,7 @@
 :-dynamic	country_of_death/2.
 :-dynamic	date_of_birth/2.
 :-dynamic	date_of_death/2.
-:-dynamic	employee_or_member_of/2.
+:-dynamic	employee_or_member_of/2. %per,org
 :-dynamic	origin/2.
 :-dynamic	other_family/2.
 :-dynamic	parents/2.
@@ -81,6 +81,8 @@
 
 		alias_of(LIT_X,LIT_Y) :- literal_of(X,LIT_X),literal_of(Y,LIT_Y),alias(X,Y).
 
+	
+
 		%print functions
 
 		print_for_each(X):- write(X),nl.
@@ -103,40 +105,49 @@
 			org_lit(ORG):- organization(X), literal_of(X,ORG).
 
 		
-		
+		print_alias(LIT_X) :- alias_of(LIT_X,LIT_Y),
+								LIT_X\=LIT_Y ,
+								my_print(LIT_X,' it is also called ',LIT_Y),nl,fail.
+		print_alias(_).
+
+
+
+
 
 % title of a person
 
-title_of_person(PER) :-alias_of(PER,PER_ALIAS),
+
+							
+print_title_of_person(PER) :-literal_of(X,PER),
+							person(X),
+							title(X,Y),
+							literal_of(Y,TITLE),
+							my_print(PER,' has the title of',TITLE),nl,fail.
+
+print_title_of_person(PER) :-alias_of(PER,PER_ALIAS),
 							literal_of(X,PER_ALIAS),
 							person(X),
 							title(X,Y),
 							literal_of(Y,TITLE),
 							my_print(PER_ALIAS,' has the title of',TITLE),nl,fail.
-							
-title_of_person(PER) :-literal_of(X,PER),
-							person(X),
-							title(X,Y),
-							literal_of(Y,TITLE),
-							my_print(PER,' has the title of',TITLE),nl,fail.
-title_of_person(_).
+print_title_of_person(_).
 
 % person of an organization
-organization_employee(ORG) :-literal_of(ID_ORG,ORG),
+print_organization_employee(ORG) :-literal_of(ID_ORG,ORG),
 								organization(ID_ORG),
 								employee_or_member_of(ID_PER,ID_ORG),
 								literal_of(ID_PER,PER),
-								my_print(PER,' work for',ORG).
+								my_print(PER,' work for',ORG),nl,fail.
 
-organization_employee(ORG) :-	alias_of(ORG,ORG_ALIAS),
+print_organization_employee(ORG) :-	alias_of(ORG,ORG_ALIAS),
 								literal_of(ID_ORG,ORG_ALIAS),
 								organization(ID_ORG),
 								employee_or_member_of(ID_PER,ID_ORG),
 								literal_of(ID_PER,PER),
-								my_print(PER,' work for',ORG).								
+								my_print(PER,' work for',ORG),nl,fail.							
+print_organization_employee(_).
 
-
-top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),founded_by(ID_ORG,ID_PER).
+top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),founded_by(ID_ORG,ID_PER). 
 top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),top_members_employees(ID_ORG,ID_PER).
 
 is_suborbinate(ID_SUB,ID_BOSS,ID_ORG):- organization(ID_ORG),
@@ -145,25 +156,26 @@ is_suborbinate(ID_SUB,ID_BOSS,ID_ORG):- organization(ID_ORG),
 										employee_or_member_of(ID_SUB,ID_ORG),
 										top_member_org(ID_BOSS,ID_ORG).
 
-
+%non funziona
 is_boss_of(BOSS) :-person(ID_BOSS),
-							literal_of(ID_BOSS,BOSS),
-							is_suborbinate(ID_SUB,ID_BOSS,ID_ORG),
-							literal_of(IS_SUB,SUB),
-							person(ID_SUB),
-							literal_of(ID_ORG,ORG),
-							format('~w ~s ~w ~s ~w ~n', [BOSS,' is boss of ',SUB,' in this org ',ORG]).
+					literal_of(ID_BOSS,BOSS),
+					literal_of(ID_SUB,SUB),
+					person(ID_SUB),
+					ID_SUB\=ID_BOSS,
+					is_suborbinate(ID_SUB,ID_BOSS,ID_ORG),
+					literal_of(ID_ORG,ORG),
+					format('~w ~s ~w ~s ~w ~n', [BOSS,' is boss of ',SUB,' in this org ',ORG]).
 
 
 % coworker and work for 
 
 work_for(PER,ORG) :- literal_of(ID_PER,PER),person(ID_PER),
-					literal_of(ID_ORG,ORG),person(ID_PER), 
-					employee_or_member_of(ID_PER,ID_ORG).
+						literal_of(ID_ORG,ORG),person(ID_PER), 
+						employee_or_member_of(ID_PER,ID_ORG).
 
 work_for(PER,ORG) :- literal_of(ID_PER,PER),person(ID_PER),
-					literal_of(ID_ORG,ORG),person(ID_PER), 
-					top_member_org(ID_PER,ID_ORG).
+						literal_of(ID_ORG,ORG),person(ID_PER), 
+						top_member_org(ID_PER,ID_ORG).
 
 coworker(PER1,PER2,ORG) :-
 						literal_of(ID_PER1,PER1),
@@ -173,6 +185,10 @@ coworker(PER1,PER2,ORG) :-
 						person(ID_PER2),
 						work_for(PER1,ORG),
 						work_for(PER2,ORG).
+
+
+print_work_for(PER) :- work_for(PER,ORG), my_print(PER,' has worked for ',ORG),nl,fail.
+print_work_for(_).
 
 % co-residence 
 
@@ -205,57 +221,57 @@ co_residence(PER1,PER2,PLACE) :-
 
 
 % information abouth the foundetion of an organization
-founded_date(ORG) :- literal_of(ID_ORG,ORG),
+print_founded_date(ORG) :- literal_of(ID_ORG,ORG),
 					organization(ID_ORG),
 					date_founded(ID_ORG,ID_DATE),
 					literal_of(ID_DATE,DATE),
 					my_print(ORG,'was founded on',DATE),nl,fail.
 
-founded_date(ORG) :- alias_of(ORG,ORG_ALIAS),
+print_founded_date(ORG) :- alias_of(ORG,ORG_ALIAS),
 					literal_of(ID_ORG,ORG_ALIAS),
 					organization(ID_ORG),
 					date_founded(ID_ORG,ID_DATE),
 					literal_of(ID_DATE,DATE),
 					my_print(ORG,'was founded on',DATE),nl,fail.
-founded_date(_).
+print_founded_date(_).
 
-founder(ORG) :- alias_of(ORG,ORG_ALIAS),	
+print_founder(ORG) :- alias_of(ORG,ORG_ALIAS),	
 					literal_of(ID_ORG,ORG_ALIAS),
 					organization(ID_ORG),
 					founded_by(ID_ORG,ID_FOUNDER),
 					literal_of(ID_FOUNDER,FOUNDER),
 					my_print(ORG,'was founded by',FOUNDER),nl,fail.
 
-founder(ORG) :- literal_of(ID_ORG,ORG),
+print_founder(ORG) :- literal_of(ID_ORG,ORG),
 					organization(ID_ORG),
 					founded_by(ID_ORG,ID_FOUNDER),
 					literal_of(ID_FOUNDER,FOUNDER),
 					my_print(ORG,'was founded by',FOUNDER),nl,fail.
-founder(_).
+print_founder(_).
 
 % when born 
-when_born(PER):-literal_of(ID_PER,PER),
+print_when_born(PER):-literal_of(ID_PER,PER),
 			person(ID_PER),
 			date_of_birth(ID_PER,ID_DATE),
 			literal_of(ID_DATE,DATE),
-			my_print(PER,'was born on',DATE).
-when_born(_).
+			my_print(PER,'was born on',DATE),nl,fail.
+print_when_born(_). %altrimenti se non ce fa fallire
 
 % where born, si può fare lo stesso per  country_of_birth stateorprovince_of_birth
-where_born(PER):-literal_of(ID_PER,PER),
+print_where_born(PER):-literal_of(ID_PER,PER),
 			person(ID_PER),
 			city_of_birth(ID_PER,ID_CITY),
 			literal_of(ID_CITY,CITY),
-			my_print(PER,'was born in',CITY).
-where_born(_).
-
+			my_print(PER,'was born in',CITY),nl,fail.
+print_where_born(_). %altrimenti se non ce fa fallire 
 
 
 %loop section
 
-info_per(PER):-when_born(PER),where_born(PER),title_of_person(PER).
+info_per(PER):-print_alias(PER),print_when_born(PER),print_where_born(PER),print_title_of_person(PER).
 
-info_org(ORG):-format('~s ~w ~n', ['information abouth',ORG]), founded_date(ORG),founder(ORG),organization_employee(ORG).
+info_org(ORG):-print_alias(ORG),print_founded_date(ORG),print_founder(ORG),print_organization_employee(ORG).
+
 
 choose_loop(CHOOSE):-literal_of(ID_ORG,CHOOSE),organization(ID_ORG),info_org(CHOOSE).
 
@@ -269,9 +285,11 @@ main_loop:-write('----Persons----'),nl,
 			write('write the name between single apices: '),
 			read(X),
 			write('\33\[2J'),
-			X \= end,
-			format('~s ~w ~n', ['information abouth',X]),
+			format(' --------------- ~s ~w -------------- ~n', ['information about',X]),
 			choose_loop(X),
+			write('Do you want other information? y/n : '),
+			read(R),
+			R\= 'n', %non funge per n su person
 			main_loop.
 
 
