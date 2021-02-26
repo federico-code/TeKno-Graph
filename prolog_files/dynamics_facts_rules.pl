@@ -108,6 +108,7 @@
 		print_alias(LIT_X) :- alias_of(LIT_X,LIT_Y),
 								LIT_X\=LIT_Y ,
 								my_print(LIT_X,' it is also called ',LIT_Y),nl,fail.
+		print_alias(_).					
 
 
 
@@ -143,6 +144,8 @@ print_organization_employee(ORG) :-	alias_of(ORG,ORG_ALIAS),
 								my_print(PER,' work for',ORG),nl,fail.							
 print_organization_employee(_).
 
+
+
 top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),founded_by(ID_ORG,ID_PER). 
 top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),top_members_employees(ID_ORG,ID_PER).
 
@@ -166,11 +169,11 @@ print_is_boss_of(BOSS) :-person(ID_BOSS),
 % coworker and work for 
 
 work_for(PER,ORG) :- literal_of(ID_PER,PER),person(ID_PER),
-						literal_of(ID_ORG,ORG),person(ID_PER), 
+						literal_of(ID_ORG,ORG),organization(ID_ORG), 
 						employee_or_member_of(ID_PER,ID_ORG).
 
 work_for(PER,ORG) :- literal_of(ID_PER,PER),person(ID_PER),
-						literal_of(ID_ORG,ORG),person(ID_PER), 
+						literal_of(ID_ORG,ORG),organization(ID_ORG), 
 						top_member_org(ID_PER,ID_ORG).
 
 coworker(PER1,PER2,ORG) :-
@@ -186,22 +189,28 @@ coworker(PER1,PER2,ORG) :-
 print_work_for(PER) :- work_for(PER,ORG), my_print(PER,' has worked for ',ORG),nl,fail.
 print_work_for(_).
 
-% co-residence 
+% residence of a person
 
-live_in(PER,PLACE) :- literal_of(ID_PER,PER),
+resides_in(PER,PLACE) :- literal_of(ID_PER,PER),
 						person(ID_PER),
 						cities_of_residence(ID_PER,ID_PLACE),
 						literal_of(ID_PLACE,PLACE).
 
-live_in(PER,PLACE) :- literal_of(ID_PER,PER),
+resides_in(PER,PLACE) :- literal_of(ID_PER,PER),
 						person(ID_PER),
 						countries_of_residence(ID_PER,ID_PLACE),
 						literal_of(ID_PLACE,PLACE).
 
-live_in(PER,PLACE) :- literal_of(ID_PER,PER),
+resides_in(PER,PLACE) :- literal_of(ID_PER,PER),
 						person(ID_PER),
 						stateorprovinces_of_residence(ID_PER,ID_PLACE),
 						literal_of(ID_PLACE,PLACE).
+
+
+print_live_in(PER) :- resides_in(PER,PLACE),  my_print(PER,'resides in',PLACE),nl,fail.
+print_live_in(_).
+
+
 
 co_residence(PER1,PER2,PLACE) :-
 								literal_of(ID_PER1,PER1),
@@ -209,11 +218,9 @@ co_residence(PER1,PER2,PLACE) :-
 								ID_PER1 \= ID_PER2,
 								person(ID_PER1),
 								person(ID_PER2),
-								live_in(PER1,PLACE),
-								live_in(PER2,PLACE).
+								resides_in(PER1,PLACE),
+								resides_in(PER2,PLACE).
 
-
-% co-live 
 
 
 % information abouth the foundetion of an organization
@@ -262,11 +269,38 @@ print_where_born(PER):-literal_of(ID_PER,PER),
 print_where_born(_).  % to avoid failure
 
 
+% information abouth person death, refine with alias
+
+print_when_dead(PER):- literal_of(ID_PER,PER),
+							person(PER),
+							date_of_death(PERSON,DATE),
+							literal_of(ID_DATE,DATE)
+							my_print(PER," died in ",DATE),nl,fail.
+print_when_dead(_).
+
+print_why_dead(PER):- literal_of(ID_PER,PER),
+							person(PER),
+							cause_of_death(PER,CAUSE),
+							literal_of(ID_CAUSE,CAUSE),
+							my_print(PERSON," died because of ",CAUSE),nl,fail.
+print_why_dead(_).
+
+
 %loop section
 
-info_per(PER):-print_alias(PER),print_when_born(PER),print_where_born(PER),print_title_of_person(PER).
+info_per(PER):-print_alias(PER),
+				print_live_in(PER),
+				print_when_born(PER),
+				print_where_born(PER),
+				print_title_of_person(PER),
+				print_work_for(PER),
+				print_when_dead(PER),
+				print_why_dead(PER).
 
-info_org(ORG):-print_alias(ORG),print_founded_date(ORG),print_founder(ORG),print_organization_employee(ORG).
+info_org(ORG):-print_alias(ORG),
+				print_founded_date(ORG),
+				print_founder(ORG),
+				print_organization_employee(ORG).
 
 
 choose_loop(CHOOSE):-literal_of(ID_ORG,CHOOSE),organization(ID_ORG),info_org(CHOOSE).
