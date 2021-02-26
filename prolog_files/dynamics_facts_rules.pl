@@ -108,15 +108,11 @@
 		print_alias(LIT_X) :- alias_of(LIT_X,LIT_Y),
 								LIT_X\=LIT_Y ,
 								my_print(LIT_X,' it is also called ',LIT_Y),nl,fail.
-		print_alias(_).
-
 
 
 
 
 % title of a person
-
-
 							
 print_title_of_person(PER) :-literal_of(X,PER),
 							person(X),
@@ -157,7 +153,7 @@ is_suborbinate(ID_SUB,ID_BOSS,ID_ORG):- organization(ID_ORG),
 										top_member_org(ID_BOSS,ID_ORG).
 
 %non funziona
-is_boss_of(BOSS) :-person(ID_BOSS),
+print_is_boss_of(BOSS) :-person(ID_BOSS),
 					literal_of(ID_BOSS,BOSS),
 					literal_of(ID_SUB,SUB),
 					person(ID_SUB),
@@ -255,7 +251,7 @@ print_when_born(PER):-literal_of(ID_PER,PER),
 			date_of_birth(ID_PER,ID_DATE),
 			literal_of(ID_DATE,DATE),
 			my_print(PER,'was born on',DATE),nl,fail.
-print_when_born(_). %altrimenti se non ce fa fallire
+print_when_born(_). % to avoid failure
 
 % where born, si può fare lo stesso per  country_of_birth stateorprovince_of_birth
 print_where_born(PER):-literal_of(ID_PER,PER),
@@ -263,7 +259,7 @@ print_where_born(PER):-literal_of(ID_PER,PER),
 			city_of_birth(ID_PER,ID_CITY),
 			literal_of(ID_CITY,CITY),
 			my_print(PER,'was born in',CITY),nl,fail.
-print_where_born(_). %altrimenti se non ce fa fallire 
+print_where_born(_).  % to avoid failure
 
 
 %loop section
