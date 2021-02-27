@@ -113,20 +113,20 @@
 
 
 
-% title of a person
+% title of a persons
 							
 print_title_of_person(PER) :-literal_of(X,PER),
 							person(X),
 							title(X,Y),
 							literal_of(Y,TITLE),
-							my_print(PER,' has the title of',TITLE),nl,fail.
+							my_print(PER,' has the title of ',TITLE),nl,fail.
 
 print_title_of_person(PER) :-alias_of(PER,PER_ALIAS),
 							literal_of(X,PER_ALIAS),
 							person(X),
 							title(X,Y),
 							literal_of(Y,TITLE),
-							my_print(PER_ALIAS,' has the title of',TITLE),nl,fail.
+							my_print(PER_ALIAS,' has the title of ',TITLE),nl,fail.
 print_title_of_person(_).
 
 % person of an organization
@@ -134,39 +134,23 @@ print_organization_employee(ORG) :-literal_of(ID_ORG,ORG),
 								organization(ID_ORG),
 								employee_or_member_of(ID_PER,ID_ORG),
 								literal_of(ID_PER,PER),
-								my_print(PER,' work for',ORG),nl,fail.
+								my_print(PER,' work for ',ORG),nl,fail.
 
 print_organization_employee(ORG) :-	alias_of(ORG,ORG_ALIAS),
 								literal_of(ID_ORG,ORG_ALIAS),
 								organization(ID_ORG),
 								employee_or_member_of(ID_PER,ID_ORG),
 								literal_of(ID_PER,PER),
-								my_print(PER,' work for',ORG),nl,fail.							
+								my_print(PER,' work for ',ORG),nl,fail.							
 print_organization_employee(_).
 
 
 
-top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),founded_by(ID_ORG,ID_PER). 
-top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),top_members_employees(ID_ORG,ID_PER).
+% rules to know if a person works for an organization 
 
-is_suborbinate(ID_SUB,ID_BOSS,ID_ORG):- organization(ID_ORG),
-										person(ID_SUB),
-										person(ID_BOSS),
-										employee_or_member_of(ID_SUB,ID_ORG),
-										top_member_org(ID_BOSS,ID_ORG).
+is_top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),founded_by(ID_ORG,ID_PER). 
+is_top_member_org(ID_PER,ID_ORG):-person(ID_PER),organization(ID_ORG),top_members_employees(ID_ORG,ID_PER).
 
-%non funziona
-print_is_boss_of(BOSS) :-person(ID_BOSS),
-					literal_of(ID_BOSS,BOSS),
-					literal_of(ID_SUB,SUB),
-					person(ID_SUB),
-					ID_SUB\=ID_BOSS,
-					is_suborbinate(ID_SUB,ID_BOSS,ID_ORG),
-					literal_of(ID_ORG,ORG),
-					format('~w ~s ~w ~s ~w ~n', [BOSS,' is boss of ',SUB,' in this org ',ORG]).
-
-
-% coworker and work for 
 
 work_for(PER,ORG) :- literal_of(ID_PER,PER),person(ID_PER),
 						literal_of(ID_ORG,ORG),organization(ID_ORG), 
@@ -174,16 +158,8 @@ work_for(PER,ORG) :- literal_of(ID_PER,PER),person(ID_PER),
 
 work_for(PER,ORG) :- literal_of(ID_PER,PER),person(ID_PER),
 						literal_of(ID_ORG,ORG),organization(ID_ORG), 
-						top_member_org(ID_PER,ID_ORG).
+						is_top_member_org(ID_PER,ID_ORG).
 
-coworker(PER1,PER2,ORG) :-
-						literal_of(ID_PER1,PER1),
-						literal_of(ID_PER2,PER2),
-						ID_PER1 \= ID_PER2,
-						person(ID_PER1),
-						person(ID_PER2),
-						work_for(PER1,ORG),
-						work_for(PER2,ORG).
 
 
 print_work_for(PER) :- work_for(PER,ORG), my_print(PER,' has worked for ',ORG),nl,fail.
@@ -207,8 +183,115 @@ resides_in(PER,PLACE) :- literal_of(ID_PER,PER),
 						literal_of(ID_PLACE,PLACE).
 
 
-print_live_in(PER) :- resides_in(PER,PLACE),  my_print(PER,'resides in',PLACE),nl,fail.
+print_live_in(PER) :- resides_in(PER,PLACE),  my_print(PER,' resides in ',PLACE),nl,fail.
 print_live_in(_).
+
+
+
+% information abouth the foundetion of an organization
+print_founded_date(ORG) :- literal_of(ID_ORG,ORG),
+						organization(ID_ORG),
+						date_founded(ID_ORG,ID_DATE),
+						literal_of(ID_DATE,DATE),
+						my_print(ORG,' was founded on ',DATE),nl,fail.
+
+print_founded_date(ORG) :- alias_of(ORG,ORG_ALIAS),
+						literal_of(ID_ORG,ORG_ALIAS),
+						organization(ID_ORG),
+						date_founded(ID_ORG,ID_DATE),
+						literal_of(ID_DATE,DATE),
+						my_print(ORG,' was founded on ',DATE),nl,fail.
+print_founded_date(_).
+
+
+print_founder(ORG) :- alias_of(ORG,ORG_ALIAS),	
+						literal_of(ID_ORG,ORG_ALIAS),
+						organization(ID_ORG),
+						founded_by(ID_ORG,ID_FOUNDER),
+						literal_of(ID_FOUNDER,FOUNDER),
+						my_print(ORG,' was founded by ',FOUNDER),nl,fail.
+
+print_founder(ORG) :- literal_of(ID_ORG,ORG),
+						organization(ID_ORG),
+						founded_by(ID_ORG,ID_FOUNDER),
+						literal_of(ID_FOUNDER,FOUNDER),
+						my_print(ORG,' was founded by ',FOUNDER),nl,fail.
+print_founder(_).
+
+% when born 
+print_when_born(PER):-literal_of(ID_PER,PER),
+						person(ID_PER),
+						date_of_birth(ID_PER,ID_DATE),
+						literal_of(ID_DATE,DATE),
+						my_print(PER,' was born on ',DATE),nl,fail.
+
+print_when_born(PER):-literal_of(ID_PER,PER),
+						\+date_of_birth(ID_PER,ID_DATE_PER),
+						alias(ID_PER,ID_ALIAS),
+						person(ID_ALIAS),
+						date_of_birth(ID_ALIAS,ID_DATE),
+						literal_of(ID_DATE,DATE),
+						literal_of(ID_ALIAS,ALIAS),
+						my_print(ALIAS,' was born on ',DATE),nl,fail.
+
+print_when_born(_). 
+
+% where born
+print_where_born(PER):-literal_of(ID_PER,PER),
+						person(ID_PER),
+						city_of_birth(ID_PER,ID_CITY),
+						literal_of(ID_CITY,CITY),
+						my_print(PER,' was born in ',CITY),nl,fail.
+
+print_where_born(PER):-literal_of(ID_PER,PER),
+						\+city_of_birth(ID_PER,ID_CITY_PER),
+						alias(ID_PER,ID_ALIAS),
+						person(ID_ALIAS),
+						city_of_birth(ID_ALIAS,ID_CITY),
+						literal_of(ID_CITY,CITY),
+						literal_of(ID_ALIAS,ALIAS),
+						my_print(ALIAS,' was born in ',CITY),nl,fail.						
+print_where_born(_).  
+
+
+% information abouth person death,
+
+print_when_dead(PER):- literal_of(ID_PER,PER),
+							person(ID_PER),
+							date_of_death(PER_ID,ID_DATE),
+							literal_of(ID_DATE,DATE),
+							my_print(PER," died in ",DATE),nl,fail.
+
+print_when_dead(PER):- literal_of(ID_PER,PER),
+							\+date_of_death(PER_ID,ID_DATE_PER), % to avoid repeat the print if already found by the defult rule
+							alias(ID_PER,ID_ALIAS),
+							person(ID_ALIAS),
+							date_of_death(ID_ALIAS,ID_DATE),
+							literal_of(ID_DATE,DATE),
+							literal_of(ID_ALIAS,ALIAS),
+							my_print(ALIAS," died in ",DATE),nl,fail.
+
+print_when_dead(_).
+
+print_why_dead(PER):- literal_of(ID_PER,PER),
+							person(ID_PER),
+							cause_of_death(ID_PER,ID_CAUSE),
+							literal_of(ID_CAUSE,CAUSE),
+							my_print(PER," died because of ",CAUSE),nl,fail.
+
+print_why_dead(PER):- literal_of(ID_PER,PER),
+							\+cause_of_death(ID_PER,ID_CAUSE_PER),
+							alias(ID_PER,ID_ALIAS),
+							person(ID_ALIAS),
+							cause_of_death(ID_ALIAS,ID_CAUSE),
+							literal_of(ID_CAUSE,CAUSE),
+							literal_of(ID_ALIAS,ALIAS),
+							my_print(ALIAS," died because of ",CAUSE),nl,fail.
+
+print_why_dead(_).
+
+
+% __________________________________________________  rules to uncover new knowledge _______________________________
 
 
 
@@ -222,68 +305,48 @@ co_residence(PER1,PER2,PLACE) :-
 								resides_in(PER2,PLACE).
 
 
+is_suborbinate(ID_SUB,ID_BOSS,ID_ORG):- organization(ID_ORG),
+										person(ID_SUB),
+										person(ID_BOSS),
+										employee_or_member_of(ID_SUB,ID_ORG),
+										is_top_member_org(ID_BOSS,ID_ORG).
 
-% information abouth the foundetion of an organization
-print_founded_date(ORG) :- literal_of(ID_ORG,ORG),
-					organization(ID_ORG),
-					date_founded(ID_ORG,ID_DATE),
-					literal_of(ID_DATE,DATE),
-					my_print(ORG,'was founded on',DATE),nl,fail.
-
-print_founded_date(ORG) :- alias_of(ORG,ORG_ALIAS),
-					literal_of(ID_ORG,ORG_ALIAS),
-					organization(ID_ORG),
-					date_founded(ID_ORG,ID_DATE),
-					literal_of(ID_DATE,DATE),
-					my_print(ORG,'was founded on',DATE),nl,fail.
-print_founded_date(_).
-
-print_founder(ORG) :- alias_of(ORG,ORG_ALIAS),	
-					literal_of(ID_ORG,ORG_ALIAS),
-					organization(ID_ORG),
-					founded_by(ID_ORG,ID_FOUNDER),
-					literal_of(ID_FOUNDER,FOUNDER),
-					my_print(ORG,'was founded by',FOUNDER),nl,fail.
-
-print_founder(ORG) :- literal_of(ID_ORG,ORG),
-					organization(ID_ORG),
-					founded_by(ID_ORG,ID_FOUNDER),
-					literal_of(ID_FOUNDER,FOUNDER),
-					my_print(ORG,'was founded by',FOUNDER),nl,fail.
-print_founder(_).
-
-% when born 
-print_when_born(PER):-literal_of(ID_PER,PER),
-			person(ID_PER),
-			date_of_birth(ID_PER,ID_DATE),
-			literal_of(ID_DATE,DATE),
-			my_print(PER,'was born on',DATE),nl,fail.
-print_when_born(_). % to avoid failure
-
-% where born, si può fare lo stesso per  country_of_birth stateorprovince_of_birth
-print_where_born(PER):-literal_of(ID_PER,PER),
-			person(ID_PER),
-			city_of_birth(ID_PER,ID_CITY),
-			literal_of(ID_CITY,CITY),
-			my_print(PER,'was born in',CITY),nl,fail.
-print_where_born(_).  % to avoid failure
+%non funziona
+print_is_boss_of(BOSS) :-person(ID_BOSS),
+					literal_of(ID_BOSS,BOSS),
+					literal_of(ID_SUB,SUB),
+					person(ID_SUB),
+					ID_SUB\=ID_BOSS,
+					is_suborbinate(ID_SUB,ID_BOSS,ID_ORG),
+					literal_of(ID_ORG,ORG),
+					format('~w ~s ~w ~s ~w ~n', [BOSS,' is boss of ',SUB,' in this org ',ORG]).
 
 
-% information abouth person death, refine with alias
+coworker(PER1,PER2,ORG) :-
+						literal_of(ID_PER1,PER1),
+						literal_of(ID_PER2,PER2),
+						ID_PER1 \= ID_PER2,
+						person(ID_PER1),
+						person(ID_PER2),
+						work_for(PER1,ORG),
+						work_for(PER2,ORG).
 
-print_when_dead(PER):- literal_of(ID_PER,PER),
-							person(PER),
-							date_of_death(PERSON,DATE),
-							literal_of(ID_DATE,DATE)
-							my_print(PER," died in ",DATE),nl,fail.
-print_when_dead(_).
 
-print_why_dead(PER):- literal_of(ID_PER,PER),
-							person(PER),
-							cause_of_death(PER,CAUSE),
-							literal_of(ID_CAUSE,CAUSE),
-							my_print(PERSON," died because of ",CAUSE),nl,fail.
-print_why_dead(_).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 %loop section
@@ -319,7 +382,7 @@ main_loop:-write('----Persons----'),nl,
 			choose_loop(X),
 			write('Do you want other information? y/n : '),
 			read(R),
-			R\= 'n', %non funge per n su person
+			R\= 'n', 
 			main_loop.
 
 

@@ -122,7 +122,6 @@ schools_attended(205863529,147591561).
 organization(147591561).
 literal_of(147591561,'reed college').
 employee_or_member_of(205863529,63476538).
-date_of_death(205863529,201335805).
 literal_of(201335805,'october 5 , 2011').
 title(205863529,66605).
 title(205863529,208768846).
