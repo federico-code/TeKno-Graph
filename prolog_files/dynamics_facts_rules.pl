@@ -188,7 +188,7 @@ print_live_in(_).
 
 
 
-% information abouth the foundetion of an organization
+% information abouth the creation of an organization
 print_founded_date(ORG) :- literal_of(ID_ORG,ORG),
 						organization(ID_ORG),
 						date_founded(ID_ORG,ID_DATE),
@@ -226,7 +226,7 @@ print_when_born(PER):-literal_of(ID_PER,PER),
 						my_print(PER,' was born on ',DATE),nl,fail.
 
 print_when_born(PER):-literal_of(ID_PER,PER),
-						\+date_of_birth(ID_PER,ID_DATE_PER),
+						\+ date_of_birth(ID_PER,ID_DATE_PER),
 						alias(ID_PER,ID_ALIAS),
 						person(ID_ALIAS),
 						date_of_birth(ID_ALIAS,ID_DATE),
@@ -244,7 +244,7 @@ print_where_born(PER):-literal_of(ID_PER,PER),
 						my_print(PER,' was born in ',CITY),nl,fail.
 
 print_where_born(PER):-literal_of(ID_PER,PER),
-						\+city_of_birth(ID_PER,ID_CITY_PER),
+						\+ city_of_birth(ID_PER,ID_CITY_PER),
 						alias(ID_PER,ID_ALIAS),
 						person(ID_ALIAS),
 						city_of_birth(ID_ALIAS,ID_CITY),
@@ -263,7 +263,7 @@ print_when_dead(PER):- literal_of(ID_PER,PER),
 							my_print(PER," died in ",DATE),nl,fail.
 
 print_when_dead(PER):- literal_of(ID_PER,PER),
-							\+date_of_death(PER_ID,ID_DATE_PER), % to avoid repeat the print if already found by the defult rule
+							\+ date_of_death(PER_ID,ID_DATE_PER), % to avoid repeat the print if already found by the defult rule
 							alias(ID_PER,ID_ALIAS),
 							person(ID_ALIAS),
 							date_of_death(ID_ALIAS,ID_DATE),
@@ -280,7 +280,7 @@ print_why_dead(PER):- literal_of(ID_PER,PER),
 							my_print(PER," died because of ",CAUSE),nl,fail.
 
 print_why_dead(PER):- literal_of(ID_PER,PER),
-							\+cause_of_death(ID_PER,ID_CAUSE_PER),
+							\+ cause_of_death(ID_PER,ID_CAUSE_PER),
 							alias(ID_PER,ID_ALIAS),
 							person(ID_ALIAS),
 							cause_of_death(ID_ALIAS,ID_CAUSE),
@@ -305,19 +305,29 @@ co_residence(PER1,PER2,PLACE) :-
 								resides_in(PER2,PLACE).
 
 
-is_suborbinate(ID_SUB,ID_BOSS,ID_ORG):- organization(ID_ORG),
+is_subordinate(ID_SUB,ID_BOSS,ID_ORG):- organization(ID_ORG),
 										person(ID_SUB),
 										person(ID_BOSS),
+										ID_SUB \= ID_BOSS,
 										employee_or_member_of(ID_SUB,ID_ORG),
 										is_top_member_org(ID_BOSS,ID_ORG).
 
-%non funziona
+
+print_subordinate(SUB,BOSS,ORG) :-is_subordinate(ID_SUB,ID_BOSS,ID_ORG),	
+									literal_of(ID_SUB,SUB),
+									literal_of(ID_BOSS,BOSS),
+									literal_of(ID_ORG,ORG),
+									is_subordinate(ID_SUB,ID_BOSS,ID_ORG),
+									format('~w ~s ~w ~s ~w ~n', [SUB,' works for ',SUB,' in ',ORG]),nl,fail.
+print_subordinate(_,_,_).
+
+% to check
 print_is_boss_of(BOSS) :-person(ID_BOSS),
 					literal_of(ID_BOSS,BOSS),
 					literal_of(ID_SUB,SUB),
 					person(ID_SUB),
 					ID_SUB\=ID_BOSS,
-					is_suborbinate(ID_SUB,ID_BOSS,ID_ORG),
+					is_subordinate(ID_SUB,ID_BOSS,ID_ORG),
 					literal_of(ID_ORG,ORG),
 					format('~w ~s ~w ~s ~w ~n', [BOSS,' is boss of ',SUB,' in this org ',ORG]).
 
@@ -325,24 +335,18 @@ print_is_boss_of(BOSS) :-person(ID_BOSS),
 coworker(PER1,PER2,ORG) :-
 						literal_of(ID_PER1,PER1),
 						literal_of(ID_PER2,PER2),
+						literal_of(ID_ORG,ORG),
 						ID_PER1 \= ID_PER2,
 						person(ID_PER1),
 						person(ID_PER2),
+						organization(ID_ORG),
 						work_for(PER1,ORG),
 						work_for(PER2,ORG).
 
 
-
-
-
-
-
-
-
-
-
-
-
+print_coworker(PER1,PER2,ORG):-	coworker(PER1,PER2,ORG),
+									format('~w ~s ~w ~s ~w ~n', [PER1,' works with ',PER2,' in ',ORG]),nl,fail.
+print_coworker(_,_,_).								
 
 
 
@@ -384,6 +388,6 @@ main_loop:-write('----Persons----'),nl,
 			read(R),
 			R\= 'n', 
 			main_loop.
-
+main_loop. %fake -- repeat
 
 

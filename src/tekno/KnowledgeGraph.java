@@ -96,6 +96,7 @@ public class KnowledgeGraph implements AutoCloseable {
     }
     
     /**
+     * 
      * @return
      */
     public List<Fact> extractFacts() {
@@ -115,8 +116,9 @@ public class KnowledgeGraph implements AutoCloseable {
     }
     
     /**
-     * @param fileName
-     * @param folder
+     *  extracts prolog facts from the current knowledge base stored in the neo4j database.
+     * @param fileName name of the output file where the facts will be stored
+     * @param folder  folder location to which the file will be saved.
      */
     public void extractFacts(String fileName, String folder) {
        	
@@ -186,7 +188,9 @@ public class KnowledgeGraph implements AutoCloseable {
     
     
     /**
-     * @param id
+     * adds a new node to the graph, if not already present. if the node is already present with the isNode method, 
+     * then after establishing a new Session it performs a query to add a new object to the database, with the specified id, name and type.
+     * @param id 
      * @param name
      * @param type
      */
@@ -252,7 +256,9 @@ public class KnowledgeGraph implements AutoCloseable {
 
     
     /**
-     * @param id
+     *   this method checks, with a query, if the node with the id specified in input, 
+     *   is already present in the knowledge base. It returns true if it exists, false otherwise.
+     * @param id id of the node to check 
      * @return
      */
     private Boolean isNode(String id) {
