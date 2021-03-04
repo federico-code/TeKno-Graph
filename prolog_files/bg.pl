@@ -1,212 +1,137 @@
-:-dynamic	gpe_subsidiaries/2.
-:-dynamic	org_alternate_names/2.
-:-dynamic	org_city_of_headquarters/2.
-:-dynamic	org_country_of_headquarters/2.
-:-dynamic	org_date_dissolved/2.
-:-dynamic	org_date_founded/2.
-:-dynamic	org_dissolved/2.
-:-dynamic	org_founded/2.
-:-dynamic	org_founded_by/2.
-:-dynamic	org_member_of/2.
-:-dynamic	org_members/2.
-% :-dynamic	org_number_of_employees/members/2. questo causa problemi per lo / nel nome 
-:-dynamic	org_parents/2.
-% :-dynamic	org_political/religious_affiliation/2. questo causa problemi per lo / nel nome 
-:-dynamic	org_shareholders/2.
-:-dynamic	org_stateorprovince_of_headquarters/2.
-:-dynamic	org_subsidiaries/2.
-% :-dynamic	org_top_members/employees/2. questo causa problemi per lo / nel nome 
-:-dynamic	org_website/2.
-:-dynamic	per_age/2.
-:-dynamic	per_alternate_names/2.
-:-dynamic	per_cause_of_death/2.
-:-dynamic	per_charges/2.
-:-dynamic	per_children/2.
-:-dynamic	per_cities_of_residence/2.
-:-dynamic	per_city_of_birth/2.
-:-dynamic	per_city_of_death/2.
-:-dynamic	per_countries_of_residence/2.
-:-dynamic	per_country_of_birth/2.
-:-dynamic	per_country_of_death/2.
-:-dynamic	per_date_of_birth/2.
-:-dynamic	per_date_of_death/2.
-:-dynamic	per_employee_of/2.
-:-dynamic	per_member_of/2.
-:-dynamic	per_origin/2.
-:-dynamic	per_other_family/2.
-:-dynamic	per_parents/2.
-:-dynamic	per_religion/2.
-:-dynamic	per_schools_attended/2.
-:-dynamic	per_siblings/2.
-:-dynamic	per_spouse/2.
-:-dynamic	per_stateorprovince_of_birth/2.
-:-dynamic	per_stateorprovince_of_death/2.
-:-dynamic	per_stateorprovinces_of_residence/2.
-:-dynamic	per_title/2.
-
-is_a('philanthropist','title').
-is_a('october 28, 1955','date').
-is_a('may 2014','date').
-is_a('1980s','date').
-org_stateorprovince_of_headquarters('dos','ms').
-is_a('ceo','title').
-per_title('william henry gates iii','architect').
-per_title('william henry gates iii','co-founder').
-per_stateorprovince_of_birth('william henry gates iii','washington').
-per_schools_attended('william henry gates iii','bill & melinda gates foundation').
-per_title('william henry gates iii','developer').
-per_title('william henry gates iii','magnate').
-per_alternate_names('william henry gates iii','satya nadella').
-per_employee_or_member_of('william henry gates iii','bill & melinda gates foundation').
-per_city_of_birth('william henry gates iii','seattle').
-per_alternate_names('william henry gates iii','melinda william henry gates iii').
-is_a('william henry gates iii','person').
-per_title('william henry gates iii','ceo').
-per_spouse('william henry gates iii','melinda william henry gates iii').
-per_origin('william henry gates iii','american').
-per_date_of_birth('william henry gates iii','october 28 , 1955').
-per_title('william henry gates iii','chairman').
-per_date_of_birth('william henry gates iii','january 2000').
-per_title('william henry gates iii','philanthropist').
-per_spouse('william henry gates iii','ray ozzie').
-per_employee_or_member_of('william henry gates iii','microsoft corporation').
-org_subsidiaries('microsoft microsoft corporation','danger inc.').
-org_stateorprovince_of_headquarters('microsoft microsoft corporation','washington').
-org_city_of_headquarters('microsoft microsoft corporation','redmond').
-org_country_of_headquarters('microsoft microsoft corporation','united states').
-org_founded_by('microsoft microsoft corporation','william henry gates iii').
-org_parents('microsoft microsoft corporation','nokia').
-org_date_founded('danger inc.',2008).
-org_parents('danger inc.','nokia').
-org_shareholders('danger inc.','microsoft microsoft corporation').
-org_top_members_employees('amazon','jeff bezos').
-org_date_founded('nokia','june 2012').
-is_a('co-founder','title').
-org_alternate_names('bill & melinda gates foundation','microsoft corporation').
-org_date_founded('bill & melinda gates foundation','january 2000').
-org_top_members_employees('bill & melinda gates foundation','melinda william henry gates iii').
-org_date_dissolved('bill & melinda gates foundation','october 28 , 1955').
-org_date_founded('bill & melinda gates foundation','october 28 , 1955').
-org_top_members_employees('bill & melinda gates foundation','william henry gates iii').
-is_a('american','nationality').
-is_a('architect','title').
-per_title('steve ballmer','ceo').
-is_a('magnate','title').
-is_a('1970s','date').
-org_country_of_headquarters('united united states of america of america','united states').
-is_a('one','number').
-per_alternate_names('satya nadella','william henry gates iii').
-per_title('satya nadella','ceo').
-per_employee_or_member_of('satya nadella','microsoft corporation').
-is_a('chairman','title').
-is_a('developer','title').
-per_employee_or_member_of('gates','microsoft corporation').
-per_title('gates','president').
-per_title('gates','chairman').
-per_title('gates','ceo').
-per_title('gates','architect').
-is_a('gates','person').
-is_a('president','title').
-per_employee_or_member_of('paul allen','microsoft corporation').
-per_statesorprovinces_of_residence('paul allen','new mexico').
-per_cities_of_residence('paul allen','albuquerque').
-per_spouse('melinda william henry gates iii','melinda william henry gates iii').
-per_date_of_birth('melinda william henry gates iii','june 2006').
-per_alternate_names('melinda william henry gates iii','william henry gates iii').
-per_cities_of_residence('melinda william henry gates iii','albuquerque').
-per_statesorprovinces_of_residence('melinda william henry gates iii','new mexico').
-per_schools_attended('melinda william henry gates iii','microsoft corporation').
-per_title('melinda william henry gates iii','architect').
-per_employee_or_member_of('melinda william henry gates iii','microsoft corporation').
-per_title('melinda william henry gates iii','ceo').
-per_schools_attended('melinda william henry gates iii','bill & melinda gates foundation').
-per_date_of_birth('melinda william henry gates iii','october 28 , 1955').
-per_title('melinda william henry gates iii','president').
-per_title('melinda william henry gates iii','chairman').
-per_spouse('melinda william henry gates iii','william henry gates iii').
-per_date_of_birth('melinda william henry gates iii','january 2000').
-per_title('jeff bezos','ceo').
-per_title('jeff bezos','founder').
-per_employee_or_member_of('jeff bezos','amazon').
-org_top_members_employees('microsoft corporation','gates').
-org_top_members_employees('microsoft corporation','william henry gates iii').
-org_stateorprovince_of_headquarters('microsoft corporation','new mexico').
-org_city_of_headquarters('microsoft corporation','albuquerque').
-org_date_founded('microsoft corporation','october 28 , 1955').
-org_top_members_employees('microsoft corporation','satya nadella').
-org_date_dissolved('microsoft corporation','october 28 , 1955').
-org_founded_by('microsoft corporation','melinda william henry gates iii').
-org_alternate_names('microsoft corporation','bill & melinda gates foundation').
-is_a('microsoft corporation','organization').
-org_date_founded('microsoft corporation','january 2000').
-org_top_members_employees('microsoft corporation','melinda william henry gates iii').
-
-
-%utility
-	print_person:- is_a(X,'person'),write(X),nl,fail.
-	print_person.
-	my_print(X,TEXT,Y) :- format('~w ~s ~w ~n', [X,TEXT,Y]). 
-
-
-	%if an element has an per_... fact he is a person so we assert the fact is_a person, assert several time the same facts
-	
-	find_person:- per_title(X,_),\+is_a(X,'person'),write(X),assert(is_a(X,'person')) ,nl,fail.% ricorsione
-	
-	find_person:- per_date_of_birth(X,_),\+is_a(X,'person'),write(X),assert(is_a(X,'person')) ,nl,fail.
-
-	find_person:- per_date_of_death(X,_),\+is_a(X,'person'),write(X),assert(is_a(X,'person')) ,nl,fail.
-	find_person.
-
-	
-% to prevent exception when fact are not found :- dynamic dead/1. 
-
-%title of a person
-title_of_person(X) :-is_a(X,'person'),per_title(X,Y),my_print(X,'has the title of',Y),nl,fail.
-title_of_person(_).
-
-%employee of an organization
-organization_employee(X) :- is_a(X,'organization'),is_a(Y,'person'),per_employee_or_member_of(Y,X),my_print(Y,'member of',X),nl,fail.
-rganization_employee(_).
-
-% ---------work for a company----------
-work_for(PERSON,COMPANY) :- per_employee_or_member_of(PERSON,COMPANY).
-work_for(PERSON,COMPANY) :- per_employee_of(PERSON,COMPANY).
-
-% ---------coworker for a company----------
-coworker(X,Y) :- work_for(X,COMPANY), work_for(Y,COMPANY),my_print('',' coworker in',COMPANY).
-
-% if a person is dead
-dead(X):- is_a(X,'person'), per_date_of_death(X,_).
-
-dead(X):- is_a(X,'person'), per_cause_of_death(X,_).
-
-dead(X):- is_a(X,'person'), per_city_of_death(X,_).
- 
-dead(X):- is_a(X,'person'), per_country_of_death(X,_).
-
-
-% ---------information about death of a person----------
-
-%age of a dead person, non funziona per anni in formato date
-age_death(PERSON):- dead(PERSON),per_date_of_birth(PERSON,Y),per_date_of_death(PERSON,Z), R is Z-Y,my_print(PERSON,"is dead at the age of",R). 
-
-%when a person is dead
-when_dead(PERSON):- per_date_of_death(PERSON,DATE), my_print(PERSON," is dead in ",DATE).
-
-%why a person is dead
-why_dead(PERSON):- dead(PERSON),per_cause_of_death(PERSON,DISEASE),my_print(PERSON,"is dead because of",DISEASE).
-
-%say if a person is dead when and why
-is_dead(PERSON):- dead(PERSON),when_dead(PERSON),why_dead(PERSON).
-
-
-% ---------information about birth of a person----------
-
-birth(PERSON) :- per_date_of_birth(PERSON,DATE), my_print(PERSON,"was born on ",DATE).
-birth(PERSON) :- per_country_of_birth(PERSON,COUNTRY), my_print(PERSON,"was born in",COUNTRY).
-birth(PERSON) :- per_city_of_birth(PERSON,CITY), my_print(PERSON,"was born in",CITY).
-birth(PERSON) :- per_stateorprovince_of_birth(PERSON,PROVINCE), my_print(PERSON,"was born in the province of",PROVINCE).
-birth(PERSON) :- pr_date_of_birth(PERSON,DATE),per_country_of_birth(PERSON,COUNTRY), my_print(PERSON,"was born on",DATE),my_print(''," in",COUNTRY).
-
-% ---------bio of a person----------
-bio(X) :- birth(X).
+date_founded(216623144,1537214).
+organization(216623144).
+literal_of(216623144,'bill & melinda gates foundation').
+literal_of(1537214,2000).
+top_members_employees(216623144,140845150).
+person(140845150).
+literal_of(140845150,'melinda gates').
+alias(114966431,33572806).
+literal_of(114966431,'united states').
+literal_of(33572806,'united states of america').
+alias(33572806,114966431).
+title(236642198,231762403).
+person(236642198).
+title(231762403).
+literal_of(236642198,'jeff bezos').
+literal_of(231762403,'chief executive officer').
+employee_or_member_of(236642198,85520932).
+organization(85520932).
+literal_of(85520932,'amazon').
+title(236642198,130665391).
+literal_of(130665391,'founder').
+top_members_employees(236552086,68574440).
+organization(236552086).
+person(68574440).
+literal_of(236552086,'microsoft corporation').
+literal_of(68574440,'gates').
+city_of_headquarters(236552086,3478450).
+literal_of(3478450,'albuquerque').
+stateorprovince_of_headquarters(236552086,218109813).
+literal_of(218109813,'new mexico').
+top_members_employees(236552086,140845150).
+alternate_names(236552086,216623144).
+alias(236552086,30691534).
+organization(30691534).
+literal_of(30691534,'microsoft').
+top_members_employees(236552086,9618427).
+person(9618427).
+literal_of(9618427,'satya nadella').
+title(54140910,66605).
+person(54140910).
+title(66605).
+literal_of(54140910,'steve ballmer').
+literal_of(66605,'ceo').
+alias(30691534,236552086).
+top_members_employees(30691534,140845150).
+alternate_names(143120610,151308357).
+organization(143120610).
+literal_of(143120610,'united united states of america of america').
+literal_of(151308357,'americas').
+country_of_headquarters(143120610,114966431).
+stateorprovince_of_headquarters(67880,2470).
+organization(67880).
+literal_of(67880,'dos').
+literal_of(2470,'ms').
+employee_or_member_of(9618427,236552086).
+title(9618427,231762403).
+alias(66605,231762403).
+title(142440908,205535187).
+person(142440908).
+title(205535187).
+literal_of(142440908,'william henry gates iii').
+literal_of(205535187,'philanthropist').
+title(142440908,204284299).
+literal_of(204284299,'author').
+title(142440908,23871287).
+title(23871287).
+literal_of(23871287,'magnate').
+origin(142440908,151308352).
+nationality(151308352).
+literal_of(151308352,'american').
+title(142440908,187754442).
+title(187754442).
+literal_of(187754442,'developer').
+date_of_birth(142440908,218468342).
+literal_of(218468342,'october 28 , 1955').
+alias(142440908,164761519).
+person(164761519).
+literal_of(164761519,'bill gates').
+alias(231762403,66605).
+stateorprovince_of_headquarters(225605060,66994608).
+organization(225605060).
+literal_of(225605060,'microsoft microsoft corporation').
+literal_of(66994608,'washington').
+subsidiaries(225605060,14137325).
+organization(14137325).
+literal_of(14137325,'danger inc.').
+parents(225605060,75447618).
+organization(75447618).
+literal_of(75447618,'nokia').
+country_of_headquarters(225605060,114966431).
+founded_by(225605060,142440908).
+city_of_headquarters(225605060,63757001).
+literal_of(63757001,'redmond').
+shareholders(14137325,225605060).
+parents(14137325,75447618).
+date_founded(14137325,1537222).
+literal_of(1537222,2008).
+cities_of_residence(140845150,3478450).
+title(140845150,208768846).
+title(208768846).
+literal_of(208768846,'co-founder').
+employee_or_member_of(140845150,216623144).
+spouse(140845150,140845150).
+title(140845150,66605).
+title(140845150,231762403).
+title(140845150,213048309).
+title(213048309).
+literal_of(213048309,'architect').
+statesorprovinces_of_residence(140845150,218109813).
+city_of_birth(140845150,143397032).
+literal_of(143397032,'seattle').
+stateorprovince_of_birth(140845150,66994608).
+title(140845150,85957749).
+title(85957749).
+literal_of(85957749,'chairman').
+title(140845150,155180480).
+title(155180480).
+literal_of(155180480,'president').
+employee_or_member_of(140845150,236552086).
+other_family(140845150,140845150).
+top_members_employees(85520932,236642198).
+title(164761519,205535187).
+title(164761519,23871287).
+alias(164761519,142440908).
+date_founded(75447618,248703453).
+literal_of(248703453,'june 2012').
+title(68574440,213048309).
+title(68574440,155180480).
+title(68574440,85957749).
+employee_or_member_of(68574440,236552086).
+title(68574440,66605).
+cities_of_residence(172863538,3478450).
+person(172863538).
+literal_of(172863538,'paul allen').
+statesorprovinces_of_residence(172863538,218109813).
+employee_or_member_of(172863538,236552086).
+:- ensure_loaded('\\dynamics_facts_rules.pl').

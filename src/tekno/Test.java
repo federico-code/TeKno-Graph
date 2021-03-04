@@ -13,7 +13,7 @@ public class Test {
         	hlp.generateGraphDB(kg);
     	}
     	
-    	kg.extractFacts("ID", "prolog_files");
+    	kg.extractFacts("bg_no_wiki", "prolog_files");
     	kg.close();
     	
     }

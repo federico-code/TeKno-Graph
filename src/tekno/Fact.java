@@ -3,6 +3,10 @@ package tekno;
 import java.util.Arrays;
 
 
+/**
+ * 
+ *
+ */
 public class Fact {
 	private String predicate;
 	private String[] atoms;
@@ -13,6 +17,10 @@ public class Fact {
 		this.atoms = null;
 	}	
 	
+	/**
+	 * @param predicate
+	 * @param atoms
+	 */
 	public Fact(String predicate, String[] atoms) {
 		super();
 		this.predicate = predicate;
@@ -63,7 +71,7 @@ public class Fact {
 	}
 	
 	
-	public static boolean isNumeric(String strNum) {
+	private static boolean isNumeric(String strNum) {
 	    if (strNum == null) {
 	        return false;
 	    }
