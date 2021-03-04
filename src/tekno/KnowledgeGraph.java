@@ -149,7 +149,7 @@ public class KnowledgeGraph implements AutoCloseable {
     public void addNode(String id, String name, String type) {
         if (!this.isNode(id)) {
             try (Session session = this.driverNeo4j.session()) {
-                String cypherQuery = "CREATE (n: n_" + id + " {id: '" + id + "'," + "name: '" + name + "'," +"type: '" + type + "'" + " })";
+                String cypherQuery = "CREATE (n: n_" + id + " {id: '" + id + "'," + "name: '" + name.replace("'", "") + "'," +"type: '" + type + "'" + " })";
                 session.run(cypherQuery);
             }
         }
@@ -170,7 +170,7 @@ public class KnowledgeGraph implements AutoCloseable {
     public String getNodeId(String name) {
         String id = null;
     	try (Session session = this.driverNeo4j.session()) {
-            String cypherQuery = "MATCH (n {name: '"+name+"'}) RETURN n";
+            String cypherQuery = "MATCH (n {name: '"+name.replace("'", "")+"'}) RETURN n";
             Result result = session.run(cypherQuery);
             while(result.hasNext())
             	id = result.next().get(0).get("id").asString();
