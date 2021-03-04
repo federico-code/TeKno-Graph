@@ -335,7 +335,10 @@ public class HighLevelParsing {
 			
 		});
 		this.ner.forEach((k, t) -> {
+			System.out.println(k + " " + t);
 			String id = knowledge_graph.getNodeId(k.toLowerCase());
+			System.out.println(k + " match " + id);
+
 			if(id != null)
 				knowledge_graph.addNodeProperty(id, t.toLowerCase());
 		});

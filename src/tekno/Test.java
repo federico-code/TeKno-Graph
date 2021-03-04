@@ -9,11 +9,11 @@ public class Test {
     	HighLevelParsing hlp = new HighLevelParsing();
     	if(kg.resetGraph()) {
     		hlp.readFile("./source_files/bg.txt");
-        	hlp.executeTeKnoPipeline();
+        	hlp.executeTeKnoPipeline(false);
         	hlp.generateGraphDB(kg);
     	}
     	
-    	kg.extractFacts("bg_no_wiki", "prolog_files");
+    	kg.extractFacts("prova", "prolog_files");
     	kg.close();
     	
     }

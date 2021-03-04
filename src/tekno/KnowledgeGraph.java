@@ -108,7 +108,7 @@ public class KnowledgeGraph implements AutoCloseable {
 	        while(result.hasNext()) {
 	        
 	        	  Record record = result.next();
-	        	  String[] atoms = {record.get(1).get("id").asString(), record.get(2).get("id").asString() };
+	        	  String[] atoms = {Long.toString(record.get(1).asNode().id()), Long.toString(record.get(2).asNode().id()) };
 	        	  facts.add(new Fact(record.get(0).get("type").asString(), atoms));
 	        }
         }
@@ -133,48 +133,47 @@ public class KnowledgeGraph implements AutoCloseable {
         	f.createNewFile();
         	System.out.println("path file: "+ f.getAbsolutePath());
         	writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(f), "utf-8"));
-            
+
 	        while(result.hasNext()) {
 	        
 	        	  Record record = result.next();	        	  
-	        	  
-	          	  writer.write(new Fact(record.get(0).get("type").asString(), new String[] {record.get(1).get("id").asString(), record.get(2).get("id").asString() }).prologFacts());
-	          	  writer.write("\n");
-	          	  
-	          	  if(!record.get(1).get("type").asString().contentEquals("o")) {			        	
-	     		      if(!literal_inserted.contains(record.get(1).get("type").asString()+"_"+record.get(1).get("id").asString())) {
-		        		  literal_inserted.add(record.get(1).get("type").asString()+"_"+record.get(1).get("id").asString());
 
-			          	  writer.write(new Fact(record.get(1).get("type").asString(), new String[] {record.get(1).get("id").asString()}).prologFacts());
+	          	  writer.write(new Fact(record.get(0).get("type").asString(), new String[] {Long.toString(record.get(1).asNode().id()), Long.toString(record.get(2).asNode().id()) }).prologFacts());
+	          	  writer.write("\n");
+	          	  if(!record.get(1).get("type").asString().contentEquals("o")) {			        	
+	     		      if(!literal_inserted.contains(record.get(1).get("type").asString()+"_"+Long.toString(record.get(1).asNode().id()))) {
+		        		  literal_inserted.add(record.get(1).get("type").asString()+"_"+Long.toString(record.get(1).asNode().id()));
+
+			          	  writer.write(new Fact(record.get(1).get("type").asString(), new String[] {Long.toString(record.get(1).asNode().id())}).prologFacts());
 			          	  writer.write("\n");	    	  
 	     		      }
 
 	          	  }
 	          	  
 	          	  if(!record.get(2).get("type").asString().contentEquals("o")) {
-	     		      if(!literal_inserted.contains(record.get(2).get("type").asString()+"_"+record.get(2).get("id").asString())) {
-		        		  literal_inserted.add(record.get(2).get("type").asString()+"_"+record.get(2).get("id").asString());
+	     		      if(!literal_inserted.contains(record.get(2).get("type").asString()+"_"+Long.toString(record.get(2).asNode().id()))) {
+		        		  literal_inserted.add(record.get(2).get("type").asString()+"_"+Long.toString(record.get(2).asNode().id()));
 	     		      
-			          	  writer.write(new Fact(record.get(2).get("type").asString(), new String[] {record.get(2).get("id").asString()}).prologFacts());
+			          	  writer.write(new Fact(record.get(2).get("type").asString(), new String[] {Long.toString(record.get(2).asNode().id())}).prologFacts());
 			          	  writer.write("\n");	  
 	     		      }
 	          	  }
 	          	  
 
-	        	  if(!literal_inserted.contains(record.get(1).get("id").asString())) {
-	        		  literal_inserted.add(record.get(1).get("id").asString());
-		        	  writer.write( new Fact("literal_of", new String[] {record.get(1).get("id").asString(), record.get(1).get("name").asString()}).prologFacts());
+	        	  if(!literal_inserted.contains(Long.toString(record.get(1).asNode().id()))) {
+	        		  literal_inserted.add(Long.toString(record.get(1).asNode().id()));
+		        	  writer.write( new Fact("name", new String[] {Long.toString(record.get(1).asNode().id()), record.get(1).get("name").asString()}).prologFacts());
 		          	  writer.write("\n");
 	        	  }
 
-	        	  if(!literal_inserted.contains(record.get(2).get("id").asString())) {
-	        		  literal_inserted.add(record.get(2).get("id").asString());
-		        	  writer.write( new Fact("name", new String[] {record.get(2).get("id").asString(), record.get(2).get("name").asString() }).prologFacts());
+	        	  if(!literal_inserted.contains(Long.toString(record.get(2).asNode().id()))) {
+	        		  literal_inserted.add(Long.toString(record.get(2).asNode().id()));
+		        	  writer.write( new Fact("name", new String[] {Long.toString(record.get(2).asNode().id()), record.get(2).get("name").asString() }).prologFacts());
 		          	  writer.write("\n");
 	        	  }
 	        }
 	        
-	        writer.write(":- ensure_loaded('\\\\dynamics_facts_rules.pl').\n");
+	       // writer.write(":- ensure_loaded('\\\\dynamics_facts_rules.pl').\n");
         
     	} catch (Exception e) {
 			System.err.println(e.getMessage());
@@ -197,7 +196,7 @@ public class KnowledgeGraph implements AutoCloseable {
     public void addNode(String id, String name, String type) {
         if (!this.isNode(id)) {
             try (Session session = this.driverNeo4j.session()) {
-                String cypherQuery = "CREATE (n: n_" + id + " {id: '" + id + "'," + "name: '" + name.replace("'", "") + "'," +"type: '" + type + "'" + " })";
+                String cypherQuery = "CREATE (n: " + type + " {id: '" + id + "'," + "name: '" + name.replace("'", "") + "'," +"type: '" + type + "'" + " })";
                 session.run(cypherQuery);
             }
         }
@@ -213,6 +212,9 @@ public class KnowledgeGraph implements AutoCloseable {
             try (Session session = this.driverNeo4j.session()) {
                 String cypherQuery = "MATCH (n {id: '"+id+"'}) SET n.type = '"+type+"' 	RETURN n.type";
                 session.run(cypherQuery);
+                cypherQuery = "MATCH (n {id: '"+id+"'}) foreach(l in labels(n) | remove n:l) SET n:"+type+"	RETURN n.type";
+                session.run(cypherQuery);
+                
             }
         }
     
