@@ -169,7 +169,7 @@ public class KnowledgeGraph implements AutoCloseable {
 
 	        	  if(!literal_inserted.contains(record.get(2).get("id").asString())) {
 	        		  literal_inserted.add(record.get(2).get("id").asString());
-		        	  writer.write( new Fact("literal_of", new String[] {record.get(2).get("id").asString(), record.get(2).get("name").asString() }).prologFacts());
+		        	  writer.write( new Fact("name", new String[] {record.get(2).get("id").asString(), record.get(2).get("name").asString() }).prologFacts());
 		          	  writer.write("\n");
 	        	  }
 	        }
