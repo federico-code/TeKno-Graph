@@ -22,7 +22,7 @@ public class XMLtoKnowledgeGraph {
 		
     	if(xml_file.canRead())
     	{
-    		System.out.println("file found");
+    		System.out.println("Creating Graph from XML file");
 	    	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	        DocumentBuilder dBuilder;
 			try {
@@ -33,10 +33,13 @@ public class XMLtoKnowledgeGraph {
 		        NodeList edges = doc.getDocumentElement().getElementsByTagName("edge");
 		        addNode(nodes, kg);
 		        addEdge(edges, kg);
+	    		System.out.println("Done");
+
 			} catch (ParserConfigurationException  | SAXException | IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
     	}
 
 	}
@@ -46,7 +49,7 @@ public class XMLtoKnowledgeGraph {
 	    	int len = nodeList.getLength();
 	    	System.out.println("adding edges");
 	        for (int count = 0; count < nodeList.getLength(); count++) {
-	        System.out.print(""+(count+1)+"/"+len+"\r");
+	        //System.out.print(""+(count+1)+"/"+len+"\r");
 	
 	        Node tempNode = nodeList.item(count);
 	
@@ -68,7 +71,7 @@ public class XMLtoKnowledgeGraph {
 	    	System.out.println("adding nodes");
 	
 	        for (int count = 0; count < len ; count++) {
-	        	System.out.print(""+(count+1)+"/"+len+"\r");
+	        	//System.out.print(""+(count+1)+"/"+len+"\r");
 	        	Node tempNode = nodeList.item(count);
 	        	NamedNodeMap nodeMap = tempNode.getAttributes();
 	        	String id = nodeMap.item(0).getNodeValue();

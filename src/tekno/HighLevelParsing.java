@@ -256,7 +256,8 @@ public class HighLevelParsing {
 	
 	
 	
-	public void generateGraphXML (String folder, String file_name) {
+	public void generateGraphXML ( String file) {
+		System.out.println("Generating XML file from Graph");
 		try {
 			DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
@@ -298,7 +299,7 @@ public class HighLevelParsing {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
 			DOMSource domSource = new DOMSource(document);
-			StreamResult streamResult = new StreamResult(new File(folder+"/"+file_name));
+			StreamResult streamResult = new StreamResult(new File(file));
 			transformer.transform(domSource, streamResult);
 
 			System.out.println("Done creating XML File");
