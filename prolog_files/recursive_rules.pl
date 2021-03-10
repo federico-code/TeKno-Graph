@@ -73,15 +73,17 @@
 :-dynamic	cause_of_death/1.
 :-dynamic	alias/2.
 :-dynamic	n_person/2.
+:-dynamic alias_list/2.
 
 
 
 :- dynamic person_titles/2.
 
 % utility
-		
+		bi_alias(ID1,ID2) :- alias(ID1,ID2).
+		bi_alias(ID1,ID2) :- alias(ID2,ID1).
 
-		alias_of(LIT_X,LIT_Y) :- name(X,LIT_X),name(Y,LIT_Y),alias(X,Y).
+		alias_of(LIT_X,LIT_Y) :- name(X,LIT_X),name(Y,LIT_Y),bi_alias(X,Y).
 
 		person_lit(PER):- person(X), name(X,PER).
 
@@ -93,16 +95,10 @@
 
 		my_print(X,TEXT,Y) :- format('~w ~s ~w ~n', [X,TEXT,Y]).
 
-	
 
 		
-		print_alias(LIT_X) :- alias_of(LIT_X,LIT_Y),
-								LIT_X\=LIT_Y ,
-								my_print(LIT_X,' it is also called ',LIT_Y),nl,fail.
-		print_alias(_).
 
-
-	% list utility person_titles([130665391,85957749], 236642198)
+	% list utility
 	
 		member(X,[X|_]) :- !.
 		member(X,[_|T]) :- member(X,T).
@@ -124,8 +120,8 @@
 
 		print_list([]).
 		print_list([ITEM|TAIL]):- name(ITEM,STR),
-							write(STR),nl,
-							print_list(TAIL).
+									write(STR),nl,
+									print_list(TAIL).
 
 
 
@@ -149,6 +145,20 @@
 
 	print_organization :-organization_list(LIST), print_list(LIST).
 
+%__________________________ alias list ___________________________________ alias_list(LIST,ID_ELEM)
+
+
+	create_alias_list(ELEM) :-	name(ID_ELEM,ELEM),
+									findall(ID_ALIAS, alias(ID_ELEM,ID_ALIAS), LIST),
+									\+alias_list(LIST,ID_ALIAS),
+									asserta(alias_list(LIST,ID_ALIAS)).
+	create_alias_list(_).								
+
+	print_alias(ELEM):- name(ID_ELEM,ELEM),
+						alias_list(LIST,ID_ELEM),
+						format('------ ~s ~w ------ ~n', ['alias of',ELEM]),
+						print_list(LIST).
+
 
 
 % _________________________________titles_____________________________________________ person_titles(LIST, ID_PER)
@@ -156,66 +166,100 @@
 		% create the list of title of person
 
 
-		create_title_list_person :- forall(person(ID_PER),create_title_person(ID_PER)).
-
+		create_title_list_person([]).
+		create_title_list_person([H|T]) :- create_title_person(H),create_title_list_person(T).
 
 		create_title_person(ID_PER):- findall(ID_TITLE, title(ID_PER,ID_TITLE),LIST),
-												assertz(person_titles(LIST,ID_PER)),
-												name(ID_PER,PER),
-												write(PER),nl.
+												assertz(person_titles(LIST,ID_PER)).
 			
 		add_title(person_titles(LIST,ID_PER),TITLE):-append_item(LIST,[TITLE],NEWLIST),
 															retract(person_titles(LIST,ID_PER)),
-															assertz(person_titles(NEWLIST,ID_PER)).
+															asserta(person_titles(NEWLIST,ID_PER)).
+
+		 % given a name and his alias, update the two list 												
+		update_title_alias(PER,ALIAS) :- name(ID_PER,PER),
+											name(ID_ALIAS,ALIAS),
+											alias(ID_PER,ID_ALIAS),
+											person_titles(LIST1,ID_PER),
+											person_titles(LIST2,ID_ALIAS),
+											merge_list(LIST1,LIST2,D_LIST),
+											set(D_LIST,NEW_LIST),
+											retract(person_titles(LIST1,ID_PER)),
+											retract(person_titles(LIST2,ID_ALIAS)),
+											asserta(person_titles(NEW_LIST,ID_PER)),
+											asserta(person_titles(NEW_LIST,ID_ALIAS)).
+
+		update_title_alias_list([],_).									
+		update_title_alias_list([ID_ALIAS|T],ID_PER) :- name(ID_PER,PER),
+														name(ID_ALIAS,ALIAS),
+														update_title_alias(PER,ALIAS),
+														update_title_alias_list(T,ID_PER).
 
 
-		update_title_list_alias(PER,ALIAS) :- name(ID_PER,PER),
-												name(ID_ALIAS,ALIAS),
-												alias(ID_PER,ID_ALIAS),
-												person_titles(LIST1,ID_PER),
-												person_titles(LIST2,ID_ALIAS),
-												merge_list(LIST1,LIST2,D_LIST),
-												set(D_LIST,NEW_LIST),
-												retract(person_titles(LIST1,ID_PER)),
-												retract(person_titles(LIST2,ID_ALIAS)),
-												assertz(person_titles(NEW_LIST,ID_PER)),
-												assertz(person_titles(NEW_LIST,ID_ALIAS)).
+		main_title_alias(PER):- name(ID_PER,PER),
+								alias_list(LIST,ID_PER),
+								update_title_alias_list(LIST,ID_PER).
+		
+		% print of the list of titles of a person given the name 
 
 
-
-				% print of the list of titles of a person given the name 
-
-
-				print_titles(PER) :- 	name(ID_PER,PER),
-										person_titles(LIST,ID_PER),
-										print_list(LIST).
+		print_titles(PER) :- 	name(ID_PER,PER),
+								person_titles(LIST,ID_PER),
+								format('------ ~s ~w ------ ~n', ['titles of',PER]),
+								print_list(LIST).
 
 
 % _________________________________employee_____________________________________________ org_employees(LIST,ID_ORG)
 
 
-	create_employees_list_org :- forall(organization(ID_ORG),create_employees_org(ID_ORG)).
+			create_employees_list_org([]).
+			create_employees_list_org([H|T]) :-create_employees_org(H), create_employees_list_org(T).
 
-	create_employees_org(ID_ORG):- findall(ID_PER, employee_or_member_of(ID_PER,ID_ORG),LIST),
-												assertz(org_employees(LIST,ID_ORG)),
-												name(ID_ORG,ORG),
-												write(ORG),nl.
+			
 
-	update_employee_list_alias(ORG,ALIAS) :- name(ID_ORG,ORG),
-												name(ID_ALIAS,ALIAS),
-												alias(ID_ORG,ID_ALIAS),
-												alias(ID_ALIAS,ID_ORG),
-												org_employees(LIST1,ID_ORG),
-												org_employees(LIST2,ID_ALIAS),
-												merge_list(LIST1,LIST2,D_LIST),
-												set(D_LIST,NEW_LIST),
-												retract(org_employees(LIST1,ID_ORG)),
-												retract(org_employees(LIST2,ID_ALIAS)),
-												assertz(org_employees(NEW_LIST,ID_ORG)),
-												assertz(org_employees(NEW_LIST,ID_ALIAS)).
+			create_employees_org(ID_ORG):- findall(ID_PER, work_for(ID_PER,ID_ORG),LIST),
+														set(LIST,SET), % to avoid duplicates with founder and employee
+														assertz(org_employees(SET,ID_ORG)).
+
+			is_top_member_org(ID_PER,ID_ORG):- founded_by(ID_ORG,ID_PER). 
+			is_top_member_org(ID_PER,ID_ORG):- top_members_employees(ID_ORG,ID_PER).
 
 
-	print_employees(ORG) :- 	name(ID_ORG,ORG),
+			work_for(ID_PER,ID_ORG) :- person(ID_PER),organization(ID_ORG), 
+										employee_or_member_of(ID_PER,ID_ORG).
+
+			work_for(ID_PER,ID_ORG) :- person(ID_PER), organization(ID_ORG), 
+										is_top_member_org(ID_PER,ID_ORG).
+
+
+
+			update_employee_alias(ORG,ALIAS) :- name(ID_ORG,ORG),
+														name(ID_ALIAS,ALIAS),
+														alias(ID_ORG,ID_ALIAS),
+														org_employees(LIST1,ID_ORG),
+														org_employees(LIST2,ID_ALIAS),
+														merge_list(LIST1,LIST2,D_LIST),
+														set(D_LIST,NEW_LIST),
+														retract(org_employees(LIST1,ID_ORG)),
+														retract(org_employees(LIST2,ID_ALIAS)),
+														asserta(org_employees(NEW_LIST,ID_ORG)),
+														asserta(org_employees(NEW_LIST,ID_ALIAS)).
+
+
+			update_employee_list_alias([],_).									
+			update_employee_list_alias([ID_ALIAS|T],ID_ORG) :- name(ID_ORG,ORG),
+															name(ID_ALIAS,ALIAS),
+															update_employee_alias(ORG,ALIAS),
+															update_employee_list_alias(T,ID_ORG).
+
+
+			main_org_alias(ORG):- name(ID_ORG,ORG),
+									alias_list(LIST,ID_ORG),
+									update_employee_list_alias(LIST,ID_ORG).
+
+
+
+			print_employees(ORG) :-	name(ID_ORG,ORG),
 										org_employees(LIST,ID_ORG),
 										print_list(LIST).
 
@@ -233,15 +277,23 @@
 
 
 
+%__________  residence of a person residence_per(SET,ID_PER)
+
+			create_residence_list_per([]).
+			create_residence_list_per([H|T]) :-create_residence_per(H), create_residence_list_per(T).
+
+			create_residence_per(ID_PER):- findall(PLACE, residence_per(ID_PER,PLACE),LIST),
+														set(LIST,SET), % to avoid duplicates
+														assertz(residence_per(SET,ID_PER)).
 
 
+			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),cities_of_residence(ID_PER,ID_PLACE).
+			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),countries_of_residence(ID_PER,ID_PLACE).
+			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),stateorprovinces_of_residence(ID_PER,ID_PLACE).
 
-
-
-
-%__________  residence of a person
-
-
+			print_residence(PER) :-	name(ID_PER,PER),
+									residence_per(LIST,ID_PER),
+									print_list(LIST).
 
 % ___________________ print_founder
 
@@ -249,4 +301,48 @@
 
 
 
- create_list :- create_list_person, create_list_organization, create_employees_list_org, create_title_list_person.
+ create_list :- create_list_person, create_list_organization,
+ 				person_list(LIST_PER), create_residence_list_per(LIST_PER),create_title_list_person(LIST_PER),
+ 				organization_list(LIST_ORG), create_employees_list_org(LIST_ORG).
+
+
+
+
+
+%loop section
+
+			info_per(PER):- create_alias_list(PER),
+								print_alias(PER),
+								main_title_alias(PER),
+								print_titles(PER),!.
+
+			info_org(ORG):- create_alias_list(ORG),
+								print_alias(ORG),
+								main_org_alias(ORG),
+								print_employees(ORG),!.
+
+
+			choose_loop(CHOOSE):-name(ID_ORG,CHOOSE),organization(ID_ORG),info_org(CHOOSE).
+
+			choose_loop(CHOOSE):-name(ID_PER,CHOOSE),person(ID_PER),info_per(CHOOSE).
+
+
+ main_loop:- 
+ 			create_list,
+ 			repeat,
+ 			write('----Persons----'),nl,
+			print_person,
+			write('----Organizations----'),nl,
+			print_organization,
+			write('write the name between single apices: '),
+			read(X),
+			write('\33\[2J'),
+			format(' --------------- ~s ~w -------------- ~n', ['information about',X]),
+			choose_loop(X),
+			write('Do you want other information? y/n : '),
+			read(R),
+			(R = 'n', !
+			   ;
+			   fail
+			  ).
+
