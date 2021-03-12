@@ -147,12 +147,15 @@
 
 %__________________________ alias list ___________________________________ alias_list(LIST,ID_ELEM)
 
+	
 
-	create_alias_list(ELEM) :-	name(ID_ELEM,ELEM),
+
+	create_alias_list(ELEM) :-		\+alias_list(LIST,ID_ALIAS),
+									name(ID_ELEM,ELEM),
 									findall(ID_ALIAS, alias(ID_ELEM,ID_ALIAS), LIST),
-									\+alias_list(LIST,ID_ALIAS),
-									asserta(alias_list(LIST,ID_ALIAS)).
-	create_alias_list(_).								
+									asserta(alias_list(LIST,ID_ALIAS)),!.							
+	create_alias_list(ELEM).
+
 
 	print_alias(ELEM):- name(ID_ELEM,ELEM),
 						alias_list(LIST,ID_ELEM),
@@ -217,19 +220,17 @@
 
 			
 
-			create_employees_org(ID_ORG):- findall(ID_PER, work_for(ID_PER,ID_ORG),LIST),
+			create_employees_org(ID_ORG):- findall(ID_PER, employee_or_member_of(ID_PER,ID_ORG),LIST),
 														set(LIST,SET), % to avoid duplicates with founder and employee
 														assertz(org_employees(SET,ID_ORG)).
 
-			is_top_member_org(ID_PER,ID_ORG):- founded_by(ID_ORG,ID_PER). 
-			is_top_member_org(ID_PER,ID_ORG):- top_members_employees(ID_ORG,ID_PER).
+			%is_top_member_org(ID_PER,ID_ORG):- founded_by(ID_ORG,ID_PER),!. 
+			%is_top_member_org(ID_PER,ID_ORG):- top_members_employees(ID_ORG,ID_PER),!.
 
 
-			work_for(ID_PER,ID_ORG) :- person(ID_PER),organization(ID_ORG), 
-										employee_or_member_of(ID_PER,ID_ORG).
+			%work_for(ID_PER,ID_ORG) :- person(ID_PER),organization(ID_ORG),employee_or_member_of(ID_PER,ID_ORG).
 
-			work_for(ID_PER,ID_ORG) :- person(ID_PER), organization(ID_ORG), 
-										is_top_member_org(ID_PER,ID_ORG).
+			%work_for(ID_PER,ID_ORG) :- person(ID_PER), organization(ID_ORG),is_top_member_org(ID_PER,ID_ORG).
 
 
 
@@ -278,7 +279,8 @@
 
 
 %__________  residence of a person residence_per(SET,ID_PER)
-
+			
+			% giving the list of person
 			create_residence_list_per([]).
 			create_residence_list_per([H|T]) :-create_residence_per(H), create_residence_list_per(T).
 
@@ -287,9 +289,9 @@
 														assertz(residence_per(SET,ID_PER)).
 
 
-			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),cities_of_residence(ID_PER,ID_PLACE).
-			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),countries_of_residence(ID_PER,ID_PLACE).
-			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),stateorprovinces_of_residence(ID_PER,ID_PLACE).
+			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),cities_of_residence(ID_PER,ID_PLACE),!.
+			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),countries_of_residence(ID_PER,ID_PLACE),!.
+			residence_per(ID_PER,ID_PLACE) :-person(ID_PER),stateorprovinces_of_residence(ID_PER,ID_PLACE),!.
 
 			print_residence(PER) :-	name(ID_PER,PER),
 									residence_per(LIST,ID_PER),
@@ -301,9 +303,13 @@
 
 
 
- create_list :- create_list_person, create_list_organization,
- 				person_list(LIST_PER), create_residence_list_per(LIST_PER),create_title_list_person(LIST_PER),
- 				organization_list(LIST_ORG), create_employees_list_org(LIST_ORG).
+ create_list :- create_list_person,
+ 				create_list_organization,
+ 				person_list(LIST_PER),
+ 				create_residence_list_per(LIST_PER),
+ 				create_title_list_person(LIST_PER),
+ 				organization_list(LIST_ORG),
+ 				create_employees_list_org(LIST_ORG),!. 
 
 
 
@@ -313,13 +319,13 @@
 
 			info_per(PER):- create_alias_list(PER),
 								print_alias(PER),
-								main_title_alias(PER),
-								print_titles(PER),!.
+								%main_title_alias(PER),
+								print_titles(PER).
 
 			info_org(ORG):- create_alias_list(ORG),
 								print_alias(ORG),
 								main_org_alias(ORG),
-								print_employees(ORG),!.
+								print_employees(ORG).
 
 
 			choose_loop(CHOOSE):-name(ID_ORG,CHOOSE),organization(ID_ORG),info_org(CHOOSE).
@@ -328,8 +334,9 @@
 
 
  main_loop:- 
+ 			write('---- START----'),nl,
  			create_list,
- 			repeat,
+ 			%repeat,
  			write('----Persons----'),nl,
 			print_person,
 			write('----Organizations----'),nl,
@@ -341,8 +348,7 @@
 			choose_loop(X),
 			write('Do you want other information? y/n : '),
 			read(R),
-			(R = 'n', !
-			   ;
-			   fail
-			  ).
+			R\= 'n', 
+			main_loop.
+main_loop. %fake -- repeat
 

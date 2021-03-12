@@ -35,6 +35,7 @@ title(56,71).
 person(56).
 name(56,'steve ballmer').
 alias(57,52).
+alias(52,57).
 name(57,'microsoft').
 organization(57).
 alternate_names(60,42).
