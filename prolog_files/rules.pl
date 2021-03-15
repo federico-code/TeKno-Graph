@@ -155,38 +155,38 @@
 
 % _________________________________titles list_____________________________________________ person_titles(LIST, ID_PER)
 
-		% create the list of title of person
+	% create the list of title of person
 
 
-		list_title_person(PER):- 	name(ID_PER,PER),
-									\+person_titles(LIST,ID_PER),
-									findall(ID_TITLE, title(ID_PER,ID_TITLE),LIST),
-									assertz(person_titles(LIST,ID_PER)).
-			
-		add_title(person_titles(LIST,ID_PER),TITLE):-append_item(LIST,[TITLE],NEWLIST),
-															retract(person_titles(LIST,ID_PER)),
-															asserta(person_titles(NEWLIST,ID_PER)).
+	list_title_person(PER):- name(ID_PER,PER),
+								\+person_titles(LIST,ID_PER),
+								findall(ID_TITLE, title(ID_PER,ID_TITLE),LIST),
+								assertz(person_titles(LIST,ID_PER)).
+		
+	add_title(person_titles(LIST,ID_PER),TITLE):-append_item(LIST,[TITLE],NEWLIST),
+														retract(person_titles(LIST,ID_PER)),
+														asserta(person_titles(NEWLIST,ID_PER)).
 
 
 
-		 % given a name and his alias, update the two list 												
-		update_title_alias(PER,ALIAS) :- name(ID_PER,PER),
-											name(ID_ALIAS,ALIAS),
-											alias(ID_PER,ID_ALIAS),
-											person_titles(LIST1,ID_PER),
-											person_titles(LIST2,ID_ALIAS),
-											merge_list(LIST1,LIST2,D_LIST),
-											set(D_LIST,NEW_LIST),
-											retract(person_titles(LIST1,ID_PER)),
-											retract(person_titles(LIST2,ID_ALIAS)),
-											asserta(person_titles(NEW_LIST,ID_PER)),
-											asserta(person_titles(NEW_LIST,ID_ALIAS)).
+	 % given a name and his alias, update the two list 												
+	update_title_alias(PER,ALIAS) :- name(ID_PER,PER),
+										name(ID_ALIAS,ALIAS),
+										alias(ID_PER,ID_ALIAS),
+										person_titles(LIST1,ID_PER),
+										person_titles(LIST2,ID_ALIAS),
+										merge_list(LIST1,LIST2,D_LIST),
+										set(D_LIST,NEW_LIST),
+										retract(person_titles(LIST1,ID_PER)),
+										retract(person_titles(LIST2,ID_ALIAS)),
+										asserta(person_titles(NEW_LIST,ID_PER)),
+										asserta(person_titles(NEW_LIST,ID_ALIAS)).
 
 
-		print_titles_list(PER) :- 	name(ID_PER,PER),
-									person_titles(LIST,ID_PER),
-									format('------ ~s ~w ------ ~n', ['titles of',PER]),
-									print_list(LIST).
+	print_titles_list(PER) :- 	name(ID_PER,PER),
+								person_titles(LIST,ID_PER),
+								format('------ ~s ~w ------ ~n', ['titles of',PER]),
+								print_list(LIST).
 
 % _________________________________employee_____________________________________________ org_employees(LIST,ID_ORG)
 
@@ -240,7 +240,6 @@ co_residence(PER1,PER2,PLACE) :-
 								person(ID_PER2),
 								resides_in(PER1,PLACE),
 								resides_in(PER2,PLACE).
-
 
 
 
