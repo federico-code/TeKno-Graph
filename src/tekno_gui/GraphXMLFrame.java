@@ -62,6 +62,10 @@ public class GraphXMLFrame extends JFrame {
 	private int label_len = 250;
 	private int text_len = 250;
 	
+	
+	private int label_font_size = 15;
+	private int input_font_size = 15;
+	
 	private JLabel uri;
 	private JTextField t_uri;
 	private JLabel usr;
@@ -92,50 +96,54 @@ public class GraphXMLFrame extends JFrame {
 		f.setVisible(true);
 		
 		uri = new JLabel("Neo4J URI connection"); 
-		uri.setFont(new Font("Arial", Font.PLAIN, 20)); 
+		uri.setFont(new Font("Arial", Font.PLAIN, label_font_size)); 
 		uri.setSize(label_len, 20); 
 		uri.setLocation(label_x_pos, y_start_pos + (y_offset)); 
         f.add(uri); 
   
         t_uri = new JTextField(); 
-        t_uri.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        t_uri.setFont(new Font("Arial", Font.PLAIN, input_font_size)); 
         t_uri.setSize(text_len, 20); 
+        t_uri.setText("bolt://localhost:7687");
+
         t_uri.setLocation(text_x_pos, y_start_pos + (y_offset)); 
         f.add(t_uri); 
         
         usr = new JLabel("neo4J user"); 
-        usr.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        usr.setFont(new Font("Arial", Font.PLAIN, label_font_size)); 
         usr.setSize(label_len, 20); 
         usr.setLocation(label_x_pos, y_start_pos + (y_offset*2)); 
         f.add(usr); 
   
         t_usr = new JTextField(); 
-        t_usr.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        t_usr.setFont(new Font("Arial", Font.PLAIN, input_font_size)); 
         t_usr.setSize(text_len, 20); 
+        t_usr.setText("neo4j");
+
         t_usr.setLocation(text_x_pos, y_start_pos + (y_offset*2)); 
         f.add(t_usr); 
   
         
         pwd = new JLabel("neo4J password"); 
-        pwd.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        pwd.setFont(new Font("Arial", Font.PLAIN, label_font_size)); 
         pwd.setSize(label_len, 20); 
         pwd.setLocation(label_x_pos, y_start_pos + (y_offset*3)); 
         f.add(pwd); 
   
         t_pwd = new JPasswordField(); 
-        t_pwd.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        t_pwd.setFont(new Font("Arial", Font.PLAIN, input_font_size)); 
         t_pwd.setSize(text_len, 20); 
         t_pwd.setLocation(text_x_pos, y_start_pos + (y_offset*3)); 
         f.add(t_pwd); 
         
         file = new JLabel("XML file location"); 
-        file.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        file.setFont(new Font("Arial", Font.PLAIN, label_font_size)); 
         file.setSize(label_len, 20); 
         file.setLocation(label_x_pos, y_start_pos + (y_offset*4)); 
         f.add(file); 
   
         t_file = new JTextField(); 
-        t_file.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        t_file.setFont(new Font("Arial", Font.PLAIN, input_font_size)); 
         t_file.setText("");
         t_file.setSize(text_len, 20); 
         t_file.setLocation(text_x_pos, y_start_pos + (y_offset*4)); 
@@ -179,40 +187,40 @@ public class GraphXMLFrame extends JFrame {
         }); 
         f.add(btn);
         
-        prolog_f = new JLabel("Generate a prolog file?"); 
-        prolog_f.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        prolog_f = new JLabel("<html>Generate a prolog file? </br>(saved into ./prolog_files)</html>"); 
+        prolog_f.setFont(new Font("Arial", Font.PLAIN, label_font_size)); 
         prolog_f.setSize(label_len, 20); 
         prolog_f.setLocation(label_x_pos, y_start_pos + (y_offset *5)); 
         f.add(prolog_f); 
   
         prolog_rb = new JRadioButton("select to choose 'yes'"); 
-        prolog_rb.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        prolog_rb.setFont(new Font("Arial", Font.PLAIN, input_font_size)); 
         prolog_rb.setSelected(true); 
         prolog_rb.setSize(text_len, 20); 
         prolog_rb.setLocation(text_x_pos, y_start_pos + (y_offset *5)); 
         f.add(prolog_rb); 
        
         
-        l_prolog_file = new JLabel("prolog file name"); 
-        l_prolog_file.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        l_prolog_file = new JLabel("<html>prolog file name </br>(no extension)</html>"); 
+        l_prolog_file.setFont(new Font("Arial", Font.PLAIN, label_font_size)); 
         l_prolog_file.setSize(label_len, 20); 
         l_prolog_file.setLocation(label_x_pos, y_start_pos + (y_offset*6)); 
         f.add(l_prolog_file); 
   
         t_prolog_file = new JTextField(); 
-        t_prolog_file.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        t_prolog_file.setFont(new Font("Arial", Font.PLAIN, input_font_size)); 
         t_prolog_file.setSize(text_len, 20); 
         t_prolog_file.setLocation(text_x_pos, y_start_pos + (y_offset*6)); 
         f.add(t_prolog_file); 
         
         l_graph = new JLabel("Reset the graph?"); 
-        l_graph.setFont(new Font("Arial", Font.PLAIN, 20)); 
+        l_graph.setFont(new Font("Arial", Font.PLAIN, label_font_size)); 
         l_graph.setSize(label_len, 20); 
         l_graph.setLocation(label_x_pos, y_start_pos + (y_offset *7)); 
         f.add(l_graph); 
   
         graph_rb = new JRadioButton("select to choose 'yes'"); 
-        graph_rb.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        graph_rb.setFont(new Font("Arial", Font.PLAIN, input_font_size)); 
         graph_rb.setSelected(true); 
         graph_rb.setSize(text_len, 20); 
         graph_rb.setLocation(text_x_pos, y_start_pos + (y_offset *7)); 

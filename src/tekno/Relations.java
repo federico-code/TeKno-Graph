@@ -101,6 +101,7 @@ public class Relations {
 
 	
 	
+
 	public Iterator<Entry<Integer[], String>> edgeIterator() {
 		return this.edges.entrySet().iterator();
 	}

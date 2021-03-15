@@ -176,7 +176,6 @@ public class HighLevelParsing {
         System.out.print("Named Entity Recognition ...");
 
 		List<CoreEntityMention> mentions = this.doc.entityMentions();
-		System.out.println("mentions :"+mentions);
 		if(mentions==null || mentions.isEmpty()) {
 			System.out.print("no entities found.\n");
 			return;
@@ -215,7 +214,9 @@ public class HighLevelParsing {
     	this.namedEntityRecognition();
     	//ner 
     	this.extractRelations();
+
     	this.wikipediaTripleExtraction();
+
 
 	}
 	
@@ -224,7 +225,7 @@ public class HighLevelParsing {
     	this.annotateDocument();
     	this.corefResolution();
     	this.namedEntityRecognition();
-    	//ner 
+
     	this.extractRelations();
     	
     	if(wiki)
@@ -242,7 +243,7 @@ public class HighLevelParsing {
 		exclude_types.add("NUMBER");
 		exclude_types.add("DURATION");
 		this.ner.forEach( (n,t) -> {
-			System.out.println(n + " " + t);
+			System.out.println("wikipedia search for: " + n + " (" + t + ")");
 
 			if(exclude_types.contains(t)) return;
 			String wikiExtract = WikipediaIntegration.getText(n);
