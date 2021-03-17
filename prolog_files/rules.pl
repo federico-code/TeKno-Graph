@@ -149,7 +149,7 @@
 	% create the list of title of person
 
 	list_title_person(PER):- name(ID_PER,PER),
-								\+person_titles(_LIST,_ID_PER),
+								\+person_titles(_LIST,ID_PER),
 								findall(ID_TITLE, title(ID_PER,ID_TITLE),LIST),
 								asserta(person_titles(LIST,ID_PER)).
 
@@ -178,7 +178,7 @@
 			
 
 			list_employees_org(ORG):- name(ID_ORG,ORG),
-										\+org_employees(_LIST,_ID_ORG),		
+										\+org_employees(_LIST,ID_ORG),		
 										setof(ID_PER, work_for(ID_PER,ID_ORG),LIST),
 										assertz(org_employees(LIST,ID_ORG)).
 
@@ -257,10 +257,10 @@ coworker(PER1,PER2,ORG) :-
 %_____________________________ title _______________________________________
 							
 print_title_of_person_main(PER) :-name(X,PER),
-							person(X),
-							title(X,Y),
-							name(Y,TITLE),
-							write(TITLE),nl,fail.
+								person(X),
+								title(X,Y),
+								name(Y,TITLE),
+								write(TITLE),nl,fail.
 
 print_title_of_person_main(PER) :-alias_of(PER,PER_ALIAS),
 							name(X,PER_ALIAS),
@@ -325,7 +325,7 @@ print_when_born(PER):-name(ID_PER,PER),
 						my_print('',' was born on ',DATE),nl,fail.
 
 print_when_born(PER):-name(ID_PER,PER),
-						\+ date_of_birth(_ID_PER,_ID_DATE_PER),
+						\+ date_of_birth(ID_PER,_ID_DATE_PER),
 						alias(ID_PER,ID_ALIAS),
 						person(ID_ALIAS),
 						date_of_birth(ID_ALIAS,ID_DATE),
@@ -345,7 +345,7 @@ print_where_born(PER):-name(ID_PER,PER),
 						my_print('',' was born in ',CITY),nl,fail.
 
 print_where_born(PER):-name(ID_PER,PER),
-						\+ city_of_birth(_ID_PER,_ID_CITY_PER),
+						\+ city_of_birth(ID_PER,_ID_CITY_PER),
 						alias(ID_PER,ID_ALIAS),
 						person(ID_ALIAS),
 						city_of_birth(ID_ALIAS,ID_CITY),
@@ -365,7 +365,7 @@ print_when_dead(PER):- name(ID_PER,PER),
 							my_print(''," died in ",DATE),nl,fail.
 
 print_when_dead(PER):- name(ID_PER,PER),
-							\+ date_of_death(_PER_ID,_ID_DATE_PER), % to avoid repeat the print if already found by the defult rule
+							\+ date_of_death(PER_ID,_ID_DATE_PER), % to avoid repeat the print if already found by the defult rule
 							alias(ID_PER,ID_ALIAS),
 							person(ID_ALIAS),
 							date_of_death(ID_ALIAS,ID_DATE),
@@ -382,7 +382,7 @@ print_why_dead(PER):- name(ID_PER,PER),
 							my_print(''," died because of ",CAUSE),nl,fail.
 
 print_why_dead(PER):- name(ID_PER,PER),
-							\+ cause_of_death(_ID_PER,_ID_CAUSE_PER),
+							\+ cause_of_death(ID_PER,_ID_CAUSE_PER),
 							alias(ID_PER,ID_ALIAS),
 							person(ID_ALIAS),
 							cause_of_death(ID_ALIAS,ID_CAUSE),
