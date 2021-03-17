@@ -11,10 +11,19 @@ import java.io.Writer;
 
 import org.json.*;
 
+/**
+ * This class is concerned with implementing an interface to communicate with the Wikipedia API.
+ *
+ */
 public class WikipediaIntegration {
 	
 	private static  String base_URL = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=";
 
+    /**
+     * this method, researches the String given in input on Wikipedia, by adding it to the base URL attribute. The HTTP request is done with the library Jsoup. This process returns a JSON object from the Wikipedia API; if it contains the attribute “extract” the method returns it, otherwise it returns an empty string.
+     * @param entity the string to be searched on Wikipedia (e.g. "bill gates")
+     * @return the extract of the Wikipedia page correspondig to the input string, empty string if the page is not found
+     */
     public static String getText(String entity){
     	String text="";
     	try {
@@ -30,6 +39,7 @@ public class WikipediaIntegration {
 		return text; 
     }
     
+
 
     public static void getText(String entity, String folder){
     	String text="";
@@ -59,6 +69,7 @@ public class WikipediaIntegration {
 			}
     }
     
+
     public static boolean isSameWiki (String entity1, String entity2) {
     	
     	try {
@@ -82,6 +93,12 @@ public class WikipediaIntegration {
     }
 
     
+    /**
+     * researches the String given in input on Wikipedia, by adding it to the base URL attribute. The HTTP request is done with the library Jsoup. This process returns a JSON object from the Wikipedia API from which the matched page ID (positive integer) is extracted and then returned by the method. If the String doesn’t match any page, it returns a control value of -1.
+     * @param entity the string to be searched on Wikipedia (e.g. "bill gates")
+     * @return matched page ID (positive integer), -1 if nothing is found.
+
+     */
     public static int getWikiID (String entity) {
     	int pageId = -1;
     	try {

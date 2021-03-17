@@ -11,15 +11,13 @@ import java.io.PrintStream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.TitledBorder;
+
 
 import tekno.HighLevelParsing;
 import tekno.KnowledgeGraph;
@@ -172,6 +170,7 @@ public class GraphTextFrame extends JFrame {
 				    	
 				    	try {
 							kg.close();
+							System.out.println("done.");
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

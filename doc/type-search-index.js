@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"tekno","l":"Fact"},{"p":"tekno","l":"HighLevelParsing"},{"p":"tekno","l":"KnowledgeGraph"},{"p":"tekno","l":"Relations"},{"p":"tekno","l":"Test"},{"p":"tekno","l":"WikipediaIntegration"},{"p":"tekno","l":"XMLtoKnowledgeGraph"}]

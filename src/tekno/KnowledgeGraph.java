@@ -15,7 +15,7 @@ import org.neo4j.driver.*;
 import org.neo4j.driver.Record;
 
 /**
- * Takes care of the connection with the Neo4J DBMS, handling data inserts and exports from the graph
+ * This class takes care of the connection with the Neo4J DBMS, handling data inserts and exports from the graph
  *
  */
 public class KnowledgeGraph implements AutoCloseable {
@@ -87,18 +87,14 @@ public class KnowledgeGraph implements AutoCloseable {
     }
  
     /**
-     *  load the graph starting from the xml file
-
+     * load the graph starting from the xml file
      * @param source xml file for the load of the graph
      */
     public void loadGraphFromXML(String source) {
         XMLtoKnowledgeGraph.loadGraphFromXML(source, this);
     }
     
-    /**
-     * 
-     * @return
-     */
+
     public List<Fact> extractFacts() {
     	List<Fact> facts = new LinkedList<Fact>();
 
@@ -116,9 +112,9 @@ public class KnowledgeGraph implements AutoCloseable {
     }
     
     /**
-     *  extracts prolog facts from the current knowledge base stored in the neo4j database.
+     * extracts prolog facts from the current knowledge base stored in the neo4j database.
      * @param fileName name of the output file where the facts will be stored
-     * @param folder  folder location to which the file will be saved.
+     * @param folder folder location to which the file will be saved.
      */
     public void extractFacts(String fileName, String folder) {
        	
@@ -189,9 +185,9 @@ public class KnowledgeGraph implements AutoCloseable {
     /**
      * adds a new node to the graph, if not already present. if the node is already present with the isNode method, 
      * then after establishing a new Session it performs a query to add a new object to the database, with the specified id, name and type.
-     * @param id 
-     * @param name
-     * @param type
+     * @param id id of the node
+     * @param name name of the node 
+     * @param type label or property of the node
      */
     public void addNode(String id, String name, String type) {
         if (!this.isNode(id)) {
@@ -204,8 +200,9 @@ public class KnowledgeGraph implements AutoCloseable {
     
     
     /**
-     * @param id
-     * @param type
+     * this method adds a property to a specified node, after checking it exists with the isNode method
+     * @param id id of the node 
+     * @param type the property to add to the node
      */
     public void addNodeProperty(String id, String type) {
         if (this.isNode(id)) {
@@ -222,8 +219,9 @@ public class KnowledgeGraph implements AutoCloseable {
 
     
     /**
-     * @param name
-     * @return
+     * this method returns the id of a node of which name it is specified in input as a String
+     * @param name the name of the node
+     * @return the id of a node of which name it is specified in input as a String,  null if a node with the specified name does not exist.
      */
     public String getNodeId(String name) {
         String id = null;
@@ -238,9 +236,10 @@ public class KnowledgeGraph implements AutoCloseable {
     
     
     /**
-     * @param id1
-     * @param id2
-     * @param type
+     * this method adds a new edge in the graph between two nodes, specified by id, with the specified type property. First it checks if both nodes exist, then checks if the same edge is not already present. If this condition is satisfied, it runs a query to add the edge to the knowledge base.
+     * @param id1 id of the node from where the edge starts
+     * @param id2 id of the node from where the edge ends
+     * @param type the label of the edge
      */
     public void addEdge(String id1, String id2, String type) {
 
@@ -258,10 +257,10 @@ public class KnowledgeGraph implements AutoCloseable {
 
     
     /**
-     *   this method checks, with a query, if the node with the id specified in input, 
-     *   is already present in the knowledge base. It returns true if it exists, false otherwise.
+     * this method checks, with a query, if the node with the id specified in input, 
+     * is already present in the knowledge base. It returns true if it exists, false otherwise.
      * @param id id of the node to check 
-     * @return
+     * @return true if the node is in the graph, false otherwise
      */
     public Boolean isNode(String id) {
 
@@ -276,10 +275,11 @@ public class KnowledgeGraph implements AutoCloseable {
     }
 
     /**
-     * @param id1
-     * @param id2
-     * @param type
-     * @return
+     * this method checks, with a query, if an edge between two specified nodes with the respective ids specified in input, is already present in the knowledge base.
+     * @param id1 id of the node from where the edge starts
+     * @param id2 id of the node from where the edge ends
+     * @param type the label of the edge
+     * @return true if a connection of the specified type exists, false otherwise.
      */
     public Boolean isEdge(String id1, String id2, String type) {
 
@@ -295,7 +295,8 @@ public class KnowledgeGraph implements AutoCloseable {
 
 
     /**
-     * @return
+     * this method deletes all nodes and edges from the current instance of the knowledge base.
+     * @return true if success, false otherwise
      */
     public Boolean resetGraph() {
     	String cypherQuery = "MATCH (n1) detach delete  n1";
@@ -310,7 +311,7 @@ public class KnowledgeGraph implements AutoCloseable {
     
     
     /**
-     *
+     * this method is used to close the connection with the neo4J database, calling the method close() on the driver private attribute.
      */
     public void close() throws Exception {
         this.driverNeo4j.close();

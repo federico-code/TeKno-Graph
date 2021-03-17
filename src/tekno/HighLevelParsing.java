@@ -3,7 +3,6 @@ package tekno;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,8 +16,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import java.util.LinkedList;
 
 
 import edu.stanford.nlp.coref.CorefCoreAnnotations;
@@ -36,6 +33,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 
+/**
+ * This is the central class in our project. It is concerned with executing the complete pipeline, from reading the input file, to generating the graph (both from the analyzed text or from an XML file).
+ *
+ */
 public class HighLevelParsing {
 	
 
@@ -44,6 +45,10 @@ public class HighLevelParsing {
 	private Map<String, String> ner = new HashMap<String, String>();
 	private Relations rel = new Relations();
 	
+	/**
+	 *  this is the constructor for this class, it initializes the pipeline attribute with the following arguments: tokenize, ssplit, pos, lemma, ner, parse, coref, kbp, entitymentions.
+
+	 */
 	public HighLevelParsing() {
 		String pipeline = "tokenize, ssplit, pos, lemma, ner, parse, coref, kbp, entitymentions";
 		System.out.println("creating pipeline: " + pipeline);
@@ -52,6 +57,10 @@ public class HighLevelParsing {
        	this.setPipeline(props);
 	}
 	
+	/**
+	 * this is another constructor for this class, and initializes the pipeline attribute with the argument passed in input.
+	 * @param annotators a string that specifies which annotators to be used in Stanford NLP pipeline
+	 */
 	public HighLevelParsing(String annotators) {
 	   	Properties props = new Properties();
     	props.setProperty("annotators", annotators);
@@ -59,6 +68,11 @@ public class HighLevelParsing {
 	}
 	
 	
+	/**
+	 * this method, given a file location, analyzes the text in the specified file. If the String source_file is correct, the attribute doc is initialized by creating a new CoreDocument with the text extracted from the file, after some formatting with the method formatString.
+
+	 * @param source_file the location of the file to be read
+	 */
 	public void readFile(String source_file) {
 		System.out.println("Reading file: " + source_file);
 
@@ -81,21 +95,28 @@ public class HighLevelParsing {
 	}
 	
 	
+
 	public Map<String, String> getNer() {
 		return this.ner;
 	}
 	
-	
+
 	public void printDocumentText() {
 		this.doc.sentences().forEach(s-> {System.out.println(s);});
 	}
 	
+
 	public void printRelations() {
 		this.rel.printNodes();
 		this.rel.printEdges();
 	}
 
 
+	/**
+	 * this method allows to do some pre-formatting of the text to analyze. For example it removes special characters like \n or \r.
+	 * @param inStr the string to be formatted
+	 * @return the formatted string
+	 */
 	private String formatString(String inStr) {
 		return inStr.
 				replace("\n", " ").
@@ -113,11 +134,21 @@ public class HighLevelParsing {
 	
 	
 	
+	/**
+	 * this method initializes the pipeline attribute with the input given properties.
+	 * @param props a Property object which should be initialized as such: 
+	 * 	Properties props = new Properties();
+    	props.setProperty("annotators", pipeline);
+	 */
 	public void setPipeline(Properties props) {
 		this.pipeline = new StanfordCoreNLP (props);
 	}
 	
 	
+	/**
+	 * this method is a wrapper for the annotate method of the pipeline attribute. It gets executed on the current document, instantiated into the doc attribute. 
+
+	 */
 	public void annotateDocument () {
         System.out.print("Document annotation ...");
 		this.pipeline.annotate(this.doc);
@@ -125,6 +156,9 @@ public class HighLevelParsing {
 	}
 	
 	
+	/**
+	 * this method searches for the coreference chains in the text, with Stanford’s library method, then, cycling through the tokens in the text, replaces the terms with the alias found in the chain. E.g. in a text about “Bill Gates”, when it references him with a pronoun like “He”, it replaces it with the original name: “He” to “Bill Gates” (if present in a coreference chain). When it is done,  the method replaces the current document (attribute doc) with the new resolved text; finally it re-annotates the new document
+	 */
 	public void corefResolution() {
         System.out.print("Resolving coreferences ...");
 
@@ -172,6 +206,9 @@ public class HighLevelParsing {
 	
 
 	
+	/**
+	 * this method searches for named entities in the text, with the Stanford NLP library method, then puts the results in the ner attribute, as a pair (entity_text, entity_type).
+	 */
 	public void namedEntityRecognition() {
         System.out.print("Named Entity Recognition ...");
 
@@ -188,6 +225,10 @@ public class HighLevelParsing {
 	}
 	
 	
+	/**
+	 * this method extracts SRO triples from the document, adding them into the rel attribute with the method addRelation (Relations class). This creates a graph abstraction, which can be exploited to populate the database.
+
+	 */
 	public void extractRelations() { 
         System.out.print("Extracting relations ...");
 
@@ -197,16 +238,13 @@ public class HighLevelParsing {
 			});
 		});
 		
-//		
-//		this.ner.forEach((e,t)->{
-//			
-//			this.rel.addRelation(e, "is_a", t);
-//		});
+
         System.out.print(" done.\n");
 
 	}
 	
 	
+
 	public void executeTeKnoPipeline() {
 
     	this.annotateDocument();
@@ -220,6 +258,10 @@ public class HighLevelParsing {
 
 	}
 	
+	/**
+	 * this method executes the pipeline, by running the previous methods. It takes a boolean in input which specifies if the program should search for extracts on Wikipedia; this is done because the execution of  the wikipediaTripleExtraction method can take a long time.
+	 * @param wiki boolean value that specifies if the wikipedia search should be used (true) or not (false)
+	 */
 	public void executeTeKnoPipeline(boolean wiki) {
 
     	this.annotateDocument();
@@ -234,6 +276,10 @@ public class HighLevelParsing {
 	}
 	
 	
+	/**
+	 *  this method searches for text extracts on Wikipedia (with the class WikipediaIntegration), about the named entities found in the input text. From this search, some categories are excluded e.g., Date entities, Number entities and so on. For each Wikipedia extract found,  we instantiate the document attribute (doc), annotate it, resolve coreference and finally extract the relations which will be added to the previous found ones.
+
+	 */
 	public void wikipediaTripleExtraction() {
 		List<String> exclude_types = new ArrayList<String>();
 		exclude_types.add("TITLE");
@@ -257,6 +303,10 @@ public class HighLevelParsing {
 	
 	
 	
+	/**
+	 * this method generates an XML file from the database contents, in order to export it.
+	 * @param file where the generated XML file should be saved
+	 */
 	public void generateGraphXML ( String file) {
 		System.out.println("Generating XML file from Graph");
 		try {
@@ -313,6 +363,12 @@ public class HighLevelParsing {
 	}
 	
 	
+	/**
+	 * this method populates the database, starting from the rel attribute; it takes in input a KnowledgeGraph database instance. First, it adds the nodes (with a generic “o” label which symbolizes an object), then adds the edges; if a relation references a person or a organization (starts with “per_” or “org_”) the label of that node is updated from “o” to either “person” or “organization” respectively. 
+The graph is then created, but a final step is done to update all nodes labels with the entity type, if found. 
+
+	 * @param knowledge_graph an active instance of the class KnowledgeGraph
+	 */
 	public void generateGraphDB (KnowledgeGraph knowledge_graph) {	
 		
 		// adding all the nodes of the triples

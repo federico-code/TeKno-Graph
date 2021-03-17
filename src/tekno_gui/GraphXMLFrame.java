@@ -1,7 +1,6 @@
 package tekno_gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,17 +11,13 @@ import java.io.PrintStream;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.border.EmptyBorder;
 
-import tekno.HighLevelParsing;
 import tekno.KnowledgeGraph;
 import tekno.XMLtoKnowledgeGraph;
-import tekno_gui.GraphTextFrame.CustomOutputStream;
 
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
@@ -83,8 +78,7 @@ public class GraphXMLFrame extends JFrame {
 	private JTextField t_prolog_file;
 	private JLabel l_graph;
 	private JRadioButton graph_rb;
-	private JLabel l_wiki;
-	private JRadioButton wiki_rb;
+
 
 	/**
 	 * Create the frame.

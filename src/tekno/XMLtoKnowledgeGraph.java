@@ -13,10 +13,20 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+/**
+ * 
+ *This is a static class which contains some utilities for importing a graph from an XML file to the neo4J database.
+ */
 public class XMLtoKnowledgeGraph {
 
 	
 
+	/**
+	 * this method is used to load a XML formatted graph (the location of the file is given in input with the String source parameter) into the neo4J knowledge graph passed in input. Once the file is loaded, if  found, it instantiates a DocumentBuilder that gives access to methods for reading tags. It then extracts all the “node” and the “edge” tags from the file and loades them into the graph with the addNode and addEdge methods respectively.
+
+	 * @param source the XML file location, containing a graph to be imported
+	 * @param kg a KnowledgeGraph active instance
+	 */
 	public static void loadGraphFromXML (String source, KnowledgeGraph kg) {
 		File xml_file = new File(source);
 		
@@ -45,11 +55,16 @@ public class XMLtoKnowledgeGraph {
 	}
 	
 	
+    /**
+     *  this method takes in input a NodeList (of “edge” XML tags) and a knowledge graph instance. Cycling through the list, it extracts the starting and target node ids and the edge tag, then it inserts them into the database calling the addEdge method.
+
+     * @param nodeList a list containing the edges of the graph (XML nodes) to be imported
+     * @param knowledge_graph a KnowledgeGraph active instance
+     */
     private static  void addEdge(NodeList nodeList, KnowledgeGraph knowledge_graph) {
-	    	int len = nodeList.getLength();
+	    	
 	    	System.out.println("adding edges");
 	        for (int count = 0; count < nodeList.getLength(); count++) {
-	        //System.out.print(""+(count+1)+"/"+len+"\r");
 	
 	        Node tempNode = nodeList.item(count);
 	
@@ -66,6 +81,10 @@ public class XMLtoKnowledgeGraph {
       }
     
     
+    /**
+     * @param nodeList a list containing the nodes of the graph (XML nodes) to be imported
+     * @param knowledge_graph a KnowledgeGraph active instance
+     */
     private static  void addNode(NodeList nodeList, KnowledgeGraph knowledge_graph) {
 	    	int len = nodeList.getLength();
 	    	System.out.println("adding nodes");
