@@ -9,7 +9,7 @@
 :-dynamic	founded_by/2.
 :-dynamic	member_of/2.
 :-dynamic	members/2.
-:-dynamic	top_members_employees/2. % org,person
+:-dynamic	top_members_employees/2.
 :-dynamic	number_of_members/2. 
 :-dynamic	number_of_employees/2.
 :-dynamic	parents/2.
@@ -35,7 +35,7 @@
 :-dynamic	country_of_death/2.
 :-dynamic	date_of_birth/2.
 :-dynamic	date_of_death/2.
-:-dynamic	employee_or_member_of/2. %per,org
+:-dynamic	employee_or_member_of/2.
 :-dynamic	origin/2.
 :-dynamic	other_family/2.
 :-dynamic	parents/2.
@@ -53,11 +53,9 @@
 :-dynamic	organization/1.
 :-dynamic	misc/1.
 :-dynamic	money/1.
-%:-dynamic	number/1.
 :-dynamic	ordinal/1.
 :-dynamic	percent/1.
 :-dynamic	date/1.
-%:-dynamic	time.
 :-dynamic   duration/1.
 :-dynamic	set/1.
 :-dynamic	email/1.
@@ -74,9 +72,6 @@
 :-dynamic	alias/2.
 :-dynamic	n_person/2.
 :-dynamic alias_list/2.
-
-
-
 :- dynamic person_titles/2.
 :- dynamic org_employees/2.
 
@@ -104,9 +99,6 @@
 	
 		member(X,[X|_]) :- !.
 		member(X,[_|T]) :- member(X,T).
-
-
-		%(list,[item],newlist)
 		
 		append_item([],X,X).
 		append_item([H|T1],X,[H|T2]) :- append_item(T1,X,T2).
@@ -114,7 +106,6 @@
 
 		merge_list([],L,L ).
 		merge_list([H|T],L,[H|M]):- merge_list(T,L,M).
-
 
 		set([],[]).
 		set([H|T],[H|Out]) :- not(member(H,T)), set(T,Out).
@@ -157,16 +148,10 @@
 
 	% create the list of title of person
 
-
 	list_title_person(PER):- name(ID_PER,PER),
 								\+person_titles(LIST,ID_PER),
 								findall(ID_TITLE, title(ID_PER,ID_TITLE),LIST),
-								assertz(person_titles(LIST,ID_PER)).
-		
-	add_title(person_titles(LIST,ID_PER),TITLE):-append_item(LIST,[TITLE],NEWLIST),
-														retract(person_titles(LIST,ID_PER)),
-														asserta(person_titles(NEWLIST,ID_PER)).
-
+								asserta(person_titles(LIST,ID_PER)).
 
 
 	 % given a name and his alias, update the two list 												
@@ -267,9 +252,9 @@ coworker(PER1,PER2,ORG) :-
 
 
 
+%_________________________________________________ main function_________________________________
 
-
-%_____________________________ title main_______________________________________
+%_____________________________ title _______________________________________
 							
 print_title_of_person_main(PER) :-name(X,PER),
 							person(X),
@@ -286,7 +271,7 @@ print_title_of_person_main(PER) :-alias_of(PER,PER_ALIAS),
 
 print_title_of_person_main(_).
 
-%_____________________________ organization main_______________________________________
+%_____________________________ organization _______________________________________
 
 print_organization_employee_main(ORG) :-name(ID_ORG,ORG),
 								organization(ID_ORG),
@@ -462,17 +447,11 @@ info_per(PER):-	print_alias(PER),
 				print_when_dead(PER),
 				print_why_dead(PER).
 
-
-
-
-
 info_org(ORG):-	print_alias(ORG),
 					print_founded_date(ORG),
 					print_founder(ORG),
 					write('---- list of employee----'),nl,
 					print_organization_employee_main(ORG).
-
-
 
 
 choose_loop(CHOOSE):-name(ID_ORG,CHOOSE),organization(ID_ORG),info_org(CHOOSE).
