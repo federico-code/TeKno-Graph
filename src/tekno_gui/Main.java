@@ -58,6 +58,15 @@ public class Main extends JFrame {
 
             add(new JLabel("<html><h1><strong><i>TeKno</i></strong></h1><hr></html>"), gbc);
             add(new JLabel("<html></br></html>"), gbc);
+            JLabel sub_text = new JLabel("<html>Select one of the following:"
+            		+ "<ul>"
+            		+ "<li>Graph from Text: generate a knowledge graph from a text file</li>"
+            		+ "<li>Graph from XML: import a knowledge graph from a XML file</li>"
+            		+ "</ul>"
+            		+ "</br>"
+            		+ "</html>");
+            sub_text.setSize(50, 10);
+            add(sub_text, gbc);
 
             gbc.anchor = GridBagConstraints.CENTER;
             gbc.fill = GridBagConstraints.HORIZONTAL;

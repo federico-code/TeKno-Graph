@@ -186,7 +186,7 @@ public class GraphTextFrame extends JFrame {
         
         prolog_f = new JLabel("<html>Generate a prolog file? </br>(saved into ./prolog_files)</html>"); 
         prolog_f.setFont(new Font("Arial", Font.PLAIN, label_font_size)); 
-        prolog_f.setSize(label_len, 30); 
+        prolog_f.setSize(label_len, 35); 
         prolog_f.setLocation(label_x_pos, y_start_pos + (y_offset *5)); 
         f.add(prolog_f); 
   
