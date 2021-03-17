@@ -69,6 +69,11 @@ public class Relations {
 	
 	
 	
+	/**
+	 * @param s1 
+	 * @param s2
+	 * @return
+	 */
 	private boolean matchPageId(String s1, String s2) {
 		int id1 = -1, id2 = -1;
 		if(wikiMatches.containsKey(s1)) id1 = wikiMatches.get(s1);
