@@ -149,7 +149,7 @@
 	% create the list of title of person
 
 	list_title_person(PER):- name(ID_PER,PER),
-								\+person_titles(LIST,ID_PER),
+								\+person_titles(_LIST,_ID_PER),
 								findall(ID_TITLE, title(ID_PER,ID_TITLE),LIST),
 								asserta(person_titles(LIST,ID_PER)).
 
@@ -178,7 +178,7 @@
 			
 
 			list_employees_org(ORG):- name(ID_ORG,ORG),
-										\+org_employees(LIST,ID_ORG),		
+										\+org_employees(_LIST,_ID_ORG),		
 										setof(ID_PER, work_for(ID_PER,ID_ORG),LIST),
 										assertz(org_employees(LIST,ID_ORG)).
 
@@ -325,12 +325,11 @@ print_when_born(PER):-name(ID_PER,PER),
 						my_print('',' was born on ',DATE),nl,fail.
 
 print_when_born(PER):-name(ID_PER,PER),
-						\+ date_of_birth(ID_PER,ID_DATE_PER),
+						\+ date_of_birth(_ID_PER,_ID_DATE_PER),
 						alias(ID_PER,ID_ALIAS),
 						person(ID_ALIAS),
 						date_of_birth(ID_ALIAS,ID_DATE),
 						name(ID_DATE,DATE),
-						name(ID_ALIAS,ALIAS),
 						my_print('',' was born on ',DATE),nl,fail.
 
 print_when_born(_). 
@@ -346,12 +345,11 @@ print_where_born(PER):-name(ID_PER,PER),
 						my_print('',' was born in ',CITY),nl,fail.
 
 print_where_born(PER):-name(ID_PER,PER),
-						\+ city_of_birth(ID_PER,ID_CITY_PER),
+						\+ city_of_birth(_ID_PER,_ID_CITY_PER),
 						alias(ID_PER,ID_ALIAS),
 						person(ID_ALIAS),
 						city_of_birth(ID_ALIAS,ID_CITY),
 						name(ID_CITY,CITY),
-						name(ID_ALIAS,ALIAS),
 						my_print('',' was born in ',CITY),nl,fail.						
 print_where_born(_).  
 
@@ -362,17 +360,16 @@ print_where_born(_).
 
 print_when_dead(PER):- name(ID_PER,PER),
 							person(ID_PER),
-							date_of_death(PER_ID,ID_DATE),
+							date_of_death(ID_PER,ID_DATE),
 							name(ID_DATE,DATE),
 							my_print(''," died in ",DATE),nl,fail.
 
 print_when_dead(PER):- name(ID_PER,PER),
-							\+ date_of_death(PER_ID,ID_DATE_PER), % to avoid repeat the print if already found by the defult rule
+							\+ date_of_death(_PER_ID,_ID_DATE_PER), % to avoid repeat the print if already found by the defult rule
 							alias(ID_PER,ID_ALIAS),
 							person(ID_ALIAS),
 							date_of_death(ID_ALIAS,ID_DATE),
 							name(ID_DATE,DATE),
-							name(ID_ALIAS,ALIAS),
 							my_print(''," died in ",DATE),nl,fail.
 
 print_when_dead(_).
@@ -385,12 +382,11 @@ print_why_dead(PER):- name(ID_PER,PER),
 							my_print(''," died because of ",CAUSE),nl,fail.
 
 print_why_dead(PER):- name(ID_PER,PER),
-							\+ cause_of_death(ID_PER,ID_CAUSE_PER),
+							\+ cause_of_death(_ID_PER,_ID_CAUSE_PER),
 							alias(ID_PER,ID_ALIAS),
 							person(ID_ALIAS),
 							cause_of_death(ID_ALIAS,ID_CAUSE),
 							name(ID_CAUSE,CAUSE),
-							name(ID_ALIAS,ALIAS),
 							my_print(''," died because of ",CAUSE),nl,fail.
 
 print_why_dead(_).
@@ -461,6 +457,7 @@ choose_loop(CHOOSE):-name(ID_PER,CHOOSE),person(ID_PER),info_per(CHOOSE).
  			write('---- START----'),nl,
  			create_list,
  			repeat,
+ 			write('\33\[2J'),
  			write('----Persons----'),nl,
 			print_person,
 			write('----Organizations----'),nl,
@@ -470,7 +467,7 @@ choose_loop(CHOOSE):-name(ID_PER,CHOOSE),person(ID_PER),info_per(CHOOSE).
 			write('\33\[2J'),
 			format(' --------------- ~s ~w -------------- ~n', ['information about',X]),
 			choose_loop(X),
-			write('Do you want other information? y/n : '),
+			write('Do you want to start again? y/n : '),
 			read(R),
 			(R = 'n', !
 			   ;
