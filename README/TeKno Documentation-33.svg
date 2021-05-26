@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="596pt" height="842pt" viewBox="0 0 596 842">
+<g enable-background="new">
+<clipPath id="cp146">
+<path d="M 0 0 L 595.5 0 L 595.5 842.25 L 0 842.25 Z " fill-rule="evenodd"/>
+</clipPath>
+<g clip-path="url(#cp146)">
+<path transform="matrix(.75,0,0,.75,0,0)" d="M 0 0 L 794 0 L 794 1123 L 0 1123 Z " fill="#ffffff"/>
+</g>
+<clipPath id="cp147">
+<path d="M 0 0 L 595.5 0 L 595.5 842.25 L 0 842.25 Z " fill-rule="evenodd"/>
+</clipPath>
+<g clip-path="url(#cp147)">
+<path transform="matrix(.75,0,0,.75,72,72)" d="M 0 0 L 601 0 L 601 410 L 0 410 Z " fill="#ffffff"/>
+</g>
+<clipPath id="cp148">
+<path d="M 72.75 72.75 L 522.75 72.75 L 522.75 379.48829 L 72.75 379.48829 Z " fill-rule="evenodd"/>
+</clipPath>
+<g clip-path="url(#cp148)">
+<path transform="matrix(.75,0,0,.75,77.25,92.8125)" d="M 0 0 L 386.7876 0 L 386.7876 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,107.625)" d="M 0 0 L 401.50996 0 L 401.50996 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,122.43359)" d="M 0 0 L 432 0 L 432 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,137.2461)" d="M 0 0 L 417.6261 0 L 417.6261 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,152.0586)" d="M 0 0 L 369.27766 0 L 369.27766 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,166.8711)" d="M 0 0 L 353.1615 0 L 353.1615 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,181.68164)" d="M 0 0 L 393.45188 0 L 393.45188 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,196.49414)" d="M 0 0 L 546.5553 0 L 546.5553 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,211.30664)" d="M 0 0 L 522.3811 0 L 522.3811 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,240.93164)" d="M 0 0 L 370.67146 0 L 370.67146 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,255.74219)" d="M 0 0 L 369.6261 0 L 369.6261 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,270.5547)" d="M 0 0 L 353.50996 0 L 353.50996 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,285.3672)" d="M 0 0 L 369.6261 0 L 369.6261 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,300.1797)" d="M 0 0 L 345.45188 0 L 345.45188 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,314.9922)" d="M 0 0 L 345.45188 0 L 345.45188 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,329.80079)" d="M 0 0 L 385.74226 0 L 385.74226 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,344.61329)" d="M 0 0 L 369.6261 0 L 369.6261 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+<path transform="matrix(.75,0,0,.75,77.25,359.42579)" d="M 0 0 L 369.6261 0 L 369.6261 17.173178 L 0 17.173178 Z " fill="#ffffff"/>
+</g>
+<clipPath id="cp149">
+<path d="M 72.75 72.75 L 522.75 72.75 L 522.75 379.48829 L 72.75 379.48829 Z " fill-rule="evenodd"/>
+</clipPath>
+<g clip-path="url(#cp149)">
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="0 8.058075 16.11615 24.174225 32.2323 40.290376 48.34845 56.406526 64.4646 72.522678 80.58075 88.638828 96.6969 104.754978 112.81305">is_subordinate(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="120.871128 128.9292 136.98728">SUB</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="145.04535">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="153.10343 161.1615 169.21958 177.27765">BOSS</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="185.33573">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="193.3938 201.45188 209.50995">ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="217.56803 225.6261 233.68418 241.74225 249.80033 257.8584 265.91648 273.97456 282.03263">):- name(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="290.0907 298.14878 306.20686 314.26493 322.323 330.38108">ID_SUB</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="338.43916">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="346.49723 354.5553 362.61338">SUB</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 92.8125)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="370.67146 378.72953">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 107.625)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="248.40653 256.4646 264.52268 272.58076 280.63883">name(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 107.625)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="288.6969 296.75498 304.81306 312.87113 320.9292 328.98728 337.04536">ID_BOSS</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 107.625)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="345.10343">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 107.625)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="353.1615 361.21958 369.27766 377.33573">BOSS</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 107.625)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="385.3938 393.45188">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 122.43359)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="248.40653 256.4646 264.52268 272.58076 280.63883">name(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 122.43359)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="288.6969 296.75498 304.81306 312.87113 320.9292 328.98728">ID_ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 122.43359)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="337.04536">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 122.43359)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="345.10343 353.1615 361.21958">ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 122.43359)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="369.27766 377.33573">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 137.2461)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="248.40653 256.4646 264.52268 272.58076 280.63883 288.6969 296.75498 304.81306 312.87113 320.9292 328.98728 337.04536 345.10343">organization(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 137.2461)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="353.1615 361.21958 369.27766 377.33573 385.3938 393.45188">ID_ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 137.2461)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="401.50996 409.56803">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 152.0586)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="248.40653 256.4646 264.52268 272.58076 280.63883 288.6969 296.75498">person(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 152.0586)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="304.81306 312.87113 320.9292 328.98728 337.04536 345.10343">ID_SUB</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 152.0586)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="353.1615 361.21958">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 166.8711)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="248.40653 256.4646 264.52268 272.58076 280.63883 288.6969 296.75498">person(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 166.8711)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="304.81306 312.87113 320.9292 328.98728">BOSS</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 166.8711)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="337.04536 345.10343">),</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 181.68164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="248.40653 256.4646 264.52268 272.58076 280.63883 288.6969">ID_SUB</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 181.68164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="304.81306 312.87113">\=</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 181.68164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="328.98728 337.04536 345.10343 353.1615 361.21958 369.27766 377.33573">ID_BOSS</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 181.68164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="385.3938">,</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 196.49414)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="248.40653 256.4646 264.52268 272.58076 280.63883 288.6969 296.75498 304.81306 312.87113 320.9292 328.98728 337.04536 345.10343 353.1615 361.21958 369.27766 377.33573 385.3938 393.45188 401.50996 409.56803 417.6261">employee_or_member_of(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 196.49414)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="425.68418 433.74226 441.80033 449.8584 457.91648 465.97456">ID_SUB</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 196.49414)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="474.03263">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 196.49414)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="482.0907 490.14878 498.20686 506.26493 514.323 522.3811">ID_ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 196.49414)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="530.43917 538.4972">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 211.30664)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="248.40653 256.4646 264.52268 272.58076 280.63883 288.6969 296.75498 304.81306 312.87113 320.9292 328.98728 337.04536 345.10343 353.1615 361.21958 369.27766 377.33573 385.3938">is_top_member_org(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 211.30664)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="393.45188 401.50996 409.56803 417.6261 425.68418 433.74226 441.80033">ID_BOSS</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 211.30664)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="449.8584">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 211.30664)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="457.91648 465.97456 474.03263 482.0907 490.14878 498.20686">ID_ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 211.30664)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="506.26493 514.323">).</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="0 8.058075 16.11615 24.174225 32.2323 40.290376 48.34845 56.406526 64.4646">coworker(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="72.522678 80.58075 88.638828 96.6969">PER1</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="104.754978">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="112.81305 120.871128 128.9292 136.98728">PER2</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="145.04535">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="153.10343 161.1615 169.21958">ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="177.27765 185.33573 193.3938 201.45188 209.50995 217.56803 225.6261 233.68418 241.74225 249.80033">) :- name(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="257.8584 265.91648 273.97456 282.03263 290.0907 298.14878 306.20686">ID_PER1</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="314.26493">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="322.323 330.38108 338.43916 346.49723">PER1</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 240.93164)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="354.5553 362.61338">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 255.74219)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="216.52268 224.58075 232.63883 240.6969 248.75498">name(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 255.74219)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="256.81306 264.87113 272.9292 280.98728 289.04536 297.10343 305.1615">ID_PER2</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 255.74219)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="313.21958">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 255.74219)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="321.27766 329.33573 337.3938 345.45188">PER2</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 255.74219)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="353.50996 361.56803">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 270.5547)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="216.52268 224.58075 232.63883 240.6969 248.75498">name(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 270.5547)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="256.81306 264.87113 272.9292 280.98728 289.04536 297.10343">ID_ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 270.5547)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="305.1615">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 270.5547)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="313.21958 321.27766 329.33573">ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 270.5547)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="337.3938 345.45188">),</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 285.3672)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="216.52268 224.58075 232.63883 240.6969 248.75498 256.81306 264.87113">ID_PER1</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 285.3672)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="280.98728 289.04536">\=</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 285.3672)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="305.1615 313.21958 321.27766 329.33573 337.3938 345.45188 353.50996">ID_PER2</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 285.3672)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="361.56803">,</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 300.1797)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="216.52268 224.58075 232.63883 240.6969 248.75498 256.81306 264.87113">person(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 300.1797)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="272.9292 280.98728 289.04536 297.10343 305.1615 313.21958 321.27766">ID_PER1</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 300.1797)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="329.33573 337.3938">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 314.9922)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="216.52268 224.58075 232.63883 240.6969 248.75498 256.81306 264.87113">person(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 314.9922)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="272.9292 280.98728 289.04536 297.10343 305.1615 313.21958 321.27766">ID_PER2</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 314.9922)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="329.33573 337.3938">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 329.80079)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="216.52268 224.58075 232.63883 240.6969 248.75498 256.81306 264.87113 272.9292 280.98728 289.04536 297.10343 305.1615 313.21958">organization(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 329.80079)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="321.27766 329.33573 337.3938 345.45188 353.50996 361.56803">ID_ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 329.80079)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="369.6261 377.68418">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 344.61329)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="216.52268 224.58075 232.63883 240.6969 248.75498 256.81306 264.87113 272.9292 280.98728">work_for(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 344.61329)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="289.04536 297.10343 305.1615 313.21958">PER1</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 344.61329)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="321.27766">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 344.61329)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="329.33573 337.3938 345.45188">ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 344.61329)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="353.50996 361.56803">),</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 359.42579)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="216.52268 224.58075 232.63883 240.6969 248.75498 256.81306 264.87113 272.9292 280.98728">work_for(</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 359.42579)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="289.04536 297.10343 305.1615 313.21958">PER2</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 359.42579)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="321.27766">,</tspan></text>
+<text fill="#00979d" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 359.42579)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="329.33573 337.3938 345.45188">ORG</tspan></text>
+<text fill="#434f54" xml:space="preserve" transform="matrix(.75 0 0 .75 77.25 359.42579)" font-size="14.666667" font-family="Consolas"><tspan y="13.399089" x="353.50996 361.56803">).</tspan></text>
+</g>
+<clipPath id="cp150">
+<path d="M 0 0 L 595.5 0 L 595.5 842.25 L 0 842.25 Z " fill-rule="evenodd"/>
+</clipPath>
+<g clip-path="url(#cp150)">
+<path transform="matrix(.75,0,0,.75,72,72)" stroke-width="1.3333334" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M .6666667 0 L .6666667 410.66667 "/>
+<path transform="matrix(.75,0,0,.75,72,72)" stroke-width="1.3333334" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M 600.6667 0 L 600.6667 410.66667 "/>
+<path transform="matrix(.75,0,0,.75,72,72)" stroke-width="1.3333334" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M 0 .6666667 L 601.3333 .6666667 "/>
+<path transform="matrix(.75,0,0,.75,72,72)" stroke-width="1.3333334" stroke-linecap="butt" stroke-miterlimit="10" stroke-linejoin="miter" fill="none" stroke="#000000" d="M 0 410 L 601.3333 410 "/>
+</g>
+</g>
+</svg>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="596pt" height="842pt" viewBox="0 0 596 842">
+<g enable-background="new">
+<clipPath id="cp6">
+<path d="M 0 0 L 595.5 0 L 595.5 842.25 L 0 842.25 Z " fill-rule="evenodd"/>
+</clipPath>
+<g clip-path="url(#cp6)">
+<path transform="matrix(.75,0,0,.75,0,0)" d="M 0 0 L 794 0 L 794 1123 L 0 1123 Z " fill="#ffffff"/>
+</g>
+<clipPath id="cp7">
+<path d="M 0 0 L 595.5 0 L 595.5 842.25 L 0 842.25 Z " fill-rule="evenodd"/>
+</clipPath>
+<g clip-path="url(#cp7)">
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 72)" font-size="14.666667" font-family="Calibri"><tspan y="14.2369799" x="24 31.571442 36.444749 44.17363 47.537126 55.266008 62.16475 65.47815 70.394428 77.68677 84.70717 90.43942 98.168308 105.86856 109.232059 116.93231">Prolog reasoning</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 72)" font-size="14.666667" font-family="Calibri"><tspan y="14.2369799" x="586.8442 594.27249">41</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 95.427738)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="0 10.584274 18.735383 26.88649 35.83911 39.911088 44.791734 52.94284 57.014818 65.165927 74.118549 83.07117 87.14314 97.72742 106.68004 115.63266 123.78377 127.85574 136.80837 144.95948 149.03145 157.98407 166.93669">Results and Conclusions</tspan></text>
+<text xml:space="preserve" transform="matrix(.75 0 0 .75 72 95.427738)" font-size="14.666667" font-family="Arial" font-weight="bold"><tspan y="13.757161" x="585.39859 593.5497">42</tspan></text>
+</g>
+</g>
+</svg>
