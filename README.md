@@ -1,4 +1,9 @@
 # TeKno-Graph
+The given assignment for the Artificial Intelligence’s exam project is within the Natural Language domain. 
+The task was to develop a software system capable of gathering as much information as possible from a text extract (given in input) and manipulate it into a graph form.  When the graph is extracted, an inference model will try to extract new knowledge relative to the original text and make it available to the final user. 
+In this project, the main focus was aimed towards information extraction, in particular, we developed a module that handles coreference (and anaphora resolution) and another that, once identified entities in the text, searches them on Wikipedia to expand the knowledge
+
+
 Text to Knowledge
 <img src="https://github.com/federico-code/TeKno-Graph/blob/main/README/TeKno%20Documentation-2.svg">
 <img src="https://github.com/federico-code/TeKno-Graph/blob/main/README/TeKno%20Documentation-3.svg">
